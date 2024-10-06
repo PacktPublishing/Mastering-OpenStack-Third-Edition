@@ -7,8 +7,8 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, guest: 80, host: 80
 
     config.vm.provider "virtualbox" do |vb|
-        v.memory = 1024
-        v.cpus = 1
+        v.memory = 8096
+        v.cpus = 4
     end
 end
   
