@@ -26,11 +26,13 @@ git clone https://github.com/openstack/kolla-ansible.git
 
 You can check the branch naming standard used by the OpenStack community in the Github page by clicking on the Switch branches/tags button the top right of the page:
 
-![Branch Naming](/IMG/Branches-Names-Standards.png)
+![Branch Naming](IMG/Branches-Names-Standards.png)
+
+Branches with **stable/** prefix are still maintained. Non maintained OpenStack releases are named with branches with **unmaintained/** prefix. 
 
 > [!IMPORTANT]
 > The cloned code is based on the master branch. OpenStack community keeps maintaining the kolla-ansible code of the latest 3 releases of OpenStack. It is recommended to use the master branch.  
 
 
-
+## Deployment in Local environment:
 
