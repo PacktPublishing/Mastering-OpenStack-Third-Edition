@@ -36,3 +36,5 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 ## Deployment in Local environment:
 
+To deploy OpenStack in a test local environment, a virtual environment can be installed in the local/dev machine with the following hardware and software pre-requesities:
+
