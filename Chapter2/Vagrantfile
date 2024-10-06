@@ -1,0 +1,15 @@
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "generic/ubuntu2204"
+    config.disksize.size = "10GB"
+    config.vm.disk :disk, primary: true, size: "50GB"
+    config.vm.synced_folder "openstack_deploy/" "/openstack_deploy/"
+    config.vm.network :forwarded_port, guest: 80, host: 80
+
+    config.vm.provider "virtualbox" do |vb|
+        v.memory = 1024
+        v.cpus = 1
+    end
+end
+  
+  
