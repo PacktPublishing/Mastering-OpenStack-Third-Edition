@@ -66,3 +66,6 @@ vagrant reload
 Git authentification access 
 jenkins user upgrade to sudoers users with NOPASSW
 Add /bin/bash for the Jenkins shell configuration to execute 
+
+### Anchore
+https://github.com/anchore/anchore-cli
