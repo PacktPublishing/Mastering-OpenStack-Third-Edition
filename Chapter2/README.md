@@ -38,3 +38,31 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 To deploy OpenStack in a test local environment, a virtual environment can be installed in the local/dev machine with the following hardware and software pre-requesities:
 
+
+
+## Troubleshooting:
+
+### VirtualBox installation
+### Vagrant installation
+Install latest version  (2.4.1) 
+https://releases.hashicorp.com/vagrant/2.4.1/vagrant-2.4.1-1.x86_64.rpm
+sudo apt install rpm
+sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
+agrant version
+Installed Version: 2.4.1
+Latest Version: 2.4.1
+
+You're running an up-to-date version of Vagrant!
+
+
+
+### Vagrant disksize plugin
+
+### Vagrant configuration 
+vagrant reload
+
+
+### Jenkins
+Git authentification access 
+jenkins user upgrade to sudoers users with NOPASSW
+Add /bin/bash for the Jenkins shell configuration to execute 

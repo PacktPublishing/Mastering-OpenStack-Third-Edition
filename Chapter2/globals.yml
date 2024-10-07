@@ -39,3 +39,8 @@ neutron_external_interface: "eth1"
 # 'network_interface' as set in the Networking section below.
 kolla_internal_vip_address: "10.10.10.254"
 
+# Custom docker registry settings:
+# Change the docker registry IP if you run your private registry 
+
+docker_registry: 10.0.2.15:4000
+docker_registry_insecure: yes
