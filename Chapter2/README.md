@@ -69,3 +69,4 @@ Add /bin/bash for the Jenkins shell configuration to execute
 
 ### Anchore
 https://github.com/anchore/anchore-cli
+Entreprise Edition Workaround
