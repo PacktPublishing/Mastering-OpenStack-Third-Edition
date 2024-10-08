@@ -1,0 +1,230 @@
+# These initial groups are the only groups required to be modified. The
+# additional groups are for more control of the environment.
+[control]
+# These hostname must be resolvable from your deployment host
+cc01.os.packtpub
+
+# The above can also be specified as follows:
+#control[01:03]     ansible_user=kolla
+
+### ## ## ## ## ##  Shared Services ## ## ## ## ## ## ## ## ## ## ## ## 
+
+# Install MariaDB database service as part of the shared services
+[mariadb:children]
+control
+
+# Install RabbitMQ queue service as part of the shared services
+[rabbitmq:children]
+control
+[outward-rabbitmq:children]
+control
+
+# Install Memcached  service as part of the shared services
+[memcached:children]
+control
+
+### ## ## ## ## ##  Core Services - Control Plane ## ## ## ## ## ## ## ## ## ## ## ## 
+
+# Install Keystone  as part of the contole plance services
+[keystone:children]
+control
+
+# Install Glance and API service as part of the contole plance services
+[glance:children]
+control
+[glance-api:children]
+glance
+
+# Install Nova conductor, scheduler, console and API services as part of the contole plance services
+[nova:children]
+control
+[nova-api:children]
+nova
+[nova-conductor:children]
+nova
+[nova-super-conductor:children]
+nova
+[nova-novncproxy:children]
+nova
+[nova-scheduler:children]
+nova
+[nova-spicehtml5proxy:children]
+nova
+[nova-compute-ironic:children]
+nova
+[nova-serialproxy:children]
+nova
+
+# Install Placement API service as part of the contole plance services
+[placement:children]
+control
+[placement-api:children]
+placement
+
+# Install Cinder scheduler and API service as part of the contole plance services
+[cinder:children]
+control
+[cinder-api:children]
+cinder
+[cinder-scheduler:children]
+cinder
+
+# Install Swift proxy service as part of the contole plance services
+[swift:children]
+control
+
+[swift-proxy-server:children]
+swift
+
+# Install Ceilometer notification and API service as part of the contole plance services
+[ceilometer:children]
+control
+[ceilometer-central:children]
+ceilometer
+[ceilometer-notification:children]
+ceilometer
+
+# Install Neutron as part of the contole plance services
+[neutron-server:children]
+control
+
+# Install Horizon as part of the contole plance services
+[horizon:children]
+control
+
+# Install Manila scheduler, data and API service as part of the contole plance services
+[manila:children]
+control
+[manila-api:children]
+manila
+[manila-scheduler:children]
+manila
+[manila-data:children]
+manila
+
+# Install OVN databases for OVN networking as part of the contole plance services
+[ovn-database:children]
+control
+[ovn-northd:children]
+ovn-database
+[ovn-nb-db:children]
+ovn-database
+[ovn-sb-db:children]
+ovn-database
+
+
+### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
+
+[compute]
+cn01.os.packtpub
+
+# Install compute metrics collector for telemetry on the compute nodes
+[collectd:children]
+compute
+[ceilometer-compute:children]
+compute
+[ceilometer-ipmi:children]
+compute
+
+# Install OpenvSwitch Plugin Agent
+[openvswitch:children]
+compute
+
+# Install OVN agents and controller for tenant networking
+[ovn-controller:children]
+ovn-controller-compute
+[ovn-controller-compute:children]
+compute
+[neutron-ovn-agent:children]
+compute
+
+### ## ## ## ## ##  Network Node ## ## ## ## ## ## ## ## ## ## ## ## 
+
+[network]
+net01.os.packtpub
+
+# Install Neutron service 
+[neutron:children]
+network
+# Install Neutron DHCP Agent 
+[neutron-dhcp-agent:children]
+neutron
+# Install Neutron L3 Agent 
+[neutron-l3-agent:children]
+neutron
+# Install Neutron Metadata Agent 
+[neutron-metadata-agent:children]
+neutron
+# Install OVN Neutron Agent and Controller
+[neutron-ovn-agent:children]
+network 
+[ovn-controller:children]
+ovn-controller-network
+[ovn-controller-network:children]
+network
+# Install OVN Metadata Agent 
+[neutron-ovn-metadata-agent:children]
+network
+# Optionally: Install OVN BGP Agent 
+[neutron-bgp-dragent:children]
+neutron
+# Optionally: Install infoblox IPAM Agent 
+[neutron-infoblox-ipam-agent:children]
+neutron
+# Install Neutron Metering Agent for monitoring
+[neutron-metering-agent:children]
+neutron
+# Optionally: Install Neutron Agent for Ironic
+[ironic-neutron-agent:children]
+neutron
+# Install Manial Share for file sharing networking
+[manila-share:children]
+# Install OpenvSwitch 
+[openvswitch:children]
+network
+
+
+### ## ## ## ## ##  Storage Node ## ## ## ## ## ## ## ## ## ## ## ## 
+
+[storage]
+storage01.os.packtpub
+
+# Install Cinder Volume service 
+[cinder-volume:children]
+storage
+
+### ## ## ## ## ##  Deployment Node ## ## ## ## ## ## ## ## ## ## ## ## 
+
+
+# Make sure deployment machine can access all target hosts 
+# Run deployment in the local machine 
+[deployment]
+localhost ansible_connection=local
+
+
+### ## ## ## ## ##  Common Tools ## ## ## ## ## ## ## ## ## ## ## ## 
+# Install common tools cross all target nodes
+[common:children]
+control
+network
+compute
+storage
+
+# Install cron as part of common group cross all target nodes
+[cron:children]
+common
+
+# Install fluentd as part of common group cross all target nodes
+[fluentd:children]
+common
+
+# Install kolla-logs as part of common group cross all target nodes
+[kolla-logs:children]
+common
+
+# Install kolla-toolbox as part of common group cross all target nodes
+[kolla-toolbox:children]
+common
+
+
+
