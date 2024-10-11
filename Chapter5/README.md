@@ -1,5 +1,5 @@
-# Chapter 4
-OOpenStack Storage – Block, Object, and File Shares
+# Chapter 5
+OpenStack Storage – Block, Object, and File Shares
 
 ## Description
 
