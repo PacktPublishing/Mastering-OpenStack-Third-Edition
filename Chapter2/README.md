@@ -73,7 +73,9 @@ Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Importing base box 'generic/ubuntu2204'...
 Progress: 90%
 
-
+## Make sure to install Docker
+sudo apt-get install python3-dev libffi-dev gcc libssl-dev docker -y  
+OR apt install docker.io
 
 
 
