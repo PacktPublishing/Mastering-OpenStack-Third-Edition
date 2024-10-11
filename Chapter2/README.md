@@ -63,6 +63,19 @@ vagrant plugin install vagrant-disksize.
 ### Vagrant configuration 
 vagrant reload
 
+### Shared local folder openstack_deploy
+mkdir openstack_deploy
+
+### Run Vagrant
+vagrant up
+
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'generic/ubuntu2204'...
+Progress: 90%
+
+
+
+
 
 ### Jenkins
 Git authentification access 
