@@ -1,5 +1,5 @@
 # Chapter 4
-OpenStack Control Plane - Shared Services
+OpenStack Compute – Compute Capacity and Flavors
 
 ## Description
 
