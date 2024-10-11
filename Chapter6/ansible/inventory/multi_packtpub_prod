@@ -207,11 +207,22 @@ network
 # Install Manial Share for file sharing networking
 [manila-share:children]
 network
+
 ##Chapter 6
 [openvswitch:children]
 network
 compute
 manila-share
+
+## Chapter6
+[ovn-database:children]
+control
+[ovn-northd:children]
+ovn-database
+[ovn-nb-db:children]
+ovn-database
+[ovn-sb-db:children]
+ovn-database
 
 ### ## ## ## ## ##  Storage Node(s) ## ## ## ## ## ## ## ## ## ## ## ## 
 
