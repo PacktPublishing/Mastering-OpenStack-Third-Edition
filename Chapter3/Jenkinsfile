@@ -50,8 +50,8 @@ pipeline {
         sh ''' #!/bin/bash 
         sudo mkdir -p /etc/kolla
         sudo chown $USER:$USER /etc/kolla
-        cp -r /usrlocal/share/kolla-ansible/etc/kolla/* /etc/kolla 
-        cp -r /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla 
+        cp -r /usrlocal/share/kolla-ansible/etc/kolla/* /etc/kolla/ 
+        cp -r /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla/ 
         ''' 
       }
     }
