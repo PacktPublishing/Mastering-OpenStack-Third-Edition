@@ -58,6 +58,8 @@ You're running an up-to-date version of Vagrant!
 
 ### Vagrant disksize plugin
 
+vagrant plugin install vagrant-disksize.
+
 ### Vagrant configuration 
 vagrant reload
 
