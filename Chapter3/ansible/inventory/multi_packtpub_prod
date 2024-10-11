@@ -174,7 +174,6 @@ neutron
 # Optionally: Install infoblox IPAM Agent 
 [neutron-infoblox-ipam-agent:children]
 neutron
-
 ### ## ##MOVE TO CHAPTER 5
 # Install Manial Share for file sharing networking
 [manila-share:children]
