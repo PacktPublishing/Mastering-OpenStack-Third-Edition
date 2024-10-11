@@ -22,8 +22,6 @@ storage01.os.packtpub
 [deployment]
 localhost       ansible_connection=local
 
-cn01.os.packtpub
-
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
 
