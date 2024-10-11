@@ -1,8 +1,28 @@
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
-[control]
+
+
 # These hostname must be resolvable from your deployment host
+## Cloud Controller Node 
+[control]
 cc01.os.packtpub
+
+## Compute Node 
+[compute]
+cn01.os.packtpub
+
+## Network Node
+[network]
+net.os.packtpub
+
+## Storage Node
+[storage]
+storage01.os.packtpub
+
+[deployment]
+localhost       ansible_connection=local
+
+cn01.os.packtpub
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
