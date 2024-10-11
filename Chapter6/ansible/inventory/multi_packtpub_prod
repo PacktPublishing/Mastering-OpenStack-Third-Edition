@@ -1,7 +1,6 @@
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
 
-
 # These hostname must be resolvable from your deployment host
 ## Cloud Controller Node 
 [control]
@@ -21,6 +20,8 @@ storage01.os.packtpub
 
 [deployment]
 localhost       ansible_connection=local
+
+
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
@@ -110,23 +111,43 @@ control
 [horizon:children]
 control
 
-### ## ## ## Move To chapter 6
-
-# Install OVN databases for OVN networking as part of the contole plance services
-[ovn-database:children]
+## Chapter 05
+# Install Manila scheduler, data and API service as part of the contole plance services
+[manila:children]
 control
-[ovn-northd:children]
-ovn-database
-[ovn-nb-db:children]
-ovn-database
-[ovn-sb-db:children]
-ovn-database
+[manila-api:children]
+manila
+[manila-scheduler:children]
+manila
+[manila-data:children]
+manila
 
+
+## Chapter 04
+# Install Magnum conductor and API service as part of the contole plance services
+
+[magnum:children]
+control
+[magnum-api:children]
+magnum
+[magnum-conductor:children]
+magnum
+
+## Chapter 04
+# Install Zun proxy and API service as part of the contole plance services
+[zun:children]
+control
+[zun-api:children]
+zun
+[zun-wsproxy:children]
+zun
 
 ### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
 [compute]
 cn01.os.packtpub
+## Chapter 04 Adding second compute node
+# cn02.os.packtpub
 
 # Install compute metrics collector for telemetry on the compute nodes
 [collectd:children]
@@ -136,17 +157,25 @@ compute
 [ceilometer-ipmi:children]
 compute
 
+## Chapter6
 # Install OpenvSwitch Plugin Agent
 [openvswitch:children]
 compute
 
-### ## ## ## Move to Chapter 6
+## Chapter 6
 # Install OVN agents and controller for tenant networking
 [ovn-controller:children]
 ovn-controller-compute
 [ovn-controller-compute:children]
 compute
 [neutron-ovn-agent:children]
+compute
+
+# Chapter 04
+# Install Zun compute and CNI networing plugin services as part of the contole plance services
+[zun-compute:children]
+compute
+[zun-cni-daemon:children]
 compute
 
 ### ## ## ## ## ##  Network Node ## ## ## ## ## ## ## ## ## ## ## ## 
@@ -169,42 +198,47 @@ neutron
 # Install Neutron Metering Agent for monitoring
 [neutron-metering-agent:children]
 neutron
-# Optionally: Install Neutron Agent for Ironic
-[ironic-neutron-agent:children]
-neutron
+## Chapter 6
+# Install OpenvSwitch 
 [openvswitch:children]
 network
 
-### ## ##MOVE TO CHAPTER 6
-# Install OVN Neutron Agent and Controller
-[neutron-ovn-agent:children]
-network 
-[ovn-controller:children]
-ovn-controller-network
-[ovn-controller-network:children]
-network
-# Install OVN Metadata Agent 
-[neutron-ovn-metadata-agent:children]
-network
-# Optionally: Install OVN BGP Agent 
-[neutron-bgp-dragent:children]
-neutron
-# Optionally: Install infoblox IPAM Agent 
-[neutron-infoblox-ipam-agent:children]
-neutron
-### ## ##MOVE TO CHAPTER 5
+##Chapter 5
 # Install Manial Share for file sharing networking
 [manila-share:children]
-# Install OpenvSwitch 
+network
+##Chapter 6
+[openvswitch:children]
+network
+compute
+manila-share
 
-
-### ## ## ## ## ##  Storage Node ## ## ## ## ## ## ## ## ## ## ## ## 
+### ## ## ## ## ##  Storage Node(s) ## ## ## ## ## ## ## ## ## ## ## ## 
 
 [storage]
 storage01.os.packtpub
+## Chapter5
+# Second storage node for LVM and Ceph backends 
+storage02.os.packtpub
+# Three more storage nodes for a Swift cluster 
+storage03.os.packtpub
+storage04.os.packtpub
+storage05.os.packtpub
+
 
 # Install Cinder Volume service 
 [cinder-volume:children]
+storage
+
+## Chapter5
+# Install Swift Account server across new Swift storage nodes 
+[swift-account-server:children]
+storage
+# Install Swift Container server across new Swift storage nodes 
+[swift-container-server:children]
+storage
+# Install Swift Object server across new Swift storage nodes 
+[swift-object-server:children]
 storage
 
 ### ## ## ## ## ##  Deployment Node ## ## ## ## ## ## ## ## ## ## ## ## 
