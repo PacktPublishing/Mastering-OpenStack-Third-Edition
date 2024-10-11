@@ -1,5 +1,5 @@
 # Chapter 4
-OpenStack Compute – Compute Capacity and Flavors
+OOpenStack Storage – Block, Object, and File Shares
 
 ## Description
 
