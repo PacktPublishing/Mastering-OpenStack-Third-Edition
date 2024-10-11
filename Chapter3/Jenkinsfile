@@ -69,7 +69,7 @@ pipeline {
       steps {
         echo '--Running Ansible Kolla Boostrap Server Script --'
         sh '''#!/bin/bash 
-             kolla-ansible -i /etc/kolla/all-in-one bootstrap-servers
+             kolla-ansible -i /etc/kolla/multi_packtpub_prod bootstrap-servers
            ''' 
       }
     }
@@ -78,7 +78,7 @@ pipeline {
       steps {
         echo '--Running Ansible Kolla Prechecks Script --'
         sh '''#!/bin/bash 
-            kolla-ansible -i /etc/kolla/all-in-one prechecks
+            kolla-ansible -i /etc/kolla/multi_packtpub_prod prechecks
            ''' 
       }
     }
@@ -87,7 +87,7 @@ pipeline {
       steps {
         echo '--Running Ansible Kolla Prechecks Script --'
         sh '''#!/bin/bash 
-        kolla-ansible -i /etc/kolla/all-in-one deploy
+        kolla-ansible -i /etc/kolla/multi_packtpub_prod deploy
         ''' 
       }
     }
