@@ -79,6 +79,13 @@ enable_neutron_provider_networks: "yes"
 #### Chapter04:  Enable Magnum Service
 enable_magnum: "yes"
 
+### Chapter04: Enable Zun service with Docker for container management and Kuryr for container networking 
+enable_zun: "yes"
+enable_kuryr: "yes"
+enable_etcd: "yes"
+docker_configure_for_zun: "yes"
+containerd_configure_for_zun: "yes"
+
 ################
 # Docker options
 ################

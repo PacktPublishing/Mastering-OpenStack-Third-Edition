@@ -122,11 +122,21 @@ magnum
 [magnum-conductor:children]
 magnum
 
+# Chapter 04
+# Install Zun proxy and API service as part of the contole plance services
+[zun:children]
+control
+[zun-api:children]
+zun
+[zun-wsproxy:children]
+zun
 
 ### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
 [compute]
 cn01.os.packtpub
+## Chapter 04 Adding second compute node
+cn02.os.packtpub
 
 # Install compute metrics collector for telemetry on the compute nodes
 [collectd:children]
@@ -146,6 +156,13 @@ ovn-controller-compute
 [ovn-controller-compute:children]
 compute
 [neutron-ovn-agent:children]
+compute
+
+# Chapter 04
+# Install Zun compute and CNI networing plugin services as part of the contole plance services
+[zun-compute:children]
+compute
+[zun-cni-daemon:children]
 compute
 
 ### ## ## ## ## ##  Network Node ## ## ## ## ## ## ## ## ## ## ## ## 
