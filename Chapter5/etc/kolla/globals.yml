@@ -99,6 +99,33 @@ ceph_cinder_keyring: "ceph.client.cinder.keyring"
 ceph_cinder_user: "cinder"
 ceph_cinder_pool_name: "cinder-volumes"
 
+### Chapter05: Use and integrate Swift for object storage in the running OpenStack environment (3 Nodes)
+enable_swift : "yes"
+
+### Chapter05: Enable Manila file-share service using a generic Cinder storage backend 
+enable_manila : "yes"
+enable_manila_backend_generic: "yes"
+
+
+################################
+# Swift - Object Storage Options
+################################
+
+## # This parameter defines matching pattern: if "strict" mode was selected,
+# for swift_devices_match_mode then swift_device_name should specify the name of
+# the special swift partition for example: "KOLLA_SWIFT_DATA", if "prefix" mode was
+# selected then swift_devices_name should specify a pattern which would match to
+# filesystems' labels prepared for swift.
+
+## Default is 'strict' mode. 
+# swift_devices_name: "KOLLA_SWIFT_DATA"
+
+## If you have labeled hard disks with eg objdisk1, objdisk2, objdisk3, use the following settings: 
+## swift_devices_match_mode: "prefix"
+## swift_devices_name: "objdisk" 
+
+
+
 ################
 # Docker options
 ################
