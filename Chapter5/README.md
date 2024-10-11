@@ -1,5 +1,5 @@
-# Chapter 3
-OpenStack Control Plane - Shared Services
+# Chapter 4
+OpenStack Compute – Compute Capacity and Flavors
 
 ## Description
 
@@ -35,6 +35,10 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 ## Deployment in Local environment:
 
 To deploy OpenStack in a Multi Node  environment, a virtual environment can be installed  with the following hardware and software pre-requesities:
+
+
+Example used from production environment, can use any compute node with other capacities example :
+
 
 
 
@@ -83,6 +87,3 @@ stage('Preparing Infrastructure') {
       }
     }
 ```
-
-
-### Create Cinder volume for vm disks 
