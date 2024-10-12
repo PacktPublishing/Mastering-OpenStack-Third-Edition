@@ -45,7 +45,7 @@ To deploy OpenStack in a test local environment, a virtual environment can be in
 ### VirtualBox installation
 ### Vagrant installation
 Install latest version  (2.4.1) 
-curl https://releases.hashicorp.com/vagrant/2.4.1/vagrant-2.4.1-1.x86_64.rpm
+wget https://releases.hashicorp.com/vagrant/2.4.1/vagrant-2.4.1-1.x86_64.rpm
 sudo apt install rpm
 sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
 vagrant version
@@ -58,7 +58,7 @@ You're running an up-to-date version of Vagrant!
 
 ### Vagrant disksize plugin
 
-vagrant plugin install vagrant-disksize.
+vagrant plugin install vagrant-disksize
 
 ### Vagrant configuration 
 vagrant reload
