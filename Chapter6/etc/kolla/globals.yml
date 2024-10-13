@@ -121,6 +121,15 @@ enable_swift : "yes"
 enable_manila : "yes"
 enable_manila_backend_generic: "yes"
 
+### Chapter06: Enable BGP Agent installation 
+enable_neutron_bgp_dragent: "yes"
+
+### Chapter06: Enable Octavia  installation and assign network interface to communicate with the service through Management network
+enable_octavia: "yes"
+octavia_network_interface: eth0
+# Optionally auto configure Octavia 
+# octavia_auto_configure: "yes"
+
 
 ################################
 # Swift - Object Storage Options

@@ -111,17 +111,6 @@ control
 [horizon:children]
 control
 
-## Chapter 05
-# Install Manila scheduler, data and API service as part of the contole plance services
-[manila:children]
-control
-[manila-api:children]
-manila
-[manila-scheduler:children]
-manila
-[manila-data:children]
-manila
-
 
 ## Chapter 04
 # Install Magnum conductor and API service as part of the contole plance services
@@ -142,6 +131,44 @@ zun
 [zun-wsproxy:children]
 zun
 
+## Chapter 05
+# Install Manila scheduler, data and API service as part of the contole plance services
+[manila:children]
+control
+[manila-api:children]
+manila
+[manila-scheduler:children]
+manila
+[manila-data:children]
+manila
+
+
+## Chapter 06
+# Install OVN daemon, northbound and southbound databases as part of the control place services
+[ovn-database:children]
+control
+[ovn-northd:children]
+ovn-database
+[ovn-nb-db:children]
+ovn-database
+[ovn-sb-db:children]
+ovn-database
+
+## Chapter 06
+# Install Octavia driver, worker and API services as part of the control place services
+[octavia:children]
+control
+[octavia-api:children]
+octavia
+[octavia-driver-agent:children]
+octavia
+[octavia-health-manager:children]
+octavia
+[octavia-housekeeping:children]
+octavia
+[octavia-worker:children]
+octavia
+
 ### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
 [compute]
@@ -157,6 +184,14 @@ compute
 [ceilometer-ipmi:children]
 compute
 
+
+# Chapter 04
+# Install Zun compute and CNI networing plugin services as part of the contole plance services
+[zun-compute:children]
+compute
+[zun-cni-daemon:children]
+compute
+
 ## Chapter6
 # Install OpenvSwitch Plugin Agent
 [openvswitch:children]
@@ -170,13 +205,10 @@ ovn-controller-compute
 compute
 [neutron-ovn-agent:children]
 compute
+[neutron-ovn-metadata-agent:children]
+compute
 
-# Chapter 04
-# Install Zun compute and CNI networing plugin services as part of the contole plance services
-[zun-compute:children]
-compute
-[zun-cni-daemon:children]
-compute
+
 
 ### ## ## ## ## ##  Network Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
@@ -198,31 +230,42 @@ neutron
 # Install Neutron Metering Agent for monitoring
 [neutron-metering-agent:children]
 neutron
+
+## Chapter 5
+# Install Manial Share for file sharing networking
+[manila-share:children]
+network
+
+
 ## Chapter 6
 # Install OpenvSwitch 
 [openvswitch:children]
 network
 
-##Chapter 5
-# Install Manial Share for file sharing networking
-[manila-share:children]
-network
 
-##Chapter 6
+## Chapter 6
 [openvswitch:children]
 network
 compute
 manila-share
 
-## Chapter6
-[ovn-database:children]
-control
-[ovn-northd:children]
-ovn-database
-[ovn-nb-db:children]
-ovn-database
-[ovn-sb-db:children]
-ovn-database
+## Chapter 6 
+# Install OVN controller and agent in the network node 
+[ovn-controller:children]
+ovn-controller-network
+[ovn-controller-network:children]
+network
+[neutron-ovn-metadata-agent:children]
+network
+[neutron-ovn-agent:children]
+network
+
+## Chapter 6 
+# Install BGP Agent in the network node
+[neutron-bgp-dragent:children]
+neutron
+
+
 
 ### ## ## ## ## ##  Storage Node(s) ## ## ## ## ## ## ## ## ## ## ## ## 
 
