@@ -1,5 +1,5 @@
-# Chapter 6
-OpenStack Networking – Connectivity and Managed Service Options
+# Chapter 7
+Running a Highly Available Cloud – Meeting the SLA
 
 ## Description
 
@@ -40,6 +40,7 @@ To deploy OpenStack in a Multi Node  environment, a virtual environment can be i
 Example used from production environment, can use any compute node with other capacities example :
 
 
+*** HA Diagram mit IP ***
 
 
 ## Troubleshooting:
