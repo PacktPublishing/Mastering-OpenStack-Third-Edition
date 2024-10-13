@@ -1,5 +1,5 @@
-# Chapter 8
-Monitoring and Logging – Remediate Proactively
+# Chapter 9
+Benchmarking the Infrastructure – Evaluating Resource Capacity and Optimization
 
 ## Description
 
