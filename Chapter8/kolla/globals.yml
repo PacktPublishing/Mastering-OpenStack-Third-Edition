@@ -181,6 +181,8 @@ enable_gnocchi_statsd: "yes"
 ## Enable Aodh for OpenStack Telemetry alerting
 enable_aodh: "yes"
 
+## Enable Central logging for OpenSearch 
+enable_central_logging: "yes"
 
 
 ################################

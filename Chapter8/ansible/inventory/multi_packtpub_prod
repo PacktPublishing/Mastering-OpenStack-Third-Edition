@@ -221,6 +221,14 @@ aodh
 [aodh-notifier:children]
 aodh
 
+# Install OpenSeach engine and dashboards services  as part of the controle plane services
+[opensearch:children]
+control
+[opensearch-dashboards:children]
+opensearch
+
+
+
 ### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
 #[compute]
