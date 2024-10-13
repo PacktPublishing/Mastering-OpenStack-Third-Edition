@@ -15,6 +15,7 @@ cc03.os.packtpub
 hap1.os.packtpub
 hap2.os.packtpub
 
+
 ## Compute Node 
 [compute]
 cn01.os.packtpub
@@ -34,7 +35,10 @@ storage01.os.packtpub
 [deployment]
 localhost       ansible_connection=local
 
-
+###  Chapter 8
+## Adding new node for Monitoring
+[monitoring]
+mon01.os.packtpub
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
@@ -107,14 +111,6 @@ control
 
 [swift-proxy-server:children]
 swift
-
-# Install Ceilometer notification and API service as part of the contole plane services
-[ceilometer:children]
-control
-[ceilometer-central:children]
-ceilometer
-[ceilometer-notification:children]
-ceilometer
 
 # Install Neutron of the contole plane services
 [neutron-server:children]
@@ -194,6 +190,37 @@ control
 [hacluster:children]
 control
 
+## Chapter 8
+# Install Ceilometer notification and API service as part of the contole plane services
+[ceilometer:children]
+control
+[ceilometer-central:children]
+ceilometer
+[ceilometer-notification:children]
+ceilometer
+
+# Install Gnocchi, statsd, metricd and API services as part of the controle plane services
+[gnocchi:children]
+control
+[gnocchi-api:children]
+gnocchi
+[gnocchi-statsd:children]
+gnocchi
+[gnocchi-metricd:children]
+gnocchi
+
+# Install Aodh, evaluator, listener, notfiier and API services as part of the controle plane services
+[aodh:children]
+control
+[aodh-api:children]
+aodh
+[aodh-evaluator:children]
+aodh
+[aodh-listener:children]
+aodh
+[aodh-notifier:children]
+aodh
+
 ### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
 #[compute]
@@ -204,11 +231,8 @@ control
 # Install compute metrics collector for telemetry on the compute nodes
 [collectd:children]
 compute
-[ceilometer-compute:children]
-compute
 [ceilometer-ipmi:children]
 compute
-
 
 # Chapter 04
 # Install Zun compute and CNI networing plugin services as part of the contole plance services
@@ -238,6 +262,11 @@ compute
 [hacluster-remote:children]
 compute
 [masakari-instancemonitor:children]
+compute
+
+## Chapter 8
+# Install Ceilometer polling agent in Compute Node(s)
+[ceilometer-compute:children]
 compute
 
 ### ## ## ## ## ##  Network Node ## ## ## ## ## ## ## ## ## ## ## ## 
@@ -358,10 +387,48 @@ common
 [kolla-toolbox:children]
 common
 
-
-
 ### Chapter 7
 ### ## ## ## ## ##  Load Balancing ## ## ## ## ## ## ## ## ## ## ## ## 
 # Install HAProxy 
 [loadbalancer:children]
 haproxy
+
+
+
+### Chapter 8
+### ## ## ## ## ##  Monitoring ## ## ## ## ## ## ## ## ## ## ## ## 
+# Install Prometheus and Alert Manager as part of the monitoring node
+[prometheus:children]
+monitoring
+
+# Add Prometheus Exporter for OpenStack as part of the Monitoring node
+[prometheus-openstack-exporter:children]
+monitoring
+
+# Add Prometheus Exporter for OpenStack Database as part of the Cloud Controller node(s)
+[prometheus-mysqld-exporter:children]
+mariadb
+
+#Add Prometheus Exporter for Load Balancer HAProxy as part of the Load Balancer node(s)
+[prometheus-haproxy-exporter:children]
+loadbalancer
+
+#Add Prometheus Exporter for Libvirt API as part of Compute node(s)
+[prometheus-libvirt-exporter:children]
+compute
+
+# Install Prometheus Exporter in each OpenStack Node
+[prometheus-node-exporter:children]
+monitoring
+control
+compute
+network
+storage
+
+# Install cAdvisor Exporter in each OpenStack Node
+[prometheus-node-exporter:children]
+monitoring
+control
+compute
+network
+storage
