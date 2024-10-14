@@ -60,6 +60,7 @@ An in-depth paragraph about your project and overview of use.
 ```
 code blocks for commands
 ```
+### Command line CheatSheet per Chapter:
 
 ## Help
 
