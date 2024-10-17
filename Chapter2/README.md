@@ -79,6 +79,7 @@ OR apt install docker.io
 
 
 
+
 ### Jenkins
 Git authentification access 
 jenkins user upgrade to sudoers users with NOPASSW
@@ -87,3 +88,45 @@ Add /bin/bash for the Jenkins shell configuration to execute
 ### Anchore
 https://github.com/anchore/anchore-cli
 Entreprise Edition Workaround
+
+
+## Nova user Guide: Create VM
+
+1. Prepare image using Cirros image (https://docs.openstack.org/mitaka/install-guide-obs/glance-verify.html) (https://docs.openstack.org/image-guide/obtain-images.html#cirros-test)
+ the login account is cirros. The password is gocubsgo.
+
+$ wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+2. Upload the image to Glance:
+
+$ openstack image create 'Cirros' --file cirros-0.6.2-x86_64-disk.img --disk-format qcow2 --container-format bare --public
++------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+| Field            | Value                                                                                                                                      |
++------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+| container_format | bare                                                                                                                                       |
+| created_at       | 2024-10-17T16:24:34Z                                                                                                                       |
+| disk_format      | qcow2                                                                                                                                      |
+| file             | /v2/images/a0198d59-6b58-4885-8aa8-cf41dba0a898/file                                                                                       |
+| id               | a0198d59-6b58-4885-8aa8-cf41dba0a898                                                                                                       |
+| min_disk         | 0                                                                                                                                          |
+| min_ram          | 0                                                                                                                                          |
+| name             | Cirros                                                                                                                                     |
+| owner            | aa7e03d921cb4aec85e7c086abbfb99f                                                                                                           |
+| properties       | os_hidden='False', owner_specified.openstack.md5='', owner_specified.openstack.object='images/Cirros', owner_specified.openstack.sha256='' |
+| protected        | False                                                                                                                                      |
+| schema           | /v2/schemas/image                                                                                                                          |
+| status           | queued                                                                                                                                     |
+| tags             |                                                                                                                                            |
+| updated_at       | 2024-10-17T16:24:34Z                                                                                                                       |
+| visibility       | public                                                                                                                                     |
++------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+
+3. Veriy the image:
+
+$ openstack image list
++--------------------------------------+----------------------+--------+
+| ID                                   | Name                 | Status |
++--------------------------------------+----------------------+--------+
+| a0198d59-6b58-4885-8aa8-cf41dba0a898 | Cirros               | active |
+| 9be4165a-45a7-4d55-b2ef-65ed8d243adc | manila-service-image | active |
++--------------------------------------+----------------------+--------+
