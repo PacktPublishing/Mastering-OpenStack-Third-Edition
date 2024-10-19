@@ -100,6 +100,7 @@ $ wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 2. Upload the image to Glance:
 
 $ openstack image create 'Cirros' --file cirros-0.6.2-x86_64-disk.img --disk-format qcow2 --container-format bare --public
+
 +------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
 | Field            | Value                                                                                                                                      |
 +------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
@@ -124,9 +125,12 @@ $ openstack image create 'Cirros' --file cirros-0.6.2-x86_64-disk.img --disk-for
 3. Veriy the image:
 
 $ openstack image list
+
+```
 +--------------------------------------+----------------------+--------+
 | ID                                   | Name                 | Status |
 +--------------------------------------+----------------------+--------+
 | a0198d59-6b58-4885-8aa8-cf41dba0a898 | Cirros               | active |
 | 9be4165a-45a7-4d55-b2ef-65ed8d243adc | manila-service-image | active |
 +--------------------------------------+----------------------+--------+
+```
