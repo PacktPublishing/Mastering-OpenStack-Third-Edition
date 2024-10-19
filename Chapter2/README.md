@@ -117,7 +117,9 @@ $ vagrant up
   <summary>Output</summary>
 
   ```sh
-TBD
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'generic/ubuntu2204'...
+Progress: 90%
 ```
 </details>
 
@@ -268,7 +270,7 @@ TBD
 ![List Container Services](IMG/docker-ps-a-all.png)
 
 
-## Troubleshooting:
+# Troubleshooting:
 
 ### VirtualBox installation
 ### Vagrant installation
@@ -276,20 +278,13 @@ TBD
 ### Vagrant disksize plugin: 
 Issue with Vagrant version below 2.X.X
 
-### Vagrant configuration 
-vagrant reload
+### Vagrant UP Run 
 
-### Shared local folder openstack_deploy
-mkdir openstack_deploy
+### Vagrant SSH too long
 
-### Run Vagrant
-vagrant up
+### Vagrant new configuation breaks
 
-Bringing machine 'default' up with 'virtualbox' provider...
-==> default: Importing base box 'generic/ubuntu2204'...
-Progress: 90%
-
-## Make sure to install Docker
+### Openstack Deplyoment: Docker missing
 sudo apt-get install python3-dev libffi-dev gcc libssl-dev docker -y  
 OR apt install docker.io
 
