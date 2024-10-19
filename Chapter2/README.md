@@ -24,6 +24,8 @@ To deploy OpenStack in a test/local environment, an environment can be installed
 
 The chapter uses the different tools and software versions:
 - **kolla-ansible**: Latest and stable version from OpenStack Git master branch  (_Description in next section_)
+- **Python**: Version 3.XX
+- **Ansible Core**: Any version between ```2.16```  and ```2.17.99```.
 - **Vagrant**: Latest Version  ```2.4.1``` (_At the time of writing this edition_).
 - **Jenkins**: Any version for the latest Ubuntu/Debian Jenkins repository (_Description in next section_)
 
@@ -140,8 +142,54 @@ $ sudo -i
 # apt update -y
 # apt install python3-dev libffi-dev gcc libssl-dev python3-venv
 # apt install python3-pip
-# apt install python3-pip 
 ```
+
+11. Create optionally a Python virtual envionment:
+
+```
+# python3 -m venv local
+# source local/bin/activate
+```
+
+12. Install ```pip```:
+
+```
+(local)# pip install -U pip
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+13. Install Ansible core:
+```
+(local)# pip install 'ansible-core>=2.16,<2.17.99'
+```
+
+14. Install kolla-ansible:
+```
+(local)# pip install git+https://opendev.org/openstack/kolla-ansible@master
+(local)# kolla-ansible install-deps
+```
+
+15. Create a new directory locally to prepare for the kolla-ansible run:
+```
+(local)# mkdir -p /etc/kolla
+(local)# chown $USER:$USER /etc/kolla
+```
+
+16. Step ```14``` should have downloaded example files of kolla-ansibe repository that should be located under ```/local/share/kolla-ansible/```. Copy skeleton files for both `all-in-one` inventory and ```globals.yaml``` files under ```/etc/kolla```directory:
+
+```
+(local)# cp -r local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
+(local)# cp -r /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla 
+```
+
+
 
 ## Troubleshooting:
 
