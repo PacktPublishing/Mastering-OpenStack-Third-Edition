@@ -176,6 +176,14 @@ TBD
 (local)# kolla-ansible install-deps
 ```
 
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
 15. Create a new directory locally to prepare for the kolla-ansible run:
 ```
 (local)# mkdir -p /etc/kolla
@@ -188,6 +196,68 @@ TBD
 (local)# cp -r local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
 (local)# cp -r /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla 
 ```
+
+17. Create and copy the content of ```/etc/kolla/globals.yaml``` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter2/etc/kolla/globals.yml).
+You can also run the following command lines to get the same settings in the ```/etc/kolla/globals.yaml``` file  :
+<br />
+
+```
+sed -i 's/^#kolla_base_distro:.ls*/kolla_base_distro: "ubuntu"/g' /etc/kolla/globals.yml
+sed -i 's/^#enable_haproxy:.*/enable_haproxy: "no"/g' /etc/kolla/globals.yml
+sed -i 's/^#network_interface:.*/network_interface: "eth0"/g' /etc/kolla/globals.yml
+sed -i 's/^#neutron_external_interface:.*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
+sed -i 's/^#kolla_internal_vip_address:.*/kolla_internal_vip_address: "10.0.2.15"/g' /etc/kolla/globals.yml
+```
+
+18. Generate the OpenStack services secretes:
+
+```
+# kolla-genpwd -p /etc/kolla/passwords.yml
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+
+19. Bootstrap the OpenStack services in ```all-in-one``` configuration:
+```
+# kolla-ansible -i /etc/kolla/all-in-one bootstrap-servers
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+20. Run The Pre-checks script in ```all-in-one``` configuration:
+```
+#  kolla-ansible -i /etc/kolla/all-in-one prechecks
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+21. Run the OpenStack services deployment in ```all-in-one``` configuration:
+```
+#  kolla-ansible -i /etc/kolla/all-in-one deploy
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
 
 
 
