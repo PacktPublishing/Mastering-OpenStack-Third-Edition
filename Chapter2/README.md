@@ -237,7 +237,7 @@ TBD
 
 20. Run The Pre-checks script in ```all-in-one``` configuration:
 ```
-#  kolla-ansible -i /etc/kolla/all-in-one prechecks
+# kolla-ansible -i /etc/kolla/all-in-one prechecks
 ```
 <details close>
   <summary>Output</summary>
@@ -249,7 +249,7 @@ TBD
 
 21. Run the OpenStack services deployment in ```all-in-one``` configuration:
 ```
-#  kolla-ansible -i /etc/kolla/all-in-one deploy
+# kolla-ansible -i /etc/kolla/all-in-one deploy
 ```
 <details close>
   <summary>Output</summary>
@@ -259,6 +259,16 @@ TBD
 ```
 </details>
 
+22. Verify that all containers are up and running and in ```healthy``` status:
+
+```
+# docker ps -a
+```
+
+<details close>
+  <summary>Output</summary>
+![List Container Services](IMG/docker-ps-a-all.png)
+</details>
 
 
 ## Troubleshooting:
