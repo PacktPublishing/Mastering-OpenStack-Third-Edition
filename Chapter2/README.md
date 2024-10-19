@@ -98,7 +98,8 @@ $ mkdir openstack_deploy
 
 7. Create and copy the content of the Vagrant file named ```Vagrantfile``` provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter2/Vagrantfile).
 <br />
-- ```config.vm.box```: Install Ubuntu 22.04 TLS 
+
+- ```config.vm.box``` : Install Ubuntu 22.04 TLS 
 - ```config.disksize.size```: Setup root disk size of 50GB 
 - ```config.vm.synced_folder```: Sync directory with local folder ```openstack_deploy```
 - ```config.vm.network```: Create 2 interfaces ```eth0``` and ```eth1``` with port forwarding on ports 80 and 8080.
