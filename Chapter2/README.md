@@ -265,10 +265,7 @@ TBD
 # docker ps -a
 ```
 
-<details close>
-  <summary>Output</summary>
 ![List Container Services](IMG/docker-ps-a-all.png)
-</details>
 
 
 ## Troubleshooting:
