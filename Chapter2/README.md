@@ -319,6 +319,28 @@ TBD
 ![List Container Services](IMG/Main-Dashboard-UI2.png)
 
 
+26. To interact with OpenStack services using CLI, install the OpenStack client CLI tools:
+
+```
+# pip install python-openstackclient
+```
+
+27. Make sure the variables in the ```admin-openrc.sh``` are sourced and verify the OpenStack CLI:
+```
+# openstack services list
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+
+
+
 # Troubleshooting:
 
 ### VirtualBox installation
