@@ -69,7 +69,7 @@ $ sudo apt install rpm
 $ sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
 ```
 
-4. Check the installed version of ```Vagrant```:
+4. Check the installed version of ```vagrant```:
 ```
 $ vagrant version
 ```
@@ -83,16 +83,33 @@ You're running an up-to-date version of Vagrant!
 ```
 </details>
 
-5. 
+5. Install ```disksize``` plugin for Vagrant to define disk medium to Vagrant host guests and allow disk resize:
+
+```
+$ vagrant plugin install vagrant-disksize
+```
+
+6. Create optionally a shared directory for Vagrant guest hosts:
+
+```
+$ mkdir openstack_deploy
+```
+
+7. Create and copy the content of the Vagrant file named ```Vagrantfile``` provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter2/Vagrantfile).
+<br />
+- ```config.vm.box```: Install Ubuntu 22.04 TLS 
+- ```config.disksize.size```: Setup root disk size of 50GB 
+- ```config.vm.synced_folder```: Sync directory with local folder ```openstack_deploy```
+- ```config.vm.network```: Create 2 interfaces ```eth0``` and ```eth1``` with port forwarding on ports 80 and 8080
+
 
 ## Troubleshooting:
 
 ### VirtualBox installation
 ### Vagrant installation
 
-### Vagrant disksize plugin
-
-vagrant plugin install vagrant-disksize
+### Vagrant disksize plugin: 
+Issue with Vagrant version below 2.X.X
 
 ### Vagrant configuration 
 vagrant reload
