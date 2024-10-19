@@ -316,7 +316,7 @@ TBD
 25. Open a browser on local host and navigate to the VIP address configured in the ```globals.yml``` file:
 
 ![List Container Services](IMG/WelcomeOS.png)
-![List Container Services](IMG/Main-Dashboard-UI.png)
+![List Container Services](IMG/Main-Dashboard-UI2.png)
 
 
 # Troubleshooting:
