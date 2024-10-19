@@ -293,8 +293,58 @@ Progress: 90%
 sudo apt-get install python3-dev libffi-dev gcc libssl-dev docker -y  
 OR apt install docker.io
 
+## Deploy or reconfigure fails: 
+### Error: Not supported URL scheme http+docker
 
+```
+...
+ File \"/usr/local/lib/python3.10/dist-packages/docker/api/client.py\", line 221, in _retrieve_server_version\\n    raise DockerException(\\ndocker.errors.DockerException: Error while fetching server API version: Not supported URL scheme http+docker\\n'"}
+ ...
+```
+Change the Docker SDK package version for ```requests``` in ```/.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml```file from ```requests<2.32``` to ```requests==2.31```:
 
+```
+# vim /.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml
+```
+
+```
+docker_sdk_pip_packages:
+  - "docker>=6.0.0,<7.0.0"
+#  - "requests<2.32"
+  - "requests==2.31.0"
+  - "dbus-python"
+```
+And run the deployment again. 
+
+### Error: Cron, kolla-box and fluentd containers fails to run during deployment
+
+```
+...
+Failed: [localhost] (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:master-rocky-9', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, '
+...
+...
+failed: [localhost] (item={'key': 'kolla-toolbox', 'value': {'container_name': 'kolla_toolbox', 'group': 'kolla-toolbox', 'enabled': True, 'image': 'quay.io/openstack.kolla/kolla-toolbox:master-rocky-9', 'environment': {'ANSIBLE_NOCOLOR': '1',
+...
+...
+failed: [localhost] (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:master-rocky-9', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': [
+...
+
+```
+
+Change the Docker SDK package version for ```requests``` in ```/.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml```file from ```requests<2.32``` to ```requests==2.31```:
+
+```
+# vim /.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml
+```
+
+```
+docker_sdk_pip_packages:
+  - "docker>=6.0.0,<7.0.0"
+#  - "requests<2.32"
+  - "requests==2.31.0"
+  - "dbus-python"
+```
+And run the deployment again. 
 
 ### Jenkins
 Git authentification access 
