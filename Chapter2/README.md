@@ -4,11 +4,26 @@ Kicking Off the OpenStack Setup – The Right Way (DevSecOps)
 ## Description
 
 The Chapter initiates the deployment of an OpenStack environment in different steps:
-1. Test/Local environment: Running all components discussed in first chapter in a single machine
-2. Create a private repository to host the infrastructure code for future collaboration and maintenance
-3. Setup a deployer host running a CI/CD Tool - Jenkins 
+1. Test/Local environment: Running all components discussed in first chapter in a single machine for testing using Vagrant and VirtualBox.
+2. Setup a deployer host running a CI/CD Tool using Jenkins 
+3. Create CI/CD pipeline for the OpenStack code deployment. 
 4. Include a security stage check in the CI/CD pipeline to scan and test OpenStack services running in Kolla containers before proceeding the deployment in the target environment
-5. CI/CD pipeline enabled to run based on approved/pushed code to the private repository and populate the changes to a target environment after passing through the all stages including security vulnerability check
+5. **Bonus Section 1**: Guide through the different requirements to create a first instance.
+6. **Bonus Section 2**: Troubleshooting of most encoutred issues when running an OpenStack deployment.  
+5. **Bonus Section 3**: 
+
+## 1.Deployment in a Local Environment:
+
+To deploy OpenStack in a test/local environment, an environment can be installed in a physical or virtual machine with the following minimum hardware and software pre-requesities:
+
+- **Operating System**: Ubuntu 22.04 LTS
+- **CPU**: Minimum of multi-core AMD64 processor with 4 cores
+- **RAM**: Minimum of 8GB RAM
+- **Disk space**: Minimum of 50 GB free storage (root Disk)
+
+The chapter uses the different tools and software versions:
+- **Vagrant**: Latest Version  ```2.4.1``` (_At the time of writing this edition_).
+- **Jenkins**: Any version for the latest Ubuntu/Debian Jenkins repository (_Description in next section_)
 
 
 ## Code - How-To:
@@ -34,9 +49,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 > The cloned code is based on the master branch. OpenStack community keeps maintaining the kolla-ansible code of the latest 3 releases of OpenStack. It is recommended to use the master branch.  
 
 
-## Deployment in Local environment:
 
-To deploy OpenStack in a test local environment, a virtual environment can be installed in the local/dev machine with the following hardware and software pre-requesities:
 
 
 
