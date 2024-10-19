@@ -13,6 +13,7 @@ The Chapter initiates the deployment of an OpenStack environment in different st
 5. **Bonus Section 3**: 
 
 ## 1.Deployment in a Local Environment:
+### System and Software Requirements:
 
 To deploy OpenStack in a test/local environment, an environment can be installed in a physical or virtual machine with the following minimum hardware and software pre-requesities:
 
@@ -22,11 +23,12 @@ To deploy OpenStack in a test/local environment, an environment can be installed
 - **Disk space**: Minimum of 50 GB free storage (root Disk)
 
 The chapter uses the different tools and software versions:
+- **kolla-ansible**: Latest and stable version from OpenStack Git master branch  (_Description in next section_)
 - **Vagrant**: Latest Version  ```2.4.1``` (_At the time of writing this edition_).
 - **Jenkins**: Any version for the latest Ubuntu/Debian Jenkins repository (_Description in next section_)
 
 
-## Code - How-To:
+### Code - How-To:
 
 The Chapter uses the kolla-ansible community [repostority](https://github.com/openstack/kolla-ansible).
 
@@ -48,26 +50,45 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 > [!IMPORTANT]
 > The cloned code is based on the master branch. OpenStack community keeps maintaining the kolla-ansible code of the latest 3 releases of OpenStack. It is recommended to use the master branch.  
 
+### Code - How-To:
 
+1. Update the package lists from the repositories of Ubuntu OS:
+```
+$ sudo apt-get update
+```
 
+2. Install ```Virtualbox``` in the local machine:
+```
+$ sudo apt install -y virtualbox virtualbox-ext-pack
+```
 
+3. Install the Vagrant version ```2.4.1```:
+```
+$ wget https://releases.hashicorp.com/vagrant/2.4.1/vagrant-2.4.1-1.x86_64.rpm
+$ sudo apt install rpm
+$ sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
+```
 
+4. Check the installed version of ```Vagrant```:
+```
+$ vagrant version
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+Installed Version: 2.4.1
+Latest Version: 2.4.1
+You're running an up-to-date version of Vagrant!
+```
+</details>
+
+5. 
 
 ## Troubleshooting:
 
 ### VirtualBox installation
 ### Vagrant installation
-Install latest version  (2.4.1) 
-wget https://releases.hashicorp.com/vagrant/2.4.1/vagrant-2.4.1-1.x86_64.rpm
-sudo apt install rpm
-sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
-vagrant version
-Installed Version: 2.4.1
-Latest Version: 2.4.1
-
-You're running an up-to-date version of Vagrant!
-
-
 
 ### Vagrant disksize plugin
 
