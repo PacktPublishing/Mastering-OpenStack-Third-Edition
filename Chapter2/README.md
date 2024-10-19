@@ -73,6 +73,7 @@ $ sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
 ```
 $ vagrant version
 ```
+
 <details close>
   <summary>Output</summary>
 
@@ -100,8 +101,46 @@ $ mkdir openstack_deploy
 - ```config.vm.box```: Install Ubuntu 22.04 TLS 
 - ```config.disksize.size```: Setup root disk size of 50GB 
 - ```config.vm.synced_folder```: Sync directory with local folder ```openstack_deploy```
-- ```config.vm.network```: Create 2 interfaces ```eth0``` and ```eth1``` with port forwarding on ports 80 and 8080
+- ```config.vm.network```: Create 2 interfaces ```eth0``` and ```eth1``` with port forwarding on ports 80 and 8080.
+- ```vb.memory```: Set RAM size of 8GB 
+- ```vb.cpus```: Set CPU cores of 4 
 
+8. Save the file and run the deployment of the Vagrant guest machine:
+```
+$ vagrant up
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+9. SSH the Vagrant guest from the local machine (_username/password are NOT required_):
+
+```
+$ vagrant ssh
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+10. Once logged in, install the following packages and dependencies:
+
+```
+$ sudo -i
+# apt update -y
+# apt install python3-dev libffi-dev gcc libssl-dev python3-venv
+# apt install python3-pip
+# apt install python3-pip 
+```
 
 ## Troubleshooting:
 
