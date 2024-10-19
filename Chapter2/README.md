@@ -138,8 +138,10 @@ $ openstack image create 'Cirros' --file cirros-0.6.2-x86_64-disk.img --disk-for
 ```
 $ openstack image list
 ```
+<details close>
+  <summary>Output</summary>
 
-```
+  ```sh
 +--------------------------------------+----------------------+--------+
 | ID                                   | Name                 | Status |
 +--------------------------------------+----------------------+--------+
@@ -147,3 +149,4 @@ $ openstack image list
 | 9be4165a-45a7-4d55-b2ef-65ed8d243adc | manila-service-image | active |
 +--------------------------------------+----------------------+--------+
 ```
+</details>
