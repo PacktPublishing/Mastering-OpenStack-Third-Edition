@@ -270,6 +270,55 @@ TBD
 ![List Container Services](IMG/docker-ps-a-all.png)
 
 
+23. Run post deploy script to generate cloud configuration file:
+```
+# kolla-ansible -i /etc/kolla/all-in-one post-deploy
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+22. Check the config file generated under ```/etc/kolla/``` named ```clouds.yaml```:
+
+```
+# cat /etc/kolla/clouds.yaml
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+23. You can also source the generated file ```admin_openrc.sh``` to start interacting with OpenStack APIs:
+```
+# source /etc/kolla/admin_openrc.sh
+```
+24. To interact with the dashboard for ```admin``` user, capture the password from either the  ```clouds.yaml```,  ```admin_openrc.sh``` or simply from ```passwords.yml``` file:
+
+```
+# grep keystone_admin_password /etc/kolla/passwords.yml
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+TBD
+```
+</details>
+
+25. Open a browser on local host and navigate to the VIP address configured in the ```globals.yml``` file:
+
+![List Container Services](IMG/WelcomeOS.png)
+![List Container Services](IMG/Main-Dashboard-UI.png)
+
+
 # Troubleshooting:
 
 ### VirtualBox installation
