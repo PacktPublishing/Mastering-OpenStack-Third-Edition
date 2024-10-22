@@ -605,7 +605,11 @@ The offending line appears to be:
   roles:
     - { role: openstack.kolla.baremetal,
       ^ here
+```
 
+--> Run 
+```sh
+kolla-ansible install-deps
 ```
 
 ### Anchore
