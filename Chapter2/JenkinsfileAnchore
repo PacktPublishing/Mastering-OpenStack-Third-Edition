@@ -1,0 +1,40 @@
+pipeline {
+
+  agent any
+
+  stages {
+    stage('Build Images') {
+steps {
+echo '-- KOLLA BUILD OPENSTACK SERVICES IMAGES --'
+sh '''#!/bin/bash
+kolla-build -b ubuntu
+'''
+}
+}
+
+    stage('Anchore Security Scan') {
+    steps {
+echo '--RUNNING LOCAL ENVIRONMENT --'
+sh '''#!/bin/bash
+anchore-cli registry add 10.0.2.15:4000
+anchore-cli image add master_registry:latest
+'''
+}
+}
+
+    stage('Push Images') {
+steps {
+echo '--RUNNING LOCAL ENVIRONMENT --'
+sh '''#!/bin/bash
+kolla-build --registry 10.0.2.15:4000 --push
+'''
+}
+}
+    
+
+
+  
+
+   
+  }
+}
