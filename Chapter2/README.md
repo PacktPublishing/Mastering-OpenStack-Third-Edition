@@ -342,6 +342,53 @@ TBD
 ### 2.1. Create Own Repository:
 ### 2.2. Optional - Create Own Private Container Registry:
 
+1. Install ```kolla``` command line tool:
+```sh
+$ sudo python3 -m pip install kolla
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+Collecting kolla
+  Downloading kolla-18.2.0-py3-none-any.whl (356 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 356.4/356.4 KB 1.8 MB/s eta 0:00:00
+Requirement already satisfied: Jinja2>=3.0.1 in /usr/local/lib/python3.10/dist-packages (from kolla) (3.1.4)
+Requirement already satisfied: oslo.config>=5.1.0 in /usr/local/lib/python3.10/dist-packages (from kolla) (9.6.0)
+Requirement already satisfied: pbr!=2.1.0,>=2.0.0 in /usr/local/lib/python3.10/dist-packages (from kolla) (6.1.0)
+Collecting GitPython>=1.0.1
+  Downloading GitPython-3.1.43-py3-none-any.whl (207 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.3/207.3 KB 1.8 MB/s eta 0:00:00
+     ....
+```
+</details>
+
+2. Create a local Docker registry named ```master_registry```:
+```sh
+$ docker run -d  --network host --name master_registry --restart=always -e REGISTRY_HTTP_ADDR=0.0.0.0:4000 -v registry:/var/lib/registry registry:2
+```
+
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+Unable to find image 'registry:2' locally
+2: Pulling from library/registry
+1cc3d825d8b2: Pull complete
+85ab09421e5a: Pull complete
+40960af72c1c: Pull complete
+e7bb1dbb377e: Pull complete
+a538cc9b1ae3: Pull complete
+Digest: sha256:ac0192b549007e22998eb74e8d8488dcfe70f1489520c3b144a6047ac5efbe90
+Status: Downloaded newer image for registry:2
+7ebfa449f6542e04be94dfe414e971d72c179b4e45b2f3f00c25185c3006176b
+```
+</details>
+
+
+
+
 ## 3.Setting Up The CI/CD Pipeline:
 1. Update the local repo system and install OpenJDK:
 ```sh
