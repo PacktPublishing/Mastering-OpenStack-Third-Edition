@@ -368,7 +368,6 @@ Collecting GitPython>=1.0.1
 $ docker run -d  --network host --name master_registry --restart=always -e REGISTRY_HTTP_ADDR=0.0.0.0:4000 -v registry:/var/lib/registry registry:2
 ```
 
-
 <details close>
   <summary>Output</summary>
 
@@ -383,6 +382,164 @@ a538cc9b1ae3: Pull complete
 Digest: sha256:ac0192b549007e22998eb74e8d8488dcfe70f1489520c3b144a6047ac5efbe90
 Status: Downloaded newer image for registry:2
 7ebfa449f6542e04be94dfe414e971d72c179b4e45b2f3f00c25185c3006176b
+```
+</details>
+
+3. Pull images from docker hub:
+```sh
+ $ cp -r /usr/local/share/kolla/etc_examples/kolla/ /etc/
+ $ kolla-ansible pull
+ ```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh 
+Pulling Docker images : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  -e kolla_action=pull /usr/local/share/kolla-ansible/ansible/site.yml
+[WARNING]: No inventory was parsed, only implicit localhost is available
+[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+PLAY [Gather facts for all hosts] ****************************************************************************************************************************************************************************
+...
+```
+</details>
+
+
+4. Push the Kolla images to the local Docker registry:
+
+```sh
+$ docker images | grep kolla | grep -v local | awk '{print $1,$2}' | while read -r image tag; do
+    docker tag ${image}:${tag} localhost:4000/${image}:${tag}
+    docker push localhost:4000/${image}:${tag}
+done
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh 
+The push refers to repository [localhost:4000/quay.io/openstack.kolla/kolla-toolbox]
+54d649b3cff5: Pushed
+27f380fa24ee: Pushed
+3457e977a806: Pushed
+b2ca7f36f982: Pushed
+177e125c72fa: Pushed
+a9d0e5fa10a0: Pushed
+e2ad077ae545: Pushed
+74d7c2b0f001: Pushed
+86b9731b59fc: Pushed
+54fc7df35234: Pushed
+4a9f87f1bfc1: Pushed
+3825b85c2c8f: Pushed
+3e5c6a70f993: Pushed
+a399a94e8e72: Pushed
+10284f86677e: Pushed
+5e0f6998436a: Pushed
+2858b5217263: Pushed
+dcbe1402ce79: Pushed
+fdca86632d7d: Pushed
+bb5a08ebbb2a: Pushed
+54529a28bbca: Pushed
+ef1ef02bc316: Pushed
+e922d38402a6: Pushed
+379cba1c5cf7: Pushed
+9e4cdac0fc3f: Pushed
+171481281f12: Pushed
+074180233b21: Pushed
+a494d9691a66: Pushed
+c8098817522d: Pushed
+fecd75825e6a: Pushed
+0b6672ce726b: Pushed
+26f209986b88: Pushed
+4147babbd7d5: Pushed
+83c04c3473a4: Pushed
+12f87455e16c: Pushed
+5b7128d80e5f: Pushed
+80daae35e819: Pushed
+22f685b04f40: Pushed
+81edbe22f538: Pushed
+d1d46413468b: Pushed
+9709badbf4c5: Pushed
+f31e6842dfbe: Pushed
+34ab490fb528: Pushed
+ba310fe303b2: Pushed
+1cb8d67c4dcb: Pushed
+9684759379be: Pushed
+b8341fb921aa: Pushed
+fec7c6b4fbb0: Pushed
+master-rocky-9: digest: sha256:cc27341fe80f1a6d6441fd1a81c05b3cd194431ccb04e3db5d6fd5d56e2963d4 size: 10512
+The push refers to repository [localhost:4000/quay.io/openstack.kolla/mariadb-server]
+0e883e1ea988: Pushed
+b2af7db96489: Pushed
+dac7d7a35df3: Pushed
+3eb700f977f4: Pushed
+c37d7231fdc8: Pushed
+65f8253f10ec: Pushed
+c976943928d1: Pushed
+171b03dc9849: Pushed
+459bdf1ae6a7: Pushed
+c39988bdf442: Pushed
+1a95a57dfcae: Pushed
+2109ae1c3868: Pushed
+85f1a540f519: Pushed
+602353fdb8aa: Pushed
+deba5123e2be: Pushed
+1b3a4aa208c2: Pushed
+edcc4217bbbd: Pushed
+dcbe1402ce79: Mounted from quay.io/openstack.kolla/kolla-toolbox
+fdca86632d7d: Mounted from quay.io/openstack.kolla/kolla-toolbox
+bb5a08ebbb2a: Mounted from quay.io/openstack.kolla/kolla-toolbox
+54529a28bbca: Mounted from quay.io/openstack.kolla/kolla-toolbox
+ef1ef02bc316: Mounted from quay.io/openstack.kolla/kolla-toolbox
+e922d38402a6: Mounted from quay.io/openstack.kolla/kolla-toolbox
+379cba1c5cf7: Mounted from quay.io/openstack.kolla/kolla-toolbox
+9e4cdac0fc3f: Mounted from quay.io/openstack.kolla/kolla-toolbox
+171481281f12: Mounted from quay.io/openstack.kolla/kolla-toolbox
+074180233b21: Mounted from quay.io/openstack.kolla/kolla-toolbox
+a494d9691a66: Mounted from quay.io/openstack.kolla/kolla-toolbox
+c8098817522d: Mounted from quay.io/openstack.kolla/kolla-toolbox
+fecd75825e6a: Mounted from quay.io/openstack.kolla/kolla-toolbox
+0b6672ce726b: Mounted from quay.io/openstack.kolla/kolla-toolbox
+26f209986b88: Mounted from quay.io/openstack.kolla/kolla-toolbox
+4147babbd7d5: Mounted from quay.io/openstack.kolla/kolla-toolbox
+83c04c3473a4: Mounted from quay.io/openstack.kolla/kolla-toolbox
+12f87455e16c: Mounted from quay.io/openstack.kolla/kolla-toolbox
+5b7128d80e5f: Mounted from quay.io/openstack.kolla/kolla-toolbox
+80daae35e819: Mounted from quay.io/openstack.kolla/kolla-toolbox
+22f685b04f40: Mounted from quay.io/openstack.kolla/kolla-toolbox
+81edbe22f538: Mounted from quay.io/openstack.kolla/kolla-toolbox
+d1d46413468b: Mounted from quay.io/openstack.kolla/kolla-toolbox
+9709badbf4c5: Mounted from quay.io/openstack.kolla/kolla-toolbox
+f31e6842dfbe: Mounted from quay.io/openstack.kolla/kolla-toolbox
+34ab490fb528: Mounted from quay.io/openstack.kolla/kolla-toolbox
+ba310fe303b2: Mounted from quay.io/openstack.kolla/kolla-toolbox
+1cb8d67c4dcb: Mounted from quay.io/openstack.kolla/kolla-toolbox
+9684759379be: Mounted from quay.io/openstack.kolla/kolla-toolbox
+b8341fb921aa: Mounted from quay.io/openstack.kolla/kolla-toolbox
+fec7c6b4fbb0: Mounted from quay.io/openstack.kolla/kolla-toolbox
+master-rocky-9: digest: sha256:bab04a4d68825b0e04a55aa806b5b389bb2324934fab3749936bd28c2055aa82 size: 10714
+The push refers to repository [localhost:4000/quay.io/openstack.kolla/haproxy]
+7892e1906873: Pushed
+287fcc86275d: Pushed
+6dadf287fa67: Pushing [==================================================>]  12.54MB
+73e30e55f6aa: Pushed
+72637dbe1c66: Pushing [===============================================>   ]  14.93MB/15.55MB
+4e9efe81ca16: Pushed
+dcbe1402ce79: Mounted from quay.io/openstack.kolla/mariadb-server
+fdca86632d7d: Mounted from quay.io/openstack.kolla/mariadb-server
+bb5a08ebbb2a: Mounted from quay.io/openstack.kolla/mariadb-server
+54529a28bbca: Mounted from quay.io/openstack.kolla/mariadb-server
+ef1ef02bc316: Mounted from quay.io/openstack.kolla/mariadb-server
+e922d38402a6: Mounted from quay.io/openstack.kolla/mariadb-server
+379cba1c5cf7: Mounted from quay.io/openstack.kolla/mariadb-server
+9e4cdac0fc3f: Mounted from quay.io/openstack.kolla/mariadb-server
+171481281f12: Mounted from quay.io/openstack.kolla/mariadb-server
+074180233b21: Mounted from quay.io/openstack.kolla/mariadb-server
+a494d9691a66: Mounted from quay.io/openstack.kolla/mariadb-server
+c8098817522d: Mounted from quay.io/openstack.kolla/mariadb-server
+fecd75825e6a: Mounted from quay.io/openstack.kolla/mariadb-server
+0b6672ce726b: Mounted from quay.io/openstack.kolla/mariadb-server
+26f209986b88: Mounted from quay.io/openstack.kolla/mariadb-server
+...
 ```
 </details>
 
