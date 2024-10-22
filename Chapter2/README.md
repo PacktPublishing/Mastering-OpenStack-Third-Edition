@@ -533,18 +533,18 @@ OR apt install docker.io
 ## Deploy or reconfigure fails: 
 ### Error: Not supported URL scheme http+docker
 
-```
+```sh
 ...
  File \"/usr/local/lib/python3.10/dist-packages/docker/api/client.py\", line 221, in _retrieve_server_version\\n    raise DockerException(\\ndocker.errors.DockerException: Error while fetching server API version: Not supported URL scheme http+docker\\n'"}
  ...
 ```
 Change the Docker SDK package version for ```requests``` in ```/.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml```file from ```requests<2.32``` to ```requests==2.31```:
 
-```
+```sh
 # vim /.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml
 ```
 
-```
+```yaml
 docker_sdk_pip_packages:
   - "docker>=6.0.0,<7.0.0"
 #  - "requests<2.32"
@@ -555,7 +555,7 @@ And run the deployment again.
 
 ### Error: Cron, kolla-box and fluentd containers fails to run during deployment
 
-```
+```sh
 ...
 Failed: [localhost] (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': 'quay.io/openstack.kolla/fluentd:master-rocky-9', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, '
 ...
@@ -565,16 +565,15 @@ failed: [localhost] (item={'key': 'kolla-toolbox', 'value': {'container_name': '
 ...
 failed: [localhost] (item={'key': 'cron', 'value': {'container_name': 'cron', 'group': 'cron', 'enabled': True, 'image': 'quay.io/openstack.kolla/cron:master-rocky-9', 'environment': {'KOLLA_LOGROTATE_SCHEDULE': 'daily'}, 'volumes': [
 ...
-
 ```
 
 Change the Docker SDK package version for ```requests``` in ```/.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml```file from ```requests<2.32``` to ```requests==2.31```:
 
-```
+```sh
 # vim /.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml
 ```
 
-```
+```sh
 docker_sdk_pip_packages:
   - "docker>=6.0.0,<7.0.0"
 #  - "requests<2.32"
@@ -589,11 +588,13 @@ jenkins user upgrade to sudoers users with NOPASSW: jenkins ALL=(ALL) NOPASSWD: 
 Add /bin/bash for the Jenkins shell configuration to execute 
 
 2. Pipeline failure: 
+```sh
 /var/lib/jenkins/workspace/openstack-dev@tmp/durable-4228d9ca/script.sh.copy: 7: source: not found
-
+```
 --> ReRun the Pipeline due to cache 
 
 3. Pipeline Jenkins failure (Step Bootstrap Server Script)
+```sh
 ERROR! the role 'openstack.kolla.baremetal' was not found in /usr/local/share/kolla-ansible/ansible/roles:/var/lib/jenkins/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/usr/local/share/kolla-ansible/ansible
 
 The error appears to be in '/usr/local/share/kolla-ansible/ansible/kolla-host.yml': line 13, column 7, but may
@@ -605,7 +606,7 @@ The offending line appears to be:
     - { role: openstack.kolla.baremetal,
       ^ here
 
-
+```
 
 ### Anchore
 https://github.com/anchore/anchore-cli
