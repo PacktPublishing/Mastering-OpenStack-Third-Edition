@@ -388,18 +388,31 @@ Status: Downloaded newer image for registry:2
 3. Pull images from docker hub:
 ```sh
  $ cp -r /usr/local/share/kolla/etc_examples/kolla/ /etc/
- $ kolla-ansible pull
+ $ kolla-ansible -i /etc/kolla/all-in-one  pull
  ```
 
 <details close>
   <summary>Output</summary>
 
   ```sh 
-Pulling Docker images : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  -e kolla_action=pull /usr/local/share/kolla-ansible/ansible/site.yml
-[WARNING]: No inventory was parsed, only implicit localhost is available
-[WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+ 
+Pulling Docker images : ansible-playbook -e @/etc/kolla/globals.yml  -e @/etc/kolla/passwords.yml -e CONFIG_DIR=/etc/kolla  -e kolla_action=pull /usr/local/share/kolla-ansible/ansible/site.yml  --inventory /etc/kolla/all-in-one
+[WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
 
-PLAY [Gather facts for all hosts] ****************************************************************************************************************************************************************************
+PLAY [Gather facts for all hosts] ************************************************************************************************************************************************************************************************************
+...
+TASK [common : include_tasks] ****************************************************************************************************************************************************************************************************************
+included: /usr/local/share/kolla-ansible/ansible/roles/common/tasks/pull.yml for localhost
+
+TASK [service-images-pull : common | Pull images] ********************************************************************************************************************************************************************************************
+...
+TASK [service-images-pull : memcached | Pull images] *****************************************************************************************************************************************************************************************
+changed: [localhost] => (item=memcached)
+...
+TASK [service-images-pull : keystone | Pull images] ******************************************************************************************************************************************************************************************
+...
+PLAY RECAP *********************************************************************
+localhost                  : ok=33   changed=4    unreachable=0    failed=0    skipped=52   rescued=0    ignored=0
 ...
 ```
 </details>
@@ -429,35 +442,7 @@ e2ad077ae545: Pushed
 86b9731b59fc: Pushed
 54fc7df35234: Pushed
 4a9f87f1bfc1: Pushed
-3825b85c2c8f: Pushed
-3e5c6a70f993: Pushed
-a399a94e8e72: Pushed
-10284f86677e: Pushed
-5e0f6998436a: Pushed
-2858b5217263: Pushed
-dcbe1402ce79: Pushed
-fdca86632d7d: Pushed
-bb5a08ebbb2a: Pushed
-54529a28bbca: Pushed
-ef1ef02bc316: Pushed
-e922d38402a6: Pushed
-379cba1c5cf7: Pushed
-9e4cdac0fc3f: Pushed
-171481281f12: Pushed
-074180233b21: Pushed
-a494d9691a66: Pushed
-c8098817522d: Pushed
-fecd75825e6a: Pushed
-0b6672ce726b: Pushed
-26f209986b88: Pushed
-4147babbd7d5: Pushed
-83c04c3473a4: Pushed
-12f87455e16c: Pushed
-5b7128d80e5f: Pushed
-80daae35e819: Pushed
-22f685b04f40: Pushed
-81edbe22f538: Pushed
-d1d46413468b: Pushed
+...
 9709badbf4c5: Pushed
 f31e6842dfbe: Pushed
 34ab490fb528: Pushed
@@ -475,47 +460,18 @@ dac7d7a35df3: Pushed
 c37d7231fdc8: Pushed
 65f8253f10ec: Pushed
 c976943928d1: Pushed
-171b03dc9849: Pushed
-459bdf1ae6a7: Pushed
-c39988bdf442: Pushed
-1a95a57dfcae: Pushed
-2109ae1c3868: Pushed
-85f1a540f519: Pushed
+...
 602353fdb8aa: Pushed
 deba5123e2be: Pushed
 1b3a4aa208c2: Pushed
 edcc4217bbbd: Pushed
-dcbe1402ce79: Mounted from quay.io/openstack.kolla/kolla-toolbox
-fdca86632d7d: Mounted from quay.io/openstack.kolla/kolla-toolbox
-bb5a08ebbb2a: Mounted from quay.io/openstack.kolla/kolla-toolbox
-54529a28bbca: Mounted from quay.io/openstack.kolla/kolla-toolbox
-ef1ef02bc316: Mounted from quay.io/openstack.kolla/kolla-toolbox
-e922d38402a6: Mounted from quay.io/openstack.kolla/kolla-toolbox
-379cba1c5cf7: Mounted from quay.io/openstack.kolla/kolla-toolbox
-9e4cdac0fc3f: Mounted from quay.io/openstack.kolla/kolla-toolbox
-171481281f12: Mounted from quay.io/openstack.kolla/kolla-toolbox
-074180233b21: Mounted from quay.io/openstack.kolla/kolla-toolbox
-a494d9691a66: Mounted from quay.io/openstack.kolla/kolla-toolbox
-c8098817522d: Mounted from quay.io/openstack.kolla/kolla-toolbox
-fecd75825e6a: Mounted from quay.io/openstack.kolla/kolla-toolbox
-0b6672ce726b: Mounted from quay.io/openstack.kolla/kolla-toolbox
-26f209986b88: Mounted from quay.io/openstack.kolla/kolla-toolbox
-4147babbd7d5: Mounted from quay.io/openstack.kolla/kolla-toolbox
-83c04c3473a4: Mounted from quay.io/openstack.kolla/kolla-toolbox
-12f87455e16c: Mounted from quay.io/openstack.kolla/kolla-toolbox
-5b7128d80e5f: Mounted from quay.io/openstack.kolla/kolla-toolbox
-80daae35e819: Mounted from quay.io/openstack.kolla/kolla-toolbox
-22f685b04f40: Mounted from quay.io/openstack.kolla/kolla-toolbox
-81edbe22f538: Mounted from quay.io/openstack.kolla/kolla-toolbox
-d1d46413468b: Mounted from quay.io/openstack.kolla/kolla-toolbox
-9709badbf4c5: Mounted from quay.io/openstack.kolla/kolla-toolbox
-f31e6842dfbe: Mounted from quay.io/openstack.kolla/kolla-toolbox
-34ab490fb528: Mounted from quay.io/openstack.kolla/kolla-toolbox
-ba310fe303b2: Mounted from quay.io/openstack.kolla/kolla-toolbox
-1cb8d67c4dcb: Mounted from quay.io/openstack.kolla/kolla-toolbox
-9684759379be: Mounted from quay.io/openstack.kolla/kolla-toolbox
-b8341fb921aa: Mounted from quay.io/openstack.kolla/kolla-toolbox
-fec7c6b4fbb0: Mounted from quay.io/openstack.kolla/kolla-toolbox
+120ded57e1ea: Mounted from openstack.kolla/horizon
+cfb18f4d0574: Mounted from openstack.kolla/horizon
+48d2efbc43e3: Mounted from openstack.kolla/horizon
+a03f6eff7b8e: Mounted from openstack.kolla/horizon
+bea8b31e8aa7: Mounted from openstack.kolla/horizon
+cc86fba08421: Mounted from openstack.kolla/horizon
+...
 master-rocky-9: digest: sha256:bab04a4d68825b0e04a55aa806b5b389bb2324934fab3749936bd28c2055aa82 size: 10714
 The push refers to repository [localhost:4000/quay.io/openstack.kolla/haproxy]
 7892e1906873: Pushed
@@ -524,31 +480,164 @@ The push refers to repository [localhost:4000/quay.io/openstack.kolla/haproxy]
 73e30e55f6aa: Pushed
 72637dbe1c66: Pushing [===============================================>   ]  14.93MB/15.55MB
 4e9efe81ca16: Pushed
-dcbe1402ce79: Mounted from quay.io/openstack.kolla/mariadb-server
-fdca86632d7d: Mounted from quay.io/openstack.kolla/mariadb-server
-bb5a08ebbb2a: Mounted from quay.io/openstack.kolla/mariadb-server
-54529a28bbca: Mounted from quay.io/openstack.kolla/mariadb-server
-ef1ef02bc316: Mounted from quay.io/openstack.kolla/mariadb-server
-e922d38402a6: Mounted from quay.io/openstack.kolla/mariadb-server
-379cba1c5cf7: Mounted from quay.io/openstack.kolla/mariadb-server
-9e4cdac0fc3f: Mounted from quay.io/openstack.kolla/mariadb-server
-171481281f12: Mounted from quay.io/openstack.kolla/mariadb-server
-074180233b21: Mounted from quay.io/openstack.kolla/mariadb-server
-a494d9691a66: Mounted from quay.io/openstack.kolla/mariadb-server
-c8098817522d: Mounted from quay.io/openstack.kolla/mariadb-server
-fecd75825e6a: Mounted from quay.io/openstack.kolla/mariadb-server
-0b6672ce726b: Mounted from quay.io/openstack.kolla/mariadb-server
-26f209986b88: Mounted from quay.io/openstack.kolla/mariadb-server
+f0e0fd7e90a1: Mounted from openstack.kolla/nova-api
+e08eef10480e: Mounted from openstack.kolla/nova-api
+f1b0b4c5e194: Mounted from openstack.kolla/nova-api
+9b2803c6b3a0: Mounted from openstack.kolla/nova-api
+796753d46d4d: Mounted from openstack.kolla/nova-api
+fe482168720f: Mounted from openstack.kolla/nova-api
+2a61f2fdd58b: Mounted from openstack.kolla/nova-api
+9f21580af66a: Mounted from openstack.kolla/nova-api
+120ded57e1ea: Mounted from openstack.kolla/nova-api
+...
+
 ...
 ```
 </details>
 
+5. Check if the images have been successfully pushed to our the created local registry:
 
-5. Adjust the ```/etc/kolla/globals.yml``` file  the IP address and port on which the registry is listening:
+```sh
+$ curl -X GET http://localhost:4000/v2/_catalog | python3 -m json.tool
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```yaml
+ % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   993  100   993    0     0  37167      0 --:--:-- --:--:-- --:--:-- 38192
+{
+    "repositories": [
+        "openstack.kolla/cron",
+        "openstack.kolla/fluentd",
+        "openstack.kolla/glance-api",
+        "openstack.kolla/haproxy",
+        "openstack.kolla/heat-api",
+        "openstack.kolla/heat-api-cfn",
+        "openstack.kolla/heat-engine",
+        "openstack.kolla/horizon",
+        "openstack.kolla/keystone",
+        "openstack.kolla/keystone-fernet",
+        "openstack.kolla/keystone-ssh",
+        "openstack.kolla/kolla-toolbox",
+        "openstack.kolla/mariadb-server",
+        "openstack.kolla/memcached",
+        "openstack.kolla/neutron-dhcp-agent",
+        "openstack.kolla/neutron-l3-agent",
+        "openstack.kolla/neutron-metadata-agent",
+        "openstack.kolla/neutron-openvswitch-agent",
+        "openstack.kolla/neutron-server",
+        "openstack.kolla/nova-api",
+        "openstack.kolla/nova-compute",
+        "openstack.kolla/nova-conductor",
+        "openstack.kolla/nova-libvirt",
+        "openstack.kolla/nova-novncproxy",
+        "openstack.kolla/nova-scheduler",
+        "openstack.kolla/nova-ssh",
+        "openstack.kolla/openvswitch-db-server",
+        "openstack.kolla/openvswitch-vswitchd",
+        "openstack.kolla/placement-api",
+        "openstack.kolla/proxysql",
+        "openstack.kolla/rabbitmq"
+    ]
+}
+
+```
+</details>
+
+
+6. Adjust the ```/etc/kolla/globals.yml``` file  the IP address and port on which the registry is listening:
 ```sh
 $ sed -i 's/^#docker_registry:.*/docker_registry: 10.0.2.15:4000/g' /etc/kolla/globals.yml
 $ sed -i 's/^#docker_registry_insecure:.*/docker_registry_insecure: yes/g' /etc/kolla/globals.yml
 ```
+
+Now all OpenStack services containers will be pulled from the private Docker registry. 
+
+7. Optionally, clean up the pulled Docker images from default registry used by kolla-ansible ```quay.io/openstack.kolla```.  This can be done by removing the repository/tag of  ```quay.io/openstack.kolla``` using images names:
+
+```sh
+$ docker rmi $(docker images  | grep quay.io/openstack.kolla/ | awk '{print $1":"$2}')
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+Untagged: quay.io/openstack.kolla/keystone:master-rocky-9
+Untagged: quay.io/openstack.kolla/keystone@sha256:10ceaee146dc6040407ae61edc0d27c8f535815069130b9ca42c4368ab3fb059
+Untagged: quay.io/openstack.kolla/nova-compute:master-rocky-9
+Untagged: quay.io/openstack.kolla/nova-compute@sha256:feb2378a12cc48c15753cf1364e944ee3912aa50ca94342984d4d1ba047ec618
+Untagged: quay.io/openstack.kolla/neutron-server:master-rocky-9
+Untagged: quay.io/openstack.kolla/neutron-server@sha256:5c840cb90affa73607727613fa0550ca7d52d0e3b81cde4f2e16a7de7f511bbb
+Untagged: quay.io/openstack.kolla/neutron-dhcp-agent:master-rocky-9
+Untagged: quay.io/openstack.kolla/neutron-dhcp-agent@sha256:e770ed73b5601c42425aae6d1cf6c79edd38171e1a137270895a38e4b1f7edfc
+Untagged: quay.io/openstack.kolla/neutron-l3-agent:master-rocky-9
+Untagged: quay.io/openstack.kolla/neutron-l3-agent@sha256:a23dc43eb20bc22842e59354705164824ab1d2e8a66a9d419a2e577339b3edf4
+Untagged: quay.io/openstack.kolla/keystone-fernet:master-rocky-9
+Untagged: quay.io/openstack.kolla/keystone-fernet@sha256:d29730d8fb1ac45cd944094e2602264f36f954528e007aa846e47f9daccae22f
+Untagged: quay.io/openstack.kolla/neutron-openvswitch-agent:master-rocky-9
+Untagged: quay.io/openstack.kolla/neutron-openvswitch-agent@sha256:3ca91ff09bdfbf000e3dbfe706a7e25c0783269aa89e1c5084e01320e87b45d3
+Untagged: quay.io/openstack.kolla/neutron-metadata-agent:master-rocky-9
+...
+Untagged: quay.io/openstack.kolla/proxysql@sha256:d4726fad9fba2523a22e050fa59e80476cdf60f465db3d3bd5c8c51bb2f6ec90
+Untagged: quay.io/openstack.kolla/haproxy:master-rocky-9
+Untagged: quay.io/openstack.kolla/haproxy@sha256:9e1a3b199825d2f8a9879fdc8e95b6b4ef2074833584c4d0ab063c73efd9f922
+Untagged: quay.io/openstack.kolla/cron:master-rocky-9
+Untagged: quay.io/openstack.kolla/cron@sha256:2afcf15dffb82952dd5d44fcdf8169daac7c6f2ae1e2e5590a6fd9e959623cd8
+
+```
+</details>
+
+Double check the docker images using local repository:
+
+```sh
+$ docker images
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+REPOSITORY                                                 TAG              IMAGE ID       CREATED         SIZE
+localhost:4000/openstack.kolla/keystone                    master-rocky-9   ff390bd35ef5   9 hours ago     1.28GB
+localhost:4000/openstack.kolla/nova-compute                master-rocky-9   0fef86b10cbe   9 hours ago     2.03GB
+localhost:4000/openstack.kolla/neutron-server              master-rocky-9   e2483db9b9eb   9 hours ago     1.41GB
+localhost:4000/openstack.kolla/neutron-dhcp-agent          master-rocky-9   8589f4f2e6a5   9 hours ago     1.4GB
+localhost:4000/openstack.kolla/neutron-l3-agent            master-rocky-9   480341095aaa   9 hours ago     1.43GB
+localhost:4000/openstack.kolla/keystone-fernet             master-rocky-9   c0ab496f5dcd   9 hours ago     1.25GB
+localhost:4000/openstack.kolla/neutron-openvswitch-agent   master-rocky-9   8940772dced2   9 hours ago     1.4GB
+localhost:4000/openstack.kolla/neutron-metadata-agent      master-rocky-9   da4bf21b3940   9 hours ago     1.4GB
+localhost:4000/openstack.kolla/keystone-ssh                master-rocky-9   44772d62a4f7   9 hours ago     1.25GB
+localhost:4000/openstack.kolla/nova-ssh                    master-rocky-9   67107ff029e9   9 hours ago     1.48GB
+localhost:4000/openstack.kolla/nova-novncproxy             master-rocky-9   eb44a4919c12   9 hours ago     1.57GB
+localhost:4000/openstack.kolla/nova-scheduler              master-rocky-9   a415993b6a5e   9 hours ago     1.46GB
+localhost:4000/openstack.kolla/glance-api                  master-rocky-9   1d6002abbcfe   9 hours ago     1.32GB
+localhost:4000/openstack.kolla/nova-conductor              master-rocky-9   0acac0bd1576   9 hours ago     1.46GB
+localhost:4000/openstack.kolla/nova-api                    master-rocky-9   4f5dd6b73404   9 hours ago     1.46GB
+localhost:4000/openstack.kolla/heat-api                    master-rocky-9   748c3bdc90ea   9 hours ago     1.24GB
+localhost:4000/openstack.kolla/placement-api               master-rocky-9   216e72f18ccd   9 hours ago     1.17GB
+localhost:4000/openstack.kolla/heat-engine                 master-rocky-9   c16a56654f57   9 hours ago     1.24GB
+localhost:4000/openstack.kolla/heat-api-cfn                master-rocky-9   46b49a823bcb   9 hours ago     1.24GB
+localhost:4000/openstack.kolla/horizon                     master-rocky-9   03002f792742   9 hours ago     1.38GB
+localhost:4000/openstack.kolla/kolla-toolbox               master-rocky-9   be9fcf4b0bb9   9 hours ago     1.16GB
+localhost:4000/openstack.kolla/openvswitch-vswitchd        master-rocky-9   2cc8a65bcd43   9 hours ago     717MB
+localhost:4000/openstack.kolla/openvswitch-db-server       master-rocky-9   40bde37a6b96   9 hours ago     717MB
+localhost:4000/openstack.kolla/mariadb-server              master-rocky-9   09640f3ccb30   9 hours ago     1.09GB
+localhost:4000/openstack.kolla/nova-libvirt                master-rocky-9   22e98cd196eb   9 hours ago     1.43GB
+localhost:4000/openstack.kolla/memcached                   master-rocky-9   6e2945af43e2   9 hours ago     672MB
+localhost:4000/openstack.kolla/fluentd                     master-rocky-9   20063b76626f   9 hours ago     887MB
+localhost:4000/openstack.kolla/rabbitmq                    master-rocky-9   221d84cd11cf   9 hours ago     707MB
+localhost:4000/openstack.kolla/proxysql                    master-rocky-9   1b1d1d1d9cc9   9 hours ago     772MB
+localhost:4000/openstack.kolla/cron                        master-rocky-9   1a474460ab2d   9 hours ago     644MB
+localhost:4000/openstack.kolla/haproxy                     master-rocky-9   50d99640da1f   9 hours ago     659MB
+registry                                                   2                75ef5b734af4   12 months ago   25.4MB
+
+```
+</details>
+
 
 ## 3.Setting Up The CI/CD Pipeline:
 1. Update the local repo system and install OpenJDK:
@@ -831,7 +920,11 @@ docker_sdk_pip_packages:
   - "requests==2.31.0"
   - "dbus-python"
 ```
-And run the deployment again. 
+And run the deployment again or run:
+
+```sh
+$ pip3 install requests==2.31.0 
+```
 
 ### Error: Cron, kolla-box and fluentd containers fails to run during deployment
 
@@ -860,7 +953,11 @@ docker_sdk_pip_packages:
   - "requests==2.31.0"
   - "dbus-python"
 ```
-And run the deployment again. 
+And run the deployment again or run:
+
+```sh
+$ pip3 install requests==2.31.0 
+```
 
 ### Jenkins
 1. Git authentification access 
