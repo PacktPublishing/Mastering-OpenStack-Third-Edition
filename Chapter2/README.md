@@ -959,6 +959,80 @@ And run the deployment again or run:
 $ pip3 install requests==2.31.0 
 ```
 
+
+### Error: Precheck stage TASK [common : Check common containers]
+
+```sh
+failed: [localhost] (item={'key': 'fluentd', 'value': {'container_name': 'fluentd', 'group': 'fluentd', 'enabled': True, 'image': '10.0.2.15:4000/openstack.kolla/fluentd:master-rocky-9', 'environment': {'KOLLA_CONFIG_STRATEGY': 'COPY_ALWAYS'}, 'volumes': ['/etc/kolla/fluentd/:/var/lib/kolla/config_files/:ro', '/etc/localtime:/etc/localtime:ro', '/etc/timezone:/etc/timezone:ro', 'kolla_logs:/var/log/kolla/', 'fluentd_data:/
+...
+self._version = self._retrieve_server_version()\\n  File \"/usr/lib/python3/dist-packages/docker/api/client.py\", line 221, in _retrieve_server_version\\n    raise DockerException(\\ndocker.errors.DockerException: Error while fetching server API version: (\\'Connection aborted.\\', ConnectionRefusedError(111, \\'Connection refused\\'))\\n'"
+...
+
+```
+
+Check if the Docker daemon is running:
+
+```sh
+$ systemctl status docker
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+× docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Wed 2024-10-23 11:48:16 UTC; 1min 47s ago
+TriggeredBy: × docker.socket
+       Docs: https://docs.docker.com
+    Process: 27805 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock (code=exited, status=1/FAILURE)
+   Main PID: 27805 (code=exited, status=1/FAILURE)
+        CPU: 115ms
+
+Oct 23 11:48:16 ubuntu2204.localdomain systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+Oct 23 11:48:16 ubuntu2204.localdomain systemd[1]: Stopped Docker Application Container Engine.
+Oct 23 11:48:16 ubuntu2204.localdomain systemd[1]: docker.service: Start request repeated too quickly.
+Oct 23 11:48:16 ubuntu2204.localdomain systemd[1]: docker.service: Failed with result 'exit-code'.
+Oct 23 11:48:16 ubuntu2204.localdomain systemd[1]: Failed to start Docker Application Container Engine.
+
+```
+</details>
+
+Start the Docker daemon and double check the status:
+```sh
+$ systemctl start docker
+$ systemctl status docker
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2024-10-23 11:54:01 UTC; 2s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 29335 (dockerd)
+      Tasks: 11
+     Memory: 27.0M
+        CPU: 3.387s
+     CGroup: /system.slice/docker.service
+             └─29335 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Oct 23 11:53:56 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:53:56.761275747Z" level=info msg="detected 127.0.0.53 nameserver, assuming systemd-resolved, so using resolv.conf: /run/systemd/resolve/resolv.conf"
+Oct 23 11:53:57 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:53:57.115828707Z" level=info msg="[graphdriver] using prior storage driver: overlay2"
+Oct 23 11:53:58 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:53:58.308370041Z" level=info msg="Loading containers: start."
+Oct 23 11:53:59 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:53:59.445052351Z" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP add>
+Oct 23 11:53:59 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:53:59.776676248Z" level=warning msg="error locating sandbox id b8919b08bb2eaf578a22334615305e0c0b70dad4b99960bbe26aef26b1402af1: sandbox b8919b08bb2eaf578a2233461>
+Oct 23 11:54:00 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:54:00.730711208Z" level=info msg="Loading containers: done."
+Oct 23 11:54:01 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:54:01.345831519Z" level=info msg="Docker daemon" commit=41ca978 containerd-snapshotter=false storage-driver=overlay2 version=27.3.1
+Oct 23 11:54:01 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:54:01.346799915Z" level=info msg="Daemon has completed initialization"
+Oct 23 11:54:01 ubuntu2204.localdomain dockerd[29335]: time="2024-10-23T11:54:01.585754499Z" level=info msg="API listen on /run/docker.sock"
+Oct 23 11:54:01 ubuntu2204.localdomain systemd[1]: Started Docker Application Container Engine.
+
+```
+</details>
+
+
 ### Jenkins
 1. Git authentification access 
 jenkins user upgrade to sudoers users with NOPASSW: jenkins ALL=(ALL) NOPASSWD: ALL
