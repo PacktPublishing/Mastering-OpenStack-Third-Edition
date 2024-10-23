@@ -1033,6 +1033,68 @@ Oct 23 11:54:01 ubuntu2204.localdomain systemd[1]: Started Docker Application Co
 </details>
 
 
+
+### Error: kolla-ansible deploy hanging to start MariaDB service  
+```sh
+RUNNING HANDLER [mariadb : Wait for first MariaDB service port liveness] *******
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (10 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (9 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (8 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (7 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (6 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (5 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (4 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (3 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (2 retries left).
+FAILED - RETRYING: [localhost]: Wait for first MariaDB service port liveness (1 retries left).
+fatal: [localhost]: FAILED! => {"attempts": 10, "changed": false, "elapsed": 61, "msg": "Timeout when waiting for search string MariaDB in 10.0.2.15:3306"}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=64   changed=31   unreachable=0    failed=1    skipped=66   rescued=0    ignored=1
+```
+
+====> check Mariadb container logs: 
+
+```sh
+tail -f /var/log/kolla/mariadb/mariadb.log
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+2024-10-23 13:53:02 0 [Note] Server socket created on IP: '10.0.2.15'.
+2024-10-23 13:53:02 0 [ERROR] Can't start server: Bind on TCP/IP port. Got error: 98: Address already in use
+2024-10-23 13:53:02 0 [ERROR] Do you already have another server running on port: 3306 ?
+2024-10-23 13:53:02 0 [ERROR] Aborting'
+```
+</details>
+
+
+```sh
+$ netstat -anp | grep 3306
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+tcp        0      0 10.0.2.15:3306          10.0.2.15:38828         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:57404         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:50990         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:50994         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:38836         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:57388         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:38820         TIME_WAIT   -
+tcp        0      0 10.0.2.15:3306          10.0.2.15:50978         TIME_WAIT   -
+```
+</details>
+
+Kill the processes:
+
+```sh
+$ fuser 3306/tcp
+```
+
 ### Jenkins
 1. Git authentification access 
 jenkins user upgrade to sudoers users with NOPASSW: jenkins ALL=(ALL) NOPASSWD: ALL
