@@ -12,7 +12,7 @@ The Chapter initiates the deployment of an OpenStack environment in different st
 6. **Bonus Section 2**: Troubleshooting of most encoutred issues when running an OpenStack deployment.  
 5. **Bonus Section 3**: 
 
-## 1.Deployment in a Local Environment:
+## Deployment in a Local Environment:
 ### System and Software Requirements:
 
 To deploy OpenStack in a test/local environment, an environment can be installed in a physical or virtual machine with the following minimum hardware and software pre-requesities:
