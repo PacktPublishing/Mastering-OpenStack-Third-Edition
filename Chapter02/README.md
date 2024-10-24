@@ -991,24 +991,7 @@ Click on ```OK````
 
 
 # 5. Troubleshooting:
-
-### VirtualBox installation
-### Vagrant installation
-
-### Vagrant disksize plugin: 
-Issue with Vagrant version below 2.X.X
-
-### Vagrant UP Run 
-
-### Vagrant SSH too long
-
-### Vagrant new configuation breaks
-
-### Openstack Deplyoment: Docker missing
-sudo apt-get install python3-dev libffi-dev gcc libssl-dev docker -y  
-OR apt install docker.io
-
-## Deploy or reconfigure fails: 
+## Deploy or Reconfigure Failure: 
 ### Error: Not supported URL scheme http+docker
 
 ```sh
@@ -1029,11 +1012,13 @@ docker_sdk_pip_packages:
   - "requests==2.31.0"
   - "dbus-python"
 ```
-And run the deployment again or run:
+Install the updated version:
 
 ```sh
 $ pip3 install requests==2.31.0 
 ```
+
+Rerun the deployment pipeline.
 
 ### Error: Cron, kolla-box and fluentd containers fails to run during deployment
 
@@ -1062,12 +1047,13 @@ docker_sdk_pip_packages:
   - "requests==2.31.0"
   - "dbus-python"
 ```
-And run the deployment again or run:
+Install the updated version:
 
 ```sh
 $ pip3 install requests==2.31.0 
 ```
 
+Rerun the deployment pipeline.
 
 ### Error: Precheck stage TASK [common : Check common containers]
 
@@ -1198,22 +1184,44 @@ tcp        0      0 10.0.2.15:3306          10.0.2.15:50978         TIME_WAIT   
 ```
 </details>
 
-Kill the processes:
+Kill the stale processes:
 
 ```sh
 $ fuser 3306/tcp
 ```
 
-### Jenkins
-1. Git authentification access 
-jenkins user upgrade to sudoers users with NOPASSW: jenkins ALL=(ALL) NOPASSWD: ALL
-Add /bin/bash for the Jenkins shell configuration to execute 
 
-2. Pipeline failure: 
+
+## Jenkins Pipeline Run
+### Error: Jenkins User Permissions
+
+```sh
+ERROR:kolla.common.utils:Unable to connect to container engine daemon, exiting
+```
+Similar issue with permissions for Jenkins user can be fixed by upgrading the ```jenkins```user in deployer host in ```sudoers``` file:
+
+As root, edit the ```/etc/sudoers``` and add the following:
+```sh
+$ vim /etc/sudoers
+```
+```sh
+...
+ jenkins ALL=(ALL) NOPASSWD: ALL
+... 
+```
+
+### Error: Jenkins Workspace source not found
+
 ```sh
 /var/lib/jenkins/workspace/openstack-dev@tmp/durable-4228d9ca/script.sh.copy: 7: source: not found
 ```
---> ReRun the Pipeline due to cache 
+Multiple runs can result on some stalling caches for each job execution  
+
+
+Removing the temporary workspace and rerunning the job pipeline should solve the issue.
+
+
+### Error:  Pipeline Jenkins failure (Step Bootstrap Server Script)
 
 3. Pipeline Jenkins failure (Step Bootstrap Server Script)
 ```sh
@@ -1229,16 +1237,99 @@ The offending line appears to be:
       ^ here
 ```
 
---> Run 
+When installing the required packages, make sure to source the python virtual enviornment if being used and run:
+
 ```sh
 kolla-ansible install-deps
 ```
 
-### Anchore
-https://github.com/anchore/anchore-cli
-Entreprise Edition Workaround
+## Anchore Engine VS Anchore Enterprise
+The book uses ```Anchore Engine``` as a container inspection and analysis service. ```Anchore Engine``` has been moved to an ```Anchore Entreprise ``` edition and no longer maintained as an open-source project (https://github.com/anchore/anchore-engine).
+At the time of publishing the book, the new Jenkins Anchore plugin is developed to use only ``` Anchore Entreprise``` as shown here:
+![WelcomeJenkins](IMG/TS1.png)
+
+You can still use trial verison of ``` Anchore Entreprise``` for free as described here: https://docs.anchore.com/3.0/docs/quickstart/
+It will be required to have:
+- DockerHub account 
+- License obtained from the Anchore account creation (trial license)
+
+The ```Anchore Engine``` still can be used using command lines as the Jenkins plugins supports only ``` Anchore Entreprise``` since August 2024. 
 
 
+## Anchore CLI
+1. At the time of writing the book, the ```Anchore CLI``` open-source project is no longer maintained (10th July 2024) but can still be used either with  ```Anchore Engine``` or ```Anchore Entreprise ``` (https://github.com/anchore/anchore-cli)
+To install the ```Anchore CLI``` client on the deployer host, make sure to run the following command line (for Ubuntu OS)
+
+```sh
+$ apt-get update
+$ apt-get install python-pip
+$ pip install anchorecli
+$ export PATH="$HOME/.local/bin/:$PATH"
+```
+Check if ```Anchore CLI``` is correctly installed:
+
+```sh
+$ anchore-cli -h
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+Usage: anchore-cli [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --config TEXT       Set the location of the anchore-cli yaml configuration
+                      file
+  --debug             Debug output to stderr
+  --u TEXT            Username (or use environment variable ANCHORE_CLI_USER)
+  --p TEXT            Password (or use environment variable ANCHORE_CLI_PASS)
+  --url TEXT          Service URL (or use environment variable
+                      ANCHORE_CLI_URL)
+  --hub-url TEXT      Anchore Hub URL (or use environment variable
+                      ANCHORE_CLI_HUB_URL)
+  --api-version TEXT  Explicitly specify the API version to skip checking.
+                      Useful when swagger endpoint is inaccessible
+  --insecure          Skip SSL cert checks (or use environment variable
+                      ANCHORE_CLI_SSL_VERIFY=<y/n>)
+  --json              Output raw API JSON
+  --as-account TEXT   Set account context for the command to another account
+                      than the one the user belongs to. Subject to authz
+  --version           Show the version and exit.
+  -h, --help          Show this message and exit.
+
+Commands:
+  account           Account operations
+  analysis-archive  Archive operations
+  enterprise        Enterprise Anchore operations
+  evaluate          Policy evaluation operations
+  event             Event operations
+  help
+  image             Image operations
+  policy            Policy operations
+  query             Query operations
+  registry          Registry operations
+  repo              Repository operations
+  subscription      Subscription operations
+  system            System operations
+```
+</details>
+
+
+2. ```Anchore CLI``` will reach by default the ```Anchore Engine``` or ```Anchore Entreprise ``` server at ```http://localhost/v1 ``` that without a username and password for authentication. That can be set as envionment variables in Jenkins instance:
+```sh
+export ANCHORE_CLI_URL=http://localhost:8228/v1
+ANCHORE_CLI_USER=admin
+ANCHORE_CLI_PASS=foobar
+```
+
+> [!CAUTION]
+> Note that the pair ```admin/foobar``` are the default ```Anchore``` authentication variables (in docker-compose.yaml file) and must be changed as a security best practice. 
+
+
+
+
+
+# Operation User Guides: 
 ## Nova user Guide: Create VM
 
 1. Prepare image using Cirros image (https://docs.openstack.org/mitaka/install-guide-obs/glance-verify.html) (https://docs.openstack.org/image-guide/obtain-images.html#cirros-test)
