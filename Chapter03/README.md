@@ -1,11 +1,13 @@
 # Chapter 3
-OpenStack Control Plane - Shared Services
+## OpenStack Control Plane - Shared Services
 
 ## Description
 
-The Chapter initiates the deployment of an OpenStack environment in different steps:
-1. Multi Node Setup
-2. Create a private repository to host the infrastructure code for future collaboration and maintenance
+The Chapter initiates the deployment of an OpenStack environment for multi-node environment including:
+1. 1 x Cloud Controller Node
+2. 1 x Compute Node
+3. 1 x Network Node
+4. 1 x Storage Node
 
 
 
