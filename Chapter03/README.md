@@ -31,7 +31,6 @@ The chapter uses the different tools and software versions:
 - **kolla-ansible**: Latest and stable version from OpenStack Git master branch  (_Description in next section_)
 - **Python**: Version 3.XX
 - **Ansible Core**: Any version between ```2.16```  and ```2.17.99```.
-- **Vagrant**: Latest Version  ```2.4.1``` (_At the time of writing this edition_).
 - **Jenkins**: Any version for the latest Ubuntu/Debian Jenkins repository (_Description in next section_)
 
 ### Code - How-To:
