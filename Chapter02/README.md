@@ -1319,17 +1319,23 @@ Commands:
 
 2. ```Anchore CLI``` will reach by default the ```Anchore Engine``` or ```Anchore Entreprise ``` server at ```http://localhost/v1 ``` that without a username and password for authentication. That can be set as envionment variables in Jenkins instance:
 ```sh
-export ANCHORE_CLI_URL=http://localhost:8228/v1
-ANCHORE_CLI_USER=admin
-ANCHORE_CLI_PASS=foobar
+
+$ export ANCHORE_CLI_URL=http://localhost:8228/v1
+
+$ export ANCHORE_CLI_USER=admin
+
+$ export ANCHORE_CLI_PASS=foobar
 ```
 
 > [!CAUTION]
 > Note that the pair ```admin/foobar``` are the default ```Anchore``` authentication variables (in docker-compose.yaml file) and must be changed as a security best practice. 
 
 
-
-
+3. Create a local Docker registry with registry authentication
+```sh
+docker container run -d -p 4000:4000 --name registry_basic -v "$(pwd)"/auth:/auth -v "$(pwd)"/certs:/certs -e REGISTRY_AUTH=htpasswd -e REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm" -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key master_registry
+e8ea5c81e4e24781b9adc2aca634f9b83adb35004bd4d6c82d9ca886bae3f3f9
+```
 
 # Operation User Guides: 
 ## Nova user Guide: Create VM
