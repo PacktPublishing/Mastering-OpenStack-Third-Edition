@@ -15,13 +15,9 @@ The Chapter initiates the deployment of an OpenStack environment for multi-node 
 
 The Chapter uses the kolla-ansible community [repostority](https://github.com/openstack/kolla-ansible).
 
- Start by cloning the project code from Github:
-```
-git clone https://github.com/openstack/kolla-ansible.git
-```
+The Chapter primarl
 
-> [!TIP]
-> Blank.
+
 
 
 You can check the branch naming standard used by the OpenStack community in the Github page by clicking on the Switch branches/tags button the top right of the page:
