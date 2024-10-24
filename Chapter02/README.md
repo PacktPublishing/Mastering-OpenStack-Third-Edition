@@ -559,7 +559,7 @@ Now all OpenStack services containers will be pulled from the private Docker reg
 7. Optionally, clean up the pulled Docker images from default registry used by kolla-ansible ```quay.io/openstack.kolla```.  This can be done by removing the repository/tag of  ```quay.io/openstack.kolla``` using images names:
 
 ```sh
-$ docker rmi $(docker images  | grep quay.io/openstack.kolla/ | awk '{print $1":"$2}')
+$ docker rmi $(docker images  | grep -v localhost:4000  | grep quay.io/openstack.kolla | awk '{print $1":"$2}')
 ```
 
 <details close>
@@ -1248,7 +1248,9 @@ The book uses ```Anchore Engine``` as a container inspection and analysis servic
 At the time of publishing the book, the new Jenkins Anchore plugin is developed to use only ``` Anchore Entreprise``` as shown here:
 ![WelcomeJenkins](IMG/TS1.png)
 
-You can still use trial verison of ``` Anchore Entreprise``` for free as described here: https://docs.anchore.com/3.0/docs/quickstart/
+The latest updates of the Anchore Jenkins plugin can be found [here](https://plugins.jenkins.io/anchore-container-scanner/)
+
+You can still use trial verison of ``` Anchore Entreprise``` for free as described [here](here: )https://docs.anchore.com/3.0/docs/quickstart/)
 It will be required to have:
 - DockerHub account 
 - License obtained from the Anchore account creation (trial license)
