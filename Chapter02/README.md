@@ -203,7 +203,7 @@ TBD
 You can also run the following command lines to get the same settings in the ```/etc/kolla/globals.yaml``` file  :
 <br />
 
-```
+```sh
 sed -i 's/^#kolla_base_distro:.ls*/kolla_base_distro: "ubuntu"/g' /etc/kolla/globals.yml
 sed -i 's/^#enable_haproxy:.*/enable_haproxy: "no"/g' /etc/kolla/globals.yml
 sed -i 's/^#network_interface:.*/network_interface: "eth0"/g' /etc/kolla/globals.yml
@@ -831,7 +831,7 @@ Login Succeeded
 ```
 </details>
 
-2. Download Anchore ClI:
+2. Download Anchore CLI:
 ```sh
 $ git clone https://github.com/anchore/anchore-cli
 ```
@@ -875,11 +875,9 @@ Successfully installed Click-8.0.1 anchorecli-0.9.4 charset-normalizer-2.0.12 pr
 ```
 </details>
 
-4. 
 
 
-
-1. Download the Docker compose of the Anchore image:
+4. Download the Docker compose of the Anchore image:
 ```sh
 $ curl https://engine.anchore.io/docs/quickstart/docker-compose.yaml > docker-compose.yaml
 ```
@@ -893,13 +891,13 @@ $ curl https://engine.anchore.io/docs/quickstart/docker-compose.yaml > docker-co
 ```
 </details>
 
-2. Install ```docker-compose``` if not installed yet:
+5. Install ```docker-compose``` if not installed yet:
 
 ```sh
 $ sudo apt install docker-compose
 ```
 
- 3. Deploy the docker container of from the docker-compose file to run the Anchore engine:
+ 6. Deploy the docker container of from the docker-compose file to run the Anchore engine:
  ```sh
  $ docker-compose up -d
  ```
