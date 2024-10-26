@@ -8,9 +8,8 @@ The Chapter initiates the deployment of an OpenStack environment in different st
 2. Setup a deployer host running a CI/CD Tool using Jenkins 
 3. Create CI/CD pipeline for the OpenStack code deployment. 
 4. Include a security stage check in the CI/CD pipeline to scan and test OpenStack services running in Kolla containers before proceeding the deployment in the target environment
-5. **Bonus Section 1**: Guide through the different requirements to create a first instance.
-6. **Bonus Section 2**: Troubleshooting of most encoutred issues when running an OpenStack deployment.  
-5. **Bonus Section 3**: 
+6. **Bonus Section**: Troubleshooting of most encoutred issues when running an OpenStack deployment.  
+
 
 
 ## System and Software Requirements:
