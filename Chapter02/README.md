@@ -960,6 +960,7 @@ f126374d667e   postgres:9                      "docker-entrypoint.s…"   13 min
 ![WelcomeJenkins](IMG/Anchore05.png)
 
 The following steps will use a ```Pipeline``` job:
+
 ![WelcomeJenkins](IMG/Anchore06.png)
 
 Click  `OK`
@@ -982,7 +983,7 @@ Click  `OK`
 Change the Docker SDK package version for ```requests``` in ```/.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml```file from ```requests<2.32``` to ```requests==2.31```:
 
 ```sh
-# vim /.ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml
+$ vim .ansible/collections/ansible_collections/openstack/kolla/roles/docker_sdk/defaults/main.yml
 ```
 
 ```yaml
@@ -1128,7 +1129,7 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=64   changed=31   unreachable=0    failed=1    skipped=66   rescued=0    ignored=1
 ```
 
-====> check Mariadb container logs: 
+Check the Mariadb container logs: 
 
 ```sh
 tail -f /var/log/kolla/mariadb/mariadb.log
@@ -1143,6 +1144,8 @@ tail -f /var/log/kolla/mariadb/mariadb.log
 2024-10-23 13:53:02 0 [ERROR] Aborting'
 ```
 </details>
+
+`3306` seems it is being used by other process that can a from previous failed deployments. List the processes using the port: 
 
 
 ```sh
@@ -1164,12 +1167,13 @@ tcp        0      0 10.0.2.15:3306          10.0.2.15:50978         TIME_WAIT   
 ```
 </details>
 
-Kill the stale processes:
+Kill the  processes using the port:
 
 ```sh
 $ fuser 3306/tcp
 ```
 
+Rerun the pipeline to deploy again the Mariadb containers. 
 
 
 ## Jenkins Pipeline Run
@@ -1178,7 +1182,7 @@ $ fuser 3306/tcp
 ```sh
 ERROR:kolla.common.utils:Unable to connect to container engine daemon, exiting
 ```
-Similar issue with permissions for Jenkins user can be fixed by upgrading the ```jenkins```user in deployer host in ```sudoers``` file:
+Similar issue with permissions for Jenkins user can be fixed by upgrading the ```jenkins```user in the Deployer host by adjusting the ```sudoers``` file:
 
 As root, edit the ```/etc/sudoers``` and add the following:
 ```sh
@@ -1203,7 +1207,7 @@ Removing the temporary workspace and rerunning the job pipeline should solve the
 
 ### Error:  Pipeline Jenkins failure (Step Bootstrap Server Script)
 
-3. Pipeline Jenkins failure (Step Bootstrap Server Script)
+
 ```sh
 ERROR! the role 'openstack.kolla.baremetal' was not found in /usr/local/share/kolla-ansible/ansible/roles:/var/lib/jenkins/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/usr/local/share/kolla-ansible/ansible
 
@@ -1216,31 +1220,33 @@ The offending line appears to be:
     - { role: openstack.kolla.baremetal,
       ^ here
 ```
-
+The issue might appear during the pipeline stage ```Pipeline Jenkins failure (Step Bootstrap Server Script)```.
 When installing the required packages, make sure to source the python virtual enviornment if being used and run:
 
 ```sh
-kolla-ansible install-deps
+$ kolla-ansible install-deps
 ```
 
 ## Anchore Engine VS Anchore Enterprise
 The book uses ```Anchore Engine``` as a container inspection and analysis service. ```Anchore Engine``` has been moved to an ```Anchore Entreprise ``` edition and no longer maintained as an open-source project (https://github.com/anchore/anchore-engine).
-At the time of publishing the book, the new Jenkins Anchore plugin is developed to use only ``` Anchore Entreprise``` as shown here:
+At the time of publishing the book, the new Jenkins Anchore plugin is developed to use only ``` Anchore Entreprise``` as shown here (The chapter was released before the Plugin changed):
+
 ![WelcomeJenkins](IMG/TS1.png)
 
 The latest updates of the Anchore Jenkins plugin can be found [here](https://plugins.jenkins.io/anchore-container-scanner/)
 
-You can still use trial verison of ``` Anchore Entreprise``` for free as described [here](here: )https://docs.anchore.com/3.0/docs/quickstart/)
+You can still use trial verison of ``` Anchore Entreprise``` for free as described [here](https://docs.anchore.com/3.0/docs/quickstart/)
 It will be required to have:
 - DockerHub account 
 - License obtained from the Anchore account creation (trial license)
 
-The ```Anchore Engine``` still can be used using command lines as the Jenkins plugins supports only ``` Anchore Entreprise``` since August 2024. 
+The ```Anchore Engine``` still can be used using `Anchore CLI` as the Jenkins plugins supports only ``` Anchore Entreprise``` since August 2024. 
 
 
 ## Anchore CLI
-1. At the time of writing the book, the ```Anchore CLI``` open-source project is no longer maintained (10th July 2024) but can still be used either with  ```Anchore Engine``` or ```Anchore Entreprise ``` (https://github.com/anchore/anchore-cli)
-To install the ```Anchore CLI``` client on the deployer host, make sure to run the following command line (for Ubuntu OS)
+1. At the time of writing the book, the ```Anchore CLI``` open-source project is no longer maintained (10th July 2024) but can still be used either with  ```Anchore Engine``` or ```Anchore Entreprise ``` (https://github.com/anchore/anchore-cli).
+
+To install the ```Anchore CLI``` client on the deployer host, make sure to run the following command line (for Ubuntu OS):
 
 ```sh
 $ apt-get update
@@ -1297,7 +1303,7 @@ Commands:
 </details>
 
 
-2. ```Anchore CLI``` will reach by default the ```Anchore Engine``` or ```Anchore Entreprise ``` server at ```http://localhost/v1 ``` that without a username and password for authentication. That can be set as envionment variables in Jenkins instance:
+2. ```Anchore CLI``` will reach by default the ```Anchore Engine``` or ```Anchore Entreprise ``` server at ```http://localhost/v1 ```  without a username and password for authentication. That can be set as envionment variables in Jenkins Deployer host:
 ```sh
 
 $ export ANCHORE_CLI_URL=http://localhost:8228/v1
@@ -1308,74 +1314,14 @@ $ export ANCHORE_CLI_PASS=foobar
 ```
 
 > [!CAUTION]
-> Note that the pair ```admin/foobar``` are the default ```Anchore``` authentication variables (in docker-compose.yaml file) and must be changed as a security best practice. 
+> Note that the pair ```admin/foobar``` are the default ```Anchore``` authentication variables and must be changed as a security best practice. 
 
 
-3. Create a local Docker registry with registry authentication
+3. Add the local Docker Registry using Anchore CLI:
 ```sh
-docker container run -d -p 4000:4000 --name registry_basic -v "$(pwd)"/auth:/auth -v "$(pwd)"/certs:/certs -e REGISTRY_AUTH=htpasswd -e REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm" -e REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key master_registry
-e8ea5c81e4e24781b9adc2aca634f9b83adb35004bd4d6c82d9ca886bae3f3f9
+anchore-cli registry add localhost:4000
 ```
+> [!IMPORTANT]
+> Make sure to change the registry host address that fits your configuration.
 
-# Operation User Guides: 
-## Nova user Guide: Create VM
-
-1. Prepare image using Cirros image (https://docs.openstack.org/mitaka/install-guide-obs/glance-verify.html) (https://docs.openstack.org/image-guide/obtain-images.html#cirros-test)
- the login account is cirros. The password is gocubsgo.
-
-$ wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
-
-2. Upload the image to Glance:
-
-```
-$ openstack image create 'Cirros' --file cirros-0.6.2-x86_64-disk.img --disk-format qcow2 --container-format bare --public
-```
-
-
-<details close>
-  <summary>Output</summary>
-
-  ```sh
-
-+------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| Field            | Value                                                                                                                                      |
-+------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| container_format | bare                                                                                                                                       |
-| created_at       | 2024-10-17T16:24:34Z                                                                                                                       |
-| disk_format      | qcow2                                                                                                                                      |
-| file             | /v2/images/a0198d59-6b58-4885-8aa8-cf41dba0a898/file                                                                                       |
-| id               | a0198d59-6b58-4885-8aa8-cf41dba0a898                                                                                                       |
-| min_disk         | 0                                                                                                                                          |
-| min_ram          | 0                                                                                                                                          |
-| name             | Cirros                                                                                                                                     |
-| owner            | aa7e03d921cb4aec85e7c086abbfb99f                                                                                                           |
-| properties       | os_hidden='False', owner_specified.openstack.md5='', owner_specified.openstack.object='images/Cirros', owner_specified.openstack.sha256='' |
-| protected        | False                                                                                                                                      |
-| schema           | /v2/schemas/image                                                                                                                          |
-| status           | queued                                                                                                                                     |
-| tags             |                                                                                                                                            |
-| updated_at       | 2024-10-17T16:24:34Z                                                                                                                       |
-| visibility       | public                                                                                                                                     |
-+------------------+--------------------------------------------------------------------------------------------------------------------------------------------+
-  ```
-
-</details>
-
-3. Veriy the image:
-
-```
-$ openstack image list
-```
-<details close>
-  <summary>Output</summary>
-
-  ```sh
-+--------------------------------------+----------------------+--------+
-| ID                                   | Name                 | Status |
-+--------------------------------------+----------------------+--------+
-| a0198d59-6b58-4885-8aa8-cf41dba0a898 | Cirros               | active |
-| 9be4165a-45a7-4d55-b2ef-65ed8d243adc | manila-service-image | active |
-+--------------------------------------+----------------------+--------+
-```
-</details>
 
