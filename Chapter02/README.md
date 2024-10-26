@@ -12,8 +12,8 @@ The Chapter initiates the deployment of an OpenStack environment in different st
 6. **Bonus Section 2**: Troubleshooting of most encoutred issues when running an OpenStack deployment.  
 5. **Bonus Section 3**: 
 
-## Deployment in a Local Environment:
-### System and Software Requirements:
+
+## System and Software Requirements:
 
 To deploy OpenStack in a test/local environment, an environment can be installed in a physical or virtual machine with the following minimum hardware and software pre-requesities:
 
@@ -52,7 +52,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 > [!IMPORTANT]
 > The cloned code is based on the master branch. OpenStack community keeps maintaining the kolla-ansible code of the latest 3 releases of OpenStack. It is recommended to use the master branch.  
 
-### Code - How-To:
+## 1. Deployment in a Local Environment:
 
 1. Update the package lists from the repositories of Ubuntu OS:
 ```
