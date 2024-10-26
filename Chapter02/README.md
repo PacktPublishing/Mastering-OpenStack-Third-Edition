@@ -195,71 +195,64 @@ sed -i 's/^#kolla_internal_vip_address:.*/kolla_internal_vip_address: "10.0.2.15
 18. Generate the OpenStack services secretes:
 
 ```sh
-# kolla-genpwd -p /etc/kolla/passwords.yml
+kolla-genpwd -p /etc/kolla/passwords.yml
 ```
 
 
 
 19. Bootstrap the OpenStack services in ```all-in-one``` configuration:
 ```sh
-# kolla-ansible -i /etc/kolla/all-in-one bootstrap-servers
+kolla-ansible -i /etc/kolla/all-in-one bootstrap-servers
 ```
 <details close>
   <summary>Output</summary>
 
 ![Bootstrap](IMG/kolla-ansible-bootstraps.png)
-```
+
 </details>
 
 20. Run The Pre-checks script in ```all-in-one``` configuration:
+```sh
+kolla-ansible -i /etc/kolla/all-in-one prechecks
 ```
-# kolla-ansible -i /etc/kolla/all-in-one prechecks
-```
+
 <details close>
   <summary>Output</summary>
 
-  ```sh
-TBD
-```
+![PRECHECKS](IMG/kolla-ansible-prechecks.png)
+
 </details>
 
 21. Run the OpenStack services deployment in ```all-in-one``` configuration:
-```
-# kolla-ansible -i /etc/kolla/all-in-one deploy
+
+```sh
+kolla-ansible -i /etc/kolla/all-in-one deploy
 ```
 <details close>
   <summary>Output</summary>
 
-  ```sh
-TBD
-```
+  ![PRECHECKS](IMG/kolla-ansible-deploy.png)
+
 </details>
 
 22. Verify that all containers are up and running and in ```healthy``` status:
 
-```
-# docker ps -a
+```sh
+docker ps -a
 ```
 
 ![List Container Services](IMG/docker-ps-a-all.png)
 
 
 23. Run post deploy script to generate cloud configuration file:
+```sh
+kolla-ansible -i /etc/kolla/all-in-one post-deploy
 ```
-# kolla-ansible -i /etc/kolla/all-in-one post-deploy
-```
-<details close>
-  <summary>Output</summary>
-
-  ```sh
-TBD
-```
-</details>
 
 22. Check the config file generated under ```/etc/kolla/``` named ```clouds.yaml```:
 
-```
-# cat /etc/kolla/clouds.yaml
+```sh
+cat /etc/kolla/clouds.yaml
 ```
 <details close>
   <summary>Output</summary>
@@ -275,8 +268,8 @@ TBD
 ```
 24. To interact with the dashboard for ```admin``` user, capture the password from either the  ```clouds.yaml```,  ```admin_openrc.sh``` or simply from ```passwords.yml``` file:
 
-```
-# grep keystone_admin_password /etc/kolla/passwords.yml
+```sh
+grep keystone_admin_password /etc/kolla/passwords.yml
 ```
 
 <details close>
@@ -296,7 +289,7 @@ TBD
 26. To interact with OpenStack services using CLI, install the OpenStack client CLI tools:
 
 ```
-# pip install python-openstackclient
+pip install python-openstackclient
 ```
 
 27. Make sure the variables in the ```admin-openrc.sh``` are sourced and verify the OpenStack CLI:
