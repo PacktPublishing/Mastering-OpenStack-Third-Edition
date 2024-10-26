@@ -55,24 +55,24 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 ## 1. Deployment in a Local Environment:
 
 1. Update the package lists from the repositories of Ubuntu OS:
-```
+```sh
 $ sudo apt-get update
 ```
 
 2. Install ```Virtualbox``` in the local machine:
-```
+```sh
 $ sudo apt install -y virtualbox virtualbox-ext-pack
 ```
 
 3. Install the Vagrant version ```2.4.1```:
-```
+```sh
 $ wget https://releases.hashicorp.com/vagrant/2.4.1/vagrant-2.4.1-1.x86_64.rpm
 $ sudo apt install rpm
 $ sudo rpm -i vagrant-2.4.1-1.x86_64.rpm
 ```
 
 4. Check the installed version of ```vagrant```:
-```
+```sh
 $ vagrant version
 ```
 
@@ -88,13 +88,13 @@ You're running an up-to-date version of Vagrant!
 
 5. Install ```disksize``` plugin for Vagrant to define disk medium to Vagrant host guests and allow disk resize:
 
-```
+```sh
 $ vagrant plugin install vagrant-disksize
 ```
 
 6. Create optionally a shared directory for Vagrant guest hosts:
 
-```
+```sh
 $ mkdir openstack_deploy
 ```
 
@@ -109,7 +109,7 @@ $ mkdir openstack_deploy
 - ```vb.cpus```: Set CPU cores of 4 
 
 8. Save the file and run the deployment of the Vagrant guest machine:
-```
+```sh
 $ vagrant up
 ```
 
@@ -129,17 +129,11 @@ Progress: 90%
 $ vagrant ssh
 ```
 
-<details close>
-  <summary>Output</summary>
 
-  ```sh
-TBD
-```
-</details>
 
 10. Once logged in, install the following packages and dependencies:
 
-```
+```sh
 $ sudo -i
 # apt update -y
 # apt install python3-dev libffi-dev gcc libssl-dev python3-venv
@@ -155,46 +149,37 @@ $ sudo -i
 
 12. Install ```pip```:
 
-```
+```sh
 (local)# pip install -U pip
 ```
 
 <details close>
   <summary>Output</summary>
 
-  ```sh
-TBD
-```
-</details>
+
 
 13. Install Ansible core:
-```
+```sh
 (local)# pip install 'ansible-core>=2.16,<2.17.99'
 ```
 
 14. Install kolla-ansible:
-```
+```sh
 (local)# pip install git+https://opendev.org/openstack/kolla-ansible@master
 (local)# kolla-ansible install-deps
 ```
 
-<details close>
-  <summary>Output</summary>
 
-  ```sh
-TBD
-```
-</details>
 
 15. Create a new directory locally to prepare for the kolla-ansible run:
-```
+```sh
 (local)# mkdir -p /etc/kolla
 (local)# chown $USER:$USER /etc/kolla
 ```
 
 16. Step ```14``` should have downloaded example files of kolla-ansibe repository that should be located under ```/local/share/kolla-ansible/```. Copy skeleton files for both `all-in-one` inventory and ```globals.yaml``` files under ```/etc/kolla```directory:
 
-```
+```sh
 (local)# cp -r local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
 (local)# cp -r /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla 
 ```
@@ -213,27 +198,20 @@ sed -i 's/^#kolla_internal_vip_address:.*/kolla_internal_vip_address: "10.0.2.15
 
 18. Generate the OpenStack services secretes:
 
-```
+```sh
 # kolla-genpwd -p /etc/kolla/passwords.yml
 ```
-<details close>
-  <summary>Output</summary>
 
-  ```sh
-TBD
-```
-</details>
 
 
 19. Bootstrap the OpenStack services in ```all-in-one``` configuration:
-```
+```sh
 # kolla-ansible -i /etc/kolla/all-in-one bootstrap-servers
 ```
 <details close>
   <summary>Output</summary>
 
-  ```sh
-TBD
+![Bootstrap](IMG/kolla-ansible-bootstraps.png)
 ```
 </details>
 
