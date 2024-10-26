@@ -125,7 +125,7 @@ Progress: 90%
 
 9. SSH the Vagrant guest from the local machine (_username/password are NOT required_):
 
-```
+```sh
 $ vagrant ssh
 ```
 
@@ -134,17 +134,17 @@ $ vagrant ssh
 10. Once logged in, install the following packages and dependencies:
 
 ```sh
-$ sudo -i
-# apt update -y
-# apt install python3-dev libffi-dev gcc libssl-dev python3-venv
-# apt install python3-pip
+sudo -i
+apt update -y
+apt install python3-dev libffi-dev gcc libssl-dev python3-venv
+apt install python3-pip
 ```
 
 11. Create optionally a Python virtual envionment:
 
-```
-# python3 -m venv local
-# source local/bin/activate
+```sh
+python3 -m venv local
+source local/bin/activate
 ```
 
 12. Install ```pip```:
@@ -152,10 +152,6 @@ $ sudo -i
 ```sh
 (local)# pip install -U pip
 ```
-
-<details close>
-  <summary>Output</summary>
-
 
 
 13. Install Ansible core:
