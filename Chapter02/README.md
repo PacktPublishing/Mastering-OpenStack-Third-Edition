@@ -875,7 +875,7 @@ $ curl https://engine.anchore.io/docs/quickstart/docker-compose.yaml > docker-co
 $ sudo apt install docker-compose
 ```
 
- 6. Deploy the docker container from the `docker-composes` file to run the Anchore engine:
+ 5. Deploy the docker container from the `docker-compose.yaml` file to run the Anchore engine:
  ```sh
  $ docker-compose up -d
  ```
@@ -953,19 +953,21 @@ f126374d667e   postgres:9                      "docker-entrypoint.s…"   13 min
 
 ![WelcomeJenkins](IMG/Anchore03.png)
 
-2. Navigate to main Jenkins dashboard, and click on ```Create a new Job```:
+2. Navigate to the main Jenkins dashboard, and click on ```Create a new Job```:
 ![WelcomeJenkins](IMG/Anchore04.png)
 
-3. Choose between a ```Freestyle project``` or ```pipeline```. The ```Freestyle project``` includes ```Build Steps```that can be configured for ```Anchore Container Scanner``` pipeline stages:
+3. Choose between a ```Freestyle project``` or ```Pipeline```. The ```Freestyle project``` includes ```Build Steps```that can be configured for ```Anchore Container Scanner``` pipeline stages:
 ![WelcomeJenkins](IMG/Anchore05.png)
-The following steps will use a ```pipeline``` job:
+
+The following steps will use a ```Pipeline``` job:
 ![WelcomeJenkins](IMG/Anchore06.png)
-Click on ```OK````
+
+Click  `OK`
 
 4. Create or copy the pipeline script that can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/JenkinsfileAnchore):
 ![WelcomeJenkins](IMG/Anchore07.png)
 
-5. Click on ```Save```and the pipeline should start building images, Anchore scans and push images if scans vulnerability checks passes otherwise it fails. 
+5. Click on ```Save```and the pipeline should start building images, Anchore scans and pushes images if the vulnerability checks pass otherwise it fails. 
 
 
 # 5. Troubleshooting:
