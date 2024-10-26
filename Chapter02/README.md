@@ -262,8 +262,8 @@ TBD
 </details>
 
 25. You can also source the generated file ```admin_openrc.sh``` to start interacting with OpenStack APIs:
-```
-# source /etc/kolla/admin_openrc.sh
+```sh
+source /etc/kolla/admin_openrc.sh
 ```
 26. To interact with the dashboard for ```admin``` user, capture the password from either the  ```clouds.yaml```,  ```admin_openrc.sh``` or simply from ```passwords.yml``` file:
 
