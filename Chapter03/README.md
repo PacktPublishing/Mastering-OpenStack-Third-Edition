@@ -53,7 +53,9 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 ## Deployment of Multi-Node OpenStack environment:
 
-To deploy OpenStack in a Multi Node  environment, a virtual environment can be installed  with the following hardware and software pre-requesities:
+1. 
+
+
 
 
 
@@ -61,47 +63,10 @@ To deploy OpenStack in a Multi Node  environment, a virtual environment can be i
 
 ### Kolla Ansible
 
-### Jenkins
-Git authentification access 
-jenkins user upgrade to sudoers users with NOPASSW
-Add /bin/bash for the Jenkins shell configuration to execute 
+### Issue 0
 
-### Git
-Custom repo based on local or remote Git Server.. Change the ***ci.os*** git server name/IP to use your server:
-```
-   stage('INSTALLING Kolla Ansible') {
-      steps {
-        echo '--INSTALLING Kolla Ansible --'
-        sh '''#!/bin/bash 
-        pip install git+https://git@ci.os/git/openstack_deploy/openstack_deploy
-        kolla-ansible install-deps
-        ''' 
-      }
-    } 
-```
+### Issue 1
 
-### Local Jenkins File kolla-ansible 
+### Issue 2
 
-Jenkins Job to copy inventory and globals.yml files from private repository. The example uses the same directory structure based on default OpenStack folder structure
-
-```
-stage('Preparing Infrastructure') {
-      steps {
-        echo '--Preparing Infrastructure Files Structure --'
-        sh ''' #!/bin/bash 
-        sudo mkdir -p /etc/kolla
-        sudo chown $USER:$USER /etc/kolla
-        cp -r /usrlocal/share/kolla-ansible/etc_examples/kolla/* /etc/kolla 
-        cp -r /usr/local/share/kolla-ansible/ansible/inventory/* /etc/kolla 
-        sed -i 's/^#kolla_base_distro:.*/kolla_base_distro: "ubuntu"/g' /etc/kolla/globals.yml
-        sed -i 's/^#enable_haproxy:.*/enable_haproxy: "no"/g' /etc/kolla/globals.yml
-        sed -i 's/^#network_interface:.*/network_interface: "eth0"/g' /etc/kolla/globals.yml
-        sed -i 's/^#neutron_external_interface:.*/neutron_external_interface: "eth1"/g' /etc/kolla/globals.yml
-        sed -i 's/^#kolla_internal_vip_address:.*/kolla_internal_vip_address: "10.0.2.15"/g' /etc/kolla/globals.yml
-        ''' 
-      }
-    }
-```
-
-
-### Create Cinder volume for vm disks 
+### Issue 3: Create Cinder volume for vm disks 
