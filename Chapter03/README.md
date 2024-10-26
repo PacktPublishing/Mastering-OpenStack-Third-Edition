@@ -1,4 +1,4 @@
-# Chapter 3
+# Chapter 03
 ## OpenStack Control Plane - Shared Services
 
 ## Description
@@ -33,6 +33,8 @@ The chapter uses the different tools and software versions:
 - **Ansible Core**: Any version between ```2.16```  and ```2.17.99```.
 - **Jenkins**: Any version for the latest Ubuntu/Debian Jenkins repository (_Description in next section_)
 
+
+
 ### Code - How-To:
 
 The Chapter uses the kolla-ansible community [repostority](https://github.com/openstack/kolla-ansible).
@@ -52,12 +54,49 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 
 ## Deployment of Multi-Node OpenStack environment:
+### Example Production Topology: 
 
-1. 
+1. The following topology is being deployed in Multi-Node OpenStack setup:
+
+```
+ 
+```
+
+
+2. Hosts IP Allocation:
+
+| Hostname |Role| Network Interface | Network Attachement | IP Address|  
+|------|----|---------------|-------------|--------|
+| `deployer.os` |`Deployer`| `eth0` | `Management` | `10.0.0.5` | 
+|            |             | `eth1` | `External` | `10.20.0.5` | 
+| `cc01.os` |`Cloud Controller`| `eth0` | `Management` | `10.0.0.15` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.15` | 
+|            |             | `eth2` | `External` | `10.20.0.15` | 
+|            |             | `eth3` | `Storage` | `10.30.0.15` | 
+| `cn01.os` |`Compute Node`| `eth0` | `Management` | `10.0.0.25` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.25` | 
+|            |             | `eth2` | `External` | `10.20.0.25` | 
+|            |             | `eth3` | `Storage` | `10.30.0.25` |  
+| `net01.os` |`Network Node`| `eth0` | `Management` |`10.0.0.30` |
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.30` | 
+|            |             | `eth2` | `External` | `10.20.0.30` | 
+|            |             | `eth3` | `Storage` | `10.30.0.30` | 
+| `storage01.os` |`Storage Node`| `eth0` | `Management` |`10.0.0.35` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.35` | 
+|            |             | `eth2` | `External` | `10.20.0.35` | 
+|            |             | `eth3` | `Storage` | `10.20.0.35` | 
 
 
 
 
+Management      10.0.0.0/24 100
+Overlay/Tenant  10.10.0.0/24 200
+External        10.20.0.0/24 300
+Storage         10.30.0.0/24 400
+
+2. Deployment prepartion:
+
+On a multi-node setup, you will need to 
 
 ## Troubleshooting:
 
