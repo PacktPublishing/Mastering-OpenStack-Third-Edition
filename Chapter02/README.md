@@ -1,5 +1,5 @@
-# Chapter 2
-Kicking Off the OpenStack Setup – The Right Way (DevSecOps)
+# Chapter 02
+## Kicking Off the OpenStack Setup – The Right Way (DevSecOps)
 
 ## Description
 
