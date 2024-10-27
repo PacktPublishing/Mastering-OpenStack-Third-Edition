@@ -220,6 +220,16 @@ localhost       ansible_connection=local
 
 3. Create a Jenkins Pipeline as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline). Follow the same instructions from ***Step 23*** . Use the Pipeline file in ***Step 25*** provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/Jenkinsfile).
 
+```sh
+..
+PLAY RECAP ***************************************************************************************************************************************************
+cc01.os.packtpub                  : ok=45   changed=0    unreachable=0    failed=0    skipped=43   rescued=0    ignored=0   
+localhost                         : ok=31   changed=0    unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+cn01.os.packtpub                  : ok=50   changed=0    unreachable=0    failed=0    skipped=48   rescued=0    ignored=0 
+storage01.os.packtpub             : ok=35   changed=0    unreachable=0    failed=0    skipped=28   rescued=0    ignored=0 
+net01.os.packtpub                 : ok=35   changed=0    unreachable=0    failed=0    skipped=28   rescued=0    ignored=0 
+```
+
 > [!IMPORTANT]
 > Make sure to commit and push Jenkins pipelines files to your repository with the respective branch.
 > e.g: `Jenkinsfile` in this chapter is pushed to a branch named `staging` as it targets different environment and not the same as described in `Chapter02`. 
