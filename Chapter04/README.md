@@ -396,5 +396,5 @@ tail -f -n200 /var/log/kolla/zun/zun-compute.log
 
 </details>
 
-It looks like zun is unable to connect to the Docker API on the Compute Node. One major reason is that the CNI settings in each compute node can be misconfigured or skipped. Manually create ```/opt/cni/bin/``` in each compute node and rerun the deployment.
+One major reason is that the CNI settings in each compute node can be misconfigured or skipped. Manually create ```/opt/cni/bin/``` in each compute node and rerun the deployment.
 
