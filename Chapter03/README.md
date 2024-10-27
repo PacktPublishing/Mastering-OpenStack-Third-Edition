@@ -22,7 +22,7 @@ The Chapter initiates the deployment of an OpenStack environment for multi-node 
 
 ### System and Software Requirements:
 
-To deploy OpenStack in a multi-node mode, the following minimum hardware pre-requesities are used:
+To deploy OpenStack in a multi-node mode, the following hardware specifications are used:
 
 | Hostname |vCPUs| RAM | Disk Space | Network Interfaces| Role 
 |------|----|---------------|-------------|--------|--------|
@@ -99,11 +99,6 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 
 
-Management      10.0.0.0/24 100
-Overlay/Tenant  10.10.0.0/24 200
-External        10.20.0.0/24 300
-Storage         10.30.0.0/24 400
-
 ### Deployment prepartion:
 
 1. Configure on the Deployer node the hosts file with respective DNS entries where Ansible will run:
@@ -124,7 +119,7 @@ EOF
 ssh-keygen
 for i in 10.0.0.5 10.0.0.35 ; 
 do 
-  ssh-copy-id -o -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
+  ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
 done
 ```
 
