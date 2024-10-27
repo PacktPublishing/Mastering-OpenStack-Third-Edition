@@ -98,7 +98,7 @@ EOF
 2. Setup SSH keys so that the Deployer node can SSH password-less login to the additional Compute node:
 
 ```sh
-ssh-copy-id -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
+ssh-copy-id -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@cn02.os ; 
 ```
 
 > [!NOTE]
@@ -306,12 +306,12 @@ compute
 
 ```sh
 ...
-TASK [zun : Creating zun database]**********************************************************************
+TASK [zun : Creating Zun database]**********************************************************************
 ...
 
-TASK [zun : Creating zun database user and setting permissions] ****************************************
+TASK [zun : Creating Zun database user and setting permissions] ****************************************
 ...
-TASK [zun : Running zun bootstrap container]************************************************************
+TASK [zun : Running Zun bootstrap container]************************************************************
 ...
 ```
 

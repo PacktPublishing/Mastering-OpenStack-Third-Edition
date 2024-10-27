@@ -77,14 +77,14 @@ neutron_plugin_agent: "openvswitch"
 enable_neutron_provider_networks: "yes"
 
 #### Chapter04:  Enable Magnum Service
-enable_magnum: "yes"
+# enable_magnum: "yes"
 
 ### Chapter04: Enable Zun service with Docker for container management and Kuryr for container networking 
-enable_zun: "yes"
-enable_kuryr: "yes"
-enable_etcd: "yes"
-docker_configure_for_zun: "yes"
-containerd_configure_for_zun: "yes"
+# enable_zun: "yes"
+# enable_kuryr: "yes"
+# enable_etcd: "yes"
+# docker_configure_for_zun: "yes"
+# containerd_configure_for_zun: "yes"
 
 ### Chapter05: Use LVM as storage backend for Cinder service as created using pvcreate and vgcreate command lines in storage node: cinder-volumes
 enable_cinder_backend_lvm: "yes"

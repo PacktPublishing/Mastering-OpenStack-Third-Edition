@@ -138,9 +138,6 @@ compute
 [ceilometer-ipmi:children]
 compute
 
-# Install OpenvSwitch Plugin Agent
-[openvswitch:children]
-compute
 
 # Install OVN agents and controller for tenant networking
 [ovn-controller:children]
@@ -180,10 +177,13 @@ neutron
 # Install OpenvSwitch 
 [openvswitch:children]
 network
+compute
+manila-share
 
 ##Chapter 5
 # Install Manial Share for file sharing networking
 [manila-share:children]
+network
 
 
 
