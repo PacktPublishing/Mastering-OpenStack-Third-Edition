@@ -25,17 +25,17 @@ control
 
 ### ## ## ## ## ##  Core Services - Control Plane ## ## ## ## ## ## ## ## ## ## ## ## 
 
-# Install Keystone  as part of the contole plance services
+# Install Keystone  as part of the contole plane services
 [keystone:children]
 control
 
-# Install Glance and API service as part of the contole plance services
+# Install Glance and API service as part of the contole plane services
 [glance:children]
 control
 [glance-api:children]
 glance
 
-# Install Nova conductor, scheduler, console and API services as part of the contole plance services
+# Install Nova conductor, scheduler, console and API services as part of the contole plane services
 [nova:children]
 control
 [nova-api:children]
@@ -55,13 +55,13 @@ nova
 [nova-serialproxy:children]
 nova
 
-# Install Placement API service as part of the contole plance services
+# Install Placement API service as part of the contole plane services
 [placement:children]
 control
 [placement-api:children]
 placement
 
-# Install Cinder scheduler and API service as part of the contole plance services
+# Install Cinder scheduler and API service as part of the contole plane services
 [cinder:children]
 control
 [cinder-api:children]
@@ -69,14 +69,14 @@ cinder
 [cinder-scheduler:children]
 cinder
 
-# Install Swift proxy service as part of the contole plance services
+# Install Swift proxy service as part of the contole plane services
 [swift:children]
 control
 
 [swift-proxy-server:children]
 swift
 
-# Install Ceilometer notification and API service as part of the contole plance services
+# Install Ceilometer notification and API service as part of the contole plane services
 [ceilometer:children]
 control
 [ceilometer-central:children]
@@ -84,16 +84,16 @@ ceilometer
 [ceilometer-notification:children]
 ceilometer
 
-# Install Neutron as part of the contole plance services
+# Install Neutron as part of the contole plane services
 [neutron-server:children]
 control
 
-# Install Horizon as part of the contole plance services
+# Install Horizon as part of the contole plane services
 [horizon:children]
 control
 
 ## Chapter 05
-# Install Manila scheduler, data and API service as part of the contole plance services
+# Install Manila scheduler, data and API service as part of the contole plane services
 [manila:children]
 control
 [manila-api:children]
@@ -105,7 +105,7 @@ manila
 
 
 ## Chapter 04
-# Install Magnum conductor and API service as part of the contole plance services
+# Install Magnum conductor and API service as part of the contole plane services
 
 [magnum:children]
 control
@@ -115,7 +115,7 @@ magnum
 magnum
 
 ## Chapter 04
-# Install Zun proxy and API service as part of the contole plance services
+# Install Zun proxy and API service as part of the contole plane services
 [zun:children]
 control
 [zun-api:children]
@@ -148,7 +148,7 @@ compute
 compute
 
 # Chapter 04
-# Install Zun compute and CNI networing plugin services as part of the contole plance services
+# Install Zun compute and CNI networing plugin services as part of the contole plane services
 [zun-compute:children]
 compute
 [zun-cni-daemon:children]
