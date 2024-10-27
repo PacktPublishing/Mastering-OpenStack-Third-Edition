@@ -27,7 +27,7 @@ The following hardware specifications are used for the additional Compute Node:
 
 | Hostname |vCPUs| RAM | Disk Space | Network Interfaces| Role 
 |------|----|---------------|-------------|--------|--------|
-| `cn02.os` |`12`| `800GB` | `500GB` | `4 x 10GB` | Compute Node|  
+| `cn02.os` |`8`| `24GB` | `500GB` | `4 x 10GB` | Compute Node|  
 
 > [!NOTE]
 > The mentioned resources are being used in large production environments. Feel free to adjust the specs based on available resources you have but staying with minimum requirements to avoid performance issues. 
