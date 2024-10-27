@@ -120,7 +120,7 @@ ssh-copy-id -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@storage02.os ;
 3. Configure the hostnames and timezone for additional Compute node:
 
 ```sh
-  ssh root@storage02.os hostnamectl set-hostname cn02.os
+  ssh root@storage02.os hostnamectl set-hostname storage02.os
   ssh root@storage02.os timedatectl set-timezone Europe/Amsterdam
 ```
 
