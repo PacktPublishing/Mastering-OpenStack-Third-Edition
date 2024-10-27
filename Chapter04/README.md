@@ -146,33 +146,8 @@ localhost       ansible_connection=local
 ```
 
 
-2. Create and copy the content of `/ansible/inventory/multi_packtpub` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/ansible/inventory/multi_packtpub_prod):
 
-```sh
-...
-## Cloud Controller Node 
-[control]
-cc01.os.packtpub
-
-## Compute Node 
-[compute]
-cn01.os.packtpub
-
-## Network Node
-[network]
-net01.os.packtpub
-
-## Storage Node
-[storage]
-storage01.os.packtpub
-
-[deployment]
-localhost       ansible_connection=local
-...
-```
-
-
-3. Create additional configuration of the new Compute Node with CPU and RAM allocation ratios. The content of custom Nova configuration can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/etc/kolla/config/nova/cn02.os.packtpub/nova.conf). Kolla-ansible will merge the default configuration defined in `globals.yaml` file with the custom configurations for the new Compute Node. The additional configuration includes the following settings:
+2. Create additional configuration of the new Compute Node with CPU and RAM allocation ratios. The content of custom Nova configuration can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/etc/kolla/config/nova/cn02.os.packtpub/nova.conf). Kolla-ansible will merge the default configuration defined in `globals.yaml` file with the custom configurations for the new Compute Node. The additional configuration includes the following settings:
 
 ```sh
 cpu_allocation_ratio
@@ -189,7 +164,7 @@ ram_weight_multiplier = -1.0
 
 
 
-4. Run the deployment using the  Jenkins Pipeline as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/README.md#deployment-configuration). The Pipeline uses the stages provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/Jenkinsfile):
+3. Run the deployment using the  Jenkins Pipeline as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/README.md#deployment-configuration). The Pipeline uses the stages provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/Jenkinsfile):
 
 ```sh
 ..
