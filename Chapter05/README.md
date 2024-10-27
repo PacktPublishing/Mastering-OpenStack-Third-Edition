@@ -87,7 +87,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 |            |             | `eth1` | `Overlay/Tenant` | `10.10.0.35` | 
 |            |             | `eth2` | `External` | `10.20.0.35` | 
 |            |             | `eth3` | `Storage` | `10.30.0.35` |  
-| `storage01.os.packtpub` |`Storage Node`| `eth0` | `Management` | `10.0.0.36` | 
+| `storage02.os.packtpub` |`Storage Node`| `eth0` | `Management` | `10.0.0.36` | 
 |            |             | `eth1` | `Overlay/Tenant` | `10.10.0.36` | 
 |            |             | `eth2` | `External` | `10.20.0.36` | 
 |            |             | `eth3` | `Storage` | `10.30.0.36` |  
