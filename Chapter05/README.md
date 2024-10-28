@@ -248,8 +248,77 @@ type nfs4 (rw,relatime,vers=4.1,rsize=81921,wsize=81921,namlen=255,hard,proto=tc
 
 ### Ceph Backend Deployment:
 #### Assumptions:
-1. 
+-
+-
 
+
+
+1. Install Ceph client in each controller, compute and storage node:
+```sh
+ apt-get install ceph-common python-rbd
+```
+
+2. On each storage node, create a Ceph OSD storage pool:
+```sh
+ ceph osd pool create cinder-volumes 256
+```
+
+3. Initialize the created OSD storage pool:
+```sh
+rbd pool init cinder-volumes
+```
+
+4. Create Ceph user/keyring to access the created Ceph pool:
+```sh
+ceph auth get-or-create client.cinder mon 'profile rbd' osd 'profile rbd pool=cinder-volumes' mgr 'profile rbd pool=volumes' > ceph.client.cinder.keyring
+```
+
+5. Copy the generated keyring to the Deployer, compute and storage nodes:
+```sh
+ceph auth get-or-create client.cinder | ssh storage01.os sudo tee /etc/kolla/config/cinder/cinder-volume/ceph.client.cinder.keyring
+ceph auth get-or-create client.cinder | ssh cc01.os sudo tee /etc/ceph/ceph.client.cinder.keyring
+ceph auth get-or-create client.cinder | ssh cn01.os sudo tee /etc/ceph/ceph.client.cinder.keyring
+```
+
+6. Grab the `Cinder RBD Secret UUID` generated in the `/etc/kolla/passwords` file for later configuration:
+```sh
+cat /etc/kolla/passwords.yml |grep cinder_rbd_secret_uuid 
+```
+
+7. Create and copy the content of `/etc/kolla/config/cinder/cinder-volume.conf` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/config/cinder/ceph.conf). Make sure to adjust the settings based on your environment:
+```sh
+# Name of the Ceph RBD Backend
+enabled_backends
+# RBD user
+rbd_user
+# RBD Pool created in step 2
+rbd_pool
+# Name of assigned volume RBD backend 
+volume_backend_name
+# Cinder UUID secret generated in step 6
+rbd_secret_uuid
+# Ceph Monitor Host IP from a Ceph node
+mon_host
+# Assigned Ceph IP Pool
+cluster_network
+```
+
+8. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Manila` service in the `/etc/kolla/globals.yaml` file are used:
+
+```sh
+....
+###################
+# OpenStack options
+###################
+...
+cinder_backend_ceph: "yes"
+ceph_cinder_keyring: "ceph.client.cinder.keyring"
+ceph_cinder_user: "cinder"
+ceph_cinder_pool_name: "cinder-volumes"
+...
+```
+
+9. Run the deployment using the  Jenkins Pipeline as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/README.md#deployment-configuration). The Pipeline uses the stages provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/Jenkinsfile)
 
 ### Enable File Sharing Service - Manila
 
