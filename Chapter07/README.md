@@ -364,7 +364,7 @@ openstack network agent list --agent-type l3
 | ID                                   | Agent Type         | Host     | Availability Zone | Alive | State | Binary                    |
 +--------------------------------------+--------------------+----------+-------------------+-------+-------+---------------------------+
 | 52365341-ea3q-3121-dda1-76253daf3412 | L3 agent           | net01.os | None              | True  | UP    | neutron-l3-agent          |
-| baba31aa-912d-5726-bbc1-761dca126f21 | L3 agent           | net02.os | None              | True  | UP    | neutron-dhcp-agent        |     
+| baba31aa-912d-5726-bbc1-761dca126f21 | L3 agent           | net02.os | None              | True  | UP    | neutron-l3-agent          |     
 +--------------------------------------+--------------------+----------+-------------------+-------+-------+---------------------------+
 ```
 </details>
@@ -514,7 +514,7 @@ openstack service list
 <details close>
   <summary>Output</summary>
 
- ![ServiceList](IMG/magnum-service-list.png)
+ ![ServiceList](IMG/masakari-service-list.png)
 </details>
 
 
