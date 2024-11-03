@@ -497,8 +497,8 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                     COMMAND                     CREATED           STATUS                            PORTS     NAMES
-dae2a88da21a     registry/openstack.kolla/masakari-engine:master-rocky-9   "dumb-init--single-.."      55 seconds ago     Up 15 seconds (health: starting)             masakari_engine
+CONTAINER ID     IMAGE                                                     COMMAND                     CREATED            STATUS                            PORTS     NAMES
+dae2a88da21a     registry/openstack.kolla/masakari-engine:master-rocky-9   "dumb-init--single-.."      55 seconds ago     Up 15 seconds (health: starting)           masakari_engine
 bbda3121b896     registry/openstack.kolla/masakari-api:master-rocky-9      "dumb-init--single-.."      22 seconds ago     Up 2 seconds (health: starting)            masakari_api
 ...
 
