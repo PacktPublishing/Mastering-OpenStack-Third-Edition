@@ -452,7 +452,7 @@ enable_hacluster: "yes"
 ...
 ```
 
-2. Add the corresponding `magnum` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet.
+2. Add the corresponding `masakari` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet.
 
  `Masakari` `API`, `Engine`, `Hostmonitor` services will be running on the `Cloud Controller` nodes. `Masakari` `Instance Monitor` service will be running on `Compute` nodes. Additionally,  extra `hacluster` and `hacluster-remote` Ansible roles will be running on `Cloud Controller` nodes and   `Compute` nodes respectively. 
  
