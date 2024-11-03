@@ -115,7 +115,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 
-### Deployment Configuration:
+### Deployment and Configuration of Prometheus and Grafana
 #### Assumptions:
 -  Jenkins installed and running in the Deployer Node as explored in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline)
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
@@ -171,7 +171,7 @@ storage
 
 ```
 
-2. 2. Create/Edit the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter08/etc/kolla/globals.yml). In this chapter the following settings in the `/etc/kolla/globals.yaml` file are used:
+2. Create/Edit the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter08/etc/kolla/globals.yml). In this chapter the following settings in the `/etc/kolla/globals.yaml` file are used:
 
 ```sh
 ###################
@@ -245,6 +245,69 @@ fef32adf1728     registry/openstack.kolla/prometheus-alertmanager:master-rocky-9
 
 ```
 </details>
+
+
+
+### Configuring and Deployment of the Telemetry Service
+#### Assumptions:
+-  Jenkins installed and running in the Deployer Node as explored in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline)
+-  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
+
+
+1. Copy/Edit the `/ansible/inventory/multi_packtpub_propd` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
+
+```sh 
+...
+## Compute Nodes
+[compute]
+cn01.os.packtpub
+###  Chapter 7 
+## Adding a second Compute Node 
+cn02.os.packtpub
+...
+[neutron-l3-agent:children]
+compute
+...
+```
+
+2. Copy/Edit the `globals.yaml` file that includes additional setting for enabling DVR routing capability:
+
+```sh
+enable_neutron_dvr: "yes"
+```
+
+3. Run the Jenkins Pipeline and make sure the new compute node is properly installed:
+
+```sh
+..
+PLAY RECAP ***************************************************************************************************************************************************
+
+...
+localhost                         : ok=12   changed=0    unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+...
+cn02.os.packtpub                  : ok=54   changed=0    unreachable=0    failed=0    skipped=65   rescued=0    ignored=0 
+...
+```
+
+4. Verify the Neutron L3 agent runs in both network nodes:
+
+```sh
+openstack compute service list --service nova-compute
+```
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+
++--------------------------------------+--------------+-----------+------+----------+-------+----------------------------+
+| ID                                   | Binary       | Host      | Zone | Status   | State | Updated At                 |
++--------------------------------------+--------------+-----------+------+----------+-------+----------------------------+
+| 65a2da22-991a-72da-bca1-625daba1ef10 | nova-compute | cn01.os   | nova | enabled  | up    | 2024-10-20T18:51:08.000000 |
+| 8db99811-ed1a-65da-9726-625da2310921 | nova-compute | cn02.os   | nova | enabled  | up    | 2024-10-29T21:49:06.000000 |
++--------------------------------------+--------------+-----------+------+----------+-------+----------------------------+
+```
+</details>
+
 
 
 

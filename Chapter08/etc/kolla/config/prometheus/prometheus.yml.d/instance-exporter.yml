@@ -1,0 +1,18 @@
+- job_name: 'openstack'
+    openstack_sd_configs:
+      - role: 'instance'
+        region: 'internal'
+        identity_endpoint: 'http://10.0.0.100:5000/v3/'
+        domain_name: 'default'
+    relabel_configs:
+      - source_labels: [__meta_openstack_public_ip]
+        target_label: __address__
+        replacement: '$1:9100'
+      - source_labels: [__meta_openstack_tag_prometheus]
+        regex: true.*
+        action: keep
+      - source_labels: [__meta_openstack_tag_node_exporter]
+        regex: true.*
+        action: keep
+      - action: labelmap
+        regex: __meta_openstack_(.+)
