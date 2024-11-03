@@ -79,10 +79,10 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 |------|----|---------------|-------------|--------|
 | `deployer.os.packtpub` |`Deployer`| `eth0` | `Management` | `10.0.0.15` | 
 |            |             | `eth1` | `External` | `10.20.0.15` | 
-| `cc01.os.packtpub` |`Cloud Controller`| `eth0` | `Management` | `10.0.0.5` | 
-|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.5` | 
-|            |             | `eth2` | `External` | `10.20.0.5` | 
-|            |             | `eth3` | `Storage` | `10.30.0.5` | 
+| `cc01.os.packtpub` |`Cloud Controller`| `eth0` | `Management` | `10.0.0.100` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.100` | 
+|            |             | `eth2` | `External` | `10.20.0.100` | 
+|            |             | `eth3` | `Storage` | `10.30.0.100` | 
 | `cn01.os.packtpub` |`Compute Node`| `eth0` | `Management` | `10.0.0.25` | 
 |            |             | `eth1` | `Overlay/Tenant` | `10.10.0.25` | 
 |            |             | `eth2` | `External` | `10.20.0.25` | 

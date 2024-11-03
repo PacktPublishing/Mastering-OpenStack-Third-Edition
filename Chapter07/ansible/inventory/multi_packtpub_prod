@@ -128,32 +128,32 @@ control
 ## Chapter 04
 # Install Magnum conductor and API service as part of the contole plane services
 
-[magnum:children]
-control
-[magnum-api:children]
-magnum
-[magnum-conductor:children]
-magnum
+#[magnum:children]
+#control
+#[magnum-api:children]
+#magnum
+#[magnum-conductor:children]
+#magnum
 
 ## Chapter 04
 # Install Zun proxy and API service as part of the contole plane services
-[zun:children]
-control
-[zun-api:children]
-zun
-[zun-wsproxy:children]
-zun
+#[zun:children]
+#control
+#[zun-api:children]
+#zun
+#[zun-wsproxy:children]
+#zun
 
 ## Chapter 05
 # Install Manila scheduler, data and API service as part of the contole plane services
-[manila:children]
-control
-[manila-api:children]
-manila
-[manila-scheduler:children]
-manila
-[manila-data:children]
-manila
+#[manila:children]
+#control
+#[manila-api:children]
+#manila
+#[manila-scheduler:children]
+#manila
+#[manila-data:children]
+#manila
 
 
 ## Chapter 06
@@ -196,10 +196,6 @@ control
 
 ### ## ## ## ## ##  Compute Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
-#[compute]
-#cn01.os.packtpub
-## Chapter 04 Adding second compute node
-# cn02.os.packtpub
 
 # Install compute metrics collector for telemetry on the compute nodes
 [collectd:children]
@@ -281,19 +277,19 @@ manila-share
 
 ## Chapter 6 
 # Install OVN controller and agent in the network node 
-[ovn-controller:children]
-ovn-controller-network
-[ovn-controller-network:children]
-network
-[neutron-ovn-metadata-agent:children]
-network
-[neutron-ovn-agent:children]
-network
+#[ovn-controller:children]
+#ovn-controller-network
+#[ovn-controller-network:children]
+#network
+#[neutron-ovn-metadata-agent:children]
+#network
+#[neutron-ovn-agent:children]
+#network
 
 ## Chapter 6 
 # Install BGP Agent in the network node
-[neutron-bgp-dragent:children]
-neutron
+#[neutron-bgp-dragent:children]
+#neutron
 
 
 
@@ -303,11 +299,11 @@ neutron
 storage01.os.packtpub
 ## Chapter5
 # Second storage node for LVM and Ceph backends 
-storage02.os.packtpub
+#storage02.os.packtpub
 # Three more storage nodes for a Swift cluster 
-storage03.os.packtpub
-storage04.os.packtpub
-storage05.os.packtpub
+#storage03.os.packtpub
+#storage04.os.packtpub
+#storage05.os.packtpub
 
 
 # Install Cinder Volume service 
@@ -316,14 +312,14 @@ storage
 
 ## Chapter5
 # Install Swift Account server across new Swift storage nodes 
-[swift-account-server:children]
-storage
+#[swift-account-server:children]
+#storage
 # Install Swift Container server across new Swift storage nodes 
-[swift-container-server:children]
-storage
+#[swift-container-server:children]
+#storage
 # Install Swift Object server across new Swift storage nodes 
-[swift-object-server:children]
-storage
+#[swift-object-server:children]
+#storage
 
 ### ## ## ## ## ##  Deployment Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
