@@ -1,4 +1,4 @@
-# Chapter 7
+# Chapter 07
 Running a Highly Available Cloud – Meeting the SLA
 
 
@@ -36,8 +36,8 @@ The chapter uses the same hardware and configuration for multi-node OpenStack se
 | `cc03.os` |`8`| `128GB` | `250GB` | `4 x 10GB` | Cloud Controller| 
 | `cn02.os` |`12`| `240GB` | `500GB` | `4 x 10GB` | Compute Node|  
 | `net02.os` |`4`| `32GB` | `250GB` |`4 x 10GB` | Network Node| 
-| `hap1.os` |`16`| `64GB` | `250GB` |`4 x 10GB` | Load Balancer Node| 
-| `hap2.os` |`16`| `64GB` | `250GB` |`4 x 10GB` | Load Balancer Node| 
+| `hap1.os` |`4`| `64GB` | `250GB` |`2 x 10GB` | Load Balancer Node| 
+| `hap2.os` |`4`| `64GB` | `250GB` |`2 x 10GB` | Load Balancer Node| 
 
 > [!NOTE]
 > The mentioned resources are being used in large production environments. Feel free to adjust the specs based on available resources you have but staying with minimum requirements to avoid performance issues. 
@@ -150,10 +150,8 @@ ssh-copy-id -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@net02.os ;
 
 3. Configure the hostnames and timezone for the additional hosts:
 
-3. Configure the hostnames and timezone for the additional hosts:
-
 ```sh
-for node in hpa1.os hpa2.0s cc02.os cc03.os cn02 net02
+for node in hpa1.os hpa2.os cc02.os cc03.os cn02.os net02.os
 do
   echo "=== Execute on $node ==="
   ssh root@$node hostnamectl set-hostname $node
@@ -180,7 +178,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
 
-1. Copy the `/ansible/inventory/multi_packtpub` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
+1. Copy the `/ansible/inventory/multi_packtpub_prod` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional load balancer nodes:
 
 ```sh
 ...
@@ -278,14 +276,14 @@ docker ps -a
 CONTAINER ID     IMAGE                                                     COMMAND                     CREATED             STATUS                            PORTS     NAMES
 ...
 2cda231524a1     registry/openstack.kolla/haproxy:master-rocky-9           "dumb-init--single-.."      40 minutes ago       Up 40 minutes ago (healthy)                haproxy
-ca1b23d2c101     registry/openstack.kolla/keepalived:master-rocky-9        "dumb-init--single-.."      45 minutes ago       Up 45 minutes ago (healthy)              keepalived
+ca1b23d2c101     registry/openstack.kolla/keepalived:master-rocky-9        "dumb-init--single-.."      45 minutes ago       Up 45 minutes ago (healthy)                keepalived
 ...
 
 ```
 </details>
 
 
-5. Verify the content of the  `/etc/kolla/keepalived/keepalived.conf` file that should be contain an assigned `virtual_router_id` in the `vrrp_instance` snippet:
+5. Verify the content of the  `/etc/kolla/keepalived/keepalived.conf` file that should  contain a `virtual_router_id` ID in the `vrrp_instance` snippet:
 
 ```sh
 cat /etc/kolla/keepalived/keepalived.conf
@@ -318,7 +316,7 @@ vrrp_instance kolla_internal_vip_51 {
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
 
-1. Copy/Edit the `/ansible/inventory/multi_packtpub` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Network node:
+1. Copy/Edit the `/ansible/inventory/multi_packtpub_propd` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Network node:
 
 ```sh 
 ...
@@ -376,7 +374,7 @@ openstack network agent list --agent-type l3
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
 
-1. Copy/Edit the `/ansible/inventory/multi_packtpub` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
+1. Copy/Edit the `/ansible/inventory/multi_packtpub_propd` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
 
 ```sh 
 ...
@@ -439,7 +437,7 @@ openstack compute service list --service nova-compute
 -  Jenkins installed and running in the Deployer Node as explored in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline)
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
-1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/etc/kolla/globals.yml). In this part, the additional settings to deploy `Masakari` service in the `/etc/kolla/globals.yaml` file are used:
+1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/etc/kolla/globals.yml). In this part, the additional settings to deploy `Masakari` service in the `/etc/kolla/globals.yaml` file are used:
 
 ```sh
 ....
@@ -452,7 +450,7 @@ enable_hacluster: "yes"
 ...
 ```
 
-2. Add the corresponding `masakari` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet.
+2. Add the corresponding `masakari` services in `/ansible/inventory/multi_packtpub_prod` inventory file if not assigned yet.
 
  `Masakari` `API`, `Engine`, `Hostmonitor` services will be running on the `Cloud Controller` nodes. `Masakari` `Instance Monitor` service will be running on `Compute` nodes. Additionally,  extra `hacluster` and `hacluster-remote` Ansible roles will be running on `Cloud Controller` nodes and   `Compute` nodes respectively. 
  

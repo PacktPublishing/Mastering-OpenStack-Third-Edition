@@ -27,7 +27,6 @@ openstack_release: "master"
 ## Chapter 2
 # VIP won't be used only until chapter 7, can still be assigned with IP of Cloud Controller management interface
 # Mae sure to change this value once a VIP is created from Chapter 7
-# kolla_internal_vip_address: "10.0.0.15"
 
 ## Chapter 7
 # Update the VIP internal address as enabling HAProxy across 3 Cloud Contoller nodes
@@ -97,16 +96,6 @@ neutron_external_interface: "eth2"
 neutron_plugin_agent: "openvswitch"
 
 
-############ OVN ############ 
-
-# Using OVN as Neutron plugin agent
-#neutron_plugin_agent: "ovn"
-
-# Enable distributed floating IP
-#neutron_ovn_distributed_fip: "yes"
-
-# Enable QoS OVN agent for Neutron
-#neutron_enable_ovn_agent: "yes"
 
 ###################
 # OpenStack options
