@@ -378,5 +378,5 @@ kolla-ansible post-deploy
 
 ## Troubleshooting:
 
-### New Storage Node not showing up:
+### 
 
