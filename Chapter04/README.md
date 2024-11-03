@@ -133,8 +133,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```sh
 ...
-...
-
 ## Compute Node 
 [compute]
 cn01.os.packtpub

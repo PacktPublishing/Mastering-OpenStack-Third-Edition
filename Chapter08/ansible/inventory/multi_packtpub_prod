@@ -36,7 +36,7 @@ storage01.os.packtpub
 localhost       ansible_connection=local
 
 ###  Chapter 8
-## Adding new node for Monitoring
+## Adding a Monitoring Node
 [monitoring]
 mon01.os.packtpub
 
@@ -124,32 +124,32 @@ control
 ## Chapter 04
 # Install Magnum conductor and API service as part of the contole plane services
 
-[magnum:children]
-control
-[magnum-api:children]
-magnum
-[magnum-conductor:children]
-magnum
+#[magnum:children]
+#control
+#[magnum-api:children]
+#magnum
+#[magnum-conductor:children]
+#magnum
 
 ## Chapter 04
 # Install Zun proxy and API service as part of the contole plane services
-[zun:children]
-control
-[zun-api:children]
-zun
-[zun-wsproxy:children]
-zun
+#[zun:children]
+#control
+#[zun-api:children]
+#zun
+#[zun-wsproxy:children]
+#zun
 
 ## Chapter 05
 # Install Manila scheduler, data and API service as part of the contole plane services
-[manila:children]
-control
-[manila-api:children]
-manila
-[manila-scheduler:children]
-manila
-[manila-data:children]
-manila
+#[manila:children]
+#control
+#[manila-api:children]
+#manila
+#[manila-scheduler:children]
+#manila
+#[manila-data:children]
+#manila
 
 
 ## Chapter 06
@@ -180,15 +180,15 @@ manila
 
 ## Chapter 07
 # Install Masakari Engine, Host Monitor and API and engine services as part of the contole plane services
-[masakari-api:children]
-control
-[masakari-engine:children]
-control
-[masakari-hostmonitor:children]
-control
+#[masakari-api:children]
+#control
+#[masakari-engine:children]
+#control
+#[masakari-hostmonitor:children]
+#control
 # Run hacluster as part of the controller node 
-[hacluster:children]
-control
+#[hacluster:children]
+#control
 
 ## Chapter 8
 # Install Ceilometer notification and API service as part of the contole plane services
@@ -267,10 +267,10 @@ compute
 
 ## Chapter 7
 # Enable failure and health monitoring of compute nodes and instances status 
-[hacluster-remote:children]
-compute
-[masakari-instancemonitor:children]
-compute
+#[hacluster-remote:children]
+#compute
+#[masakari-instancemonitor:children]
+#compute
 
 ## Chapter 8
 # Install Ceilometer polling agent in Compute Node(s)
@@ -279,8 +279,7 @@ compute
 
 ### ## ## ## ## ##  Network Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
-[network]
-net01.os.packtpub
+
 
 # Install Neutron service 
 [neutron:children]
@@ -300,8 +299,8 @@ neutron
 
 ## Chapter 5
 # Install Manial Share for file sharing networking
-[manila-share:children]
-network
+#[manila-share:children]
+#network
 
 
 ## Chapter 6
@@ -318,34 +317,23 @@ manila-share
 
 ## Chapter 6 
 # Install OVN controller and agent in the network node 
-[ovn-controller:children]
-ovn-controller-network
-[ovn-controller-network:children]
-network
-[neutron-ovn-metadata-agent:children]
-network
-[neutron-ovn-agent:children]
-network
+#[ovn-controller:children]
+#ovn-controller-network
+#[ovn-controller-network:children]
+#network
+#[neutron-ovn-metadata-agent:children]
+#network
+#[neutron-ovn-agent:children]
+#network
 
 ## Chapter 6 
 # Install BGP Agent in the network node
-[neutron-bgp-dragent:children]
-neutron
+#[neutron-bgp-dragent:children]
+#neutron
 
 
 
 ### ## ## ## ## ##  Storage Node(s) ## ## ## ## ## ## ## ## ## ## ## ## 
-
-[storage]
-storage01.os.packtpub
-## Chapter5
-# Second storage node for LVM and Ceph backends 
-storage02.os.packtpub
-# Three more storage nodes for a Swift cluster 
-storage03.os.packtpub
-storage04.os.packtpub
-storage05.os.packtpub
-
 
 # Install Cinder Volume service 
 [cinder-volume:children]
@@ -361,6 +349,58 @@ storage
 # Install Swift Object server across new Swift storage nodes 
 [swift-object-server:children]
 storage
+
+
+### Chapter 7
+### ## ## ## ## ##  Load Balancing ## ## ## ## ## ## ## ## ## ## ## ## 
+# Install HAProxy 
+[loadbalancer:children]
+haproxy
+
+
+
+### Chapter 8
+### ## ## ## ## ##  Monitoring ## ## ## ## ## ## ## ## ## ## ## ## 
+# Install Prometheus, Alert Manager and Grafana as part of the monitoring node
+[prometheus:children]
+monitoring
+[grafana:children]
+monitoring
+[prometheus-alertmanager:children]
+monitoring
+
+# Add Prometheus Exporter for OpenStack as part of the Monitoring node
+[prometheus-openstack-exporter:children]
+monitoring
+
+# Add Prometheus Exporter for OpenStack Database as part of the Cloud Controller node(s)
+[prometheus-mysqld-exporter:children]
+mariadb
+
+#Add Prometheus Exporter for Load Balancer HAProxy as part of the Load Balancer node(s)
+[prometheus-haproxy-exporter:children]
+loadbalancer
+
+#Add Prometheus Exporter for Libvirt API as part of Compute node(s)
+[prometheus-libvirt-exporter:children]
+compute
+
+# Install Prometheus Exporter in each OpenStack Node
+[prometheus-node-exporter:children]
+monitoring
+control
+compute
+network
+storage
+
+# Install cAdvisor Exporter in each OpenStack Node
+[prometheus-cAdvisor:children]
+monitoring
+control
+compute
+network
+storage
+
 
 ### ## ## ## ## ##  Deployment Node ## ## ## ## ## ## ## ## ## ## ## ## 
 
@@ -394,49 +434,3 @@ common
 # Install kolla-toolbox as part of common group cross all target nodes
 [kolla-toolbox:children]
 common
-
-### Chapter 7
-### ## ## ## ## ##  Load Balancing ## ## ## ## ## ## ## ## ## ## ## ## 
-# Install HAProxy 
-[loadbalancer:children]
-haproxy
-
-
-
-### Chapter 8
-### ## ## ## ## ##  Monitoring ## ## ## ## ## ## ## ## ## ## ## ## 
-# Install Prometheus and Alert Manager as part of the monitoring node
-[prometheus:children]
-monitoring
-
-# Add Prometheus Exporter for OpenStack as part of the Monitoring node
-[prometheus-openstack-exporter:children]
-monitoring
-
-# Add Prometheus Exporter for OpenStack Database as part of the Cloud Controller node(s)
-[prometheus-mysqld-exporter:children]
-mariadb
-
-#Add Prometheus Exporter for Load Balancer HAProxy as part of the Load Balancer node(s)
-[prometheus-haproxy-exporter:children]
-loadbalancer
-
-#Add Prometheus Exporter for Libvirt API as part of Compute node(s)
-[prometheus-libvirt-exporter:children]
-compute
-
-# Install Prometheus Exporter in each OpenStack Node
-[prometheus-node-exporter:children]
-monitoring
-control
-compute
-network
-storage
-
-# Install cAdvisor Exporter in each OpenStack Node
-[prometheus-node-exporter:children]
-monitoring
-control
-compute
-network
-storage

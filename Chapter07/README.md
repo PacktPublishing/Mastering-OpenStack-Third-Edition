@@ -72,7 +72,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 
 
-## Deployment of Multi-Node OpenStack environment:
+## Deployment of the environment:
 ### Example Production Topology: 
 
 1. The following topology is being deployed in Multi-Node OpenStack setup:
@@ -118,18 +118,14 @@ tee -a /etc/hosts<<EOF
 10.0.0.20 hpa1.os
 ### Second HAProxy Node
 10.0.0.21 hpa2.os
-...
 ### Second Cloud Controller Node
 10.0.0.101 cc02.os
 ### Third Cloud Controller Node
 10.0.0.102 cc03.os
-...
 ### Second Compute Node
 10.0.0.26 cn02.os
-...
 ### Second Network Node
 10.0.0.31 net02.os
-...
 EOF
 ```
 
