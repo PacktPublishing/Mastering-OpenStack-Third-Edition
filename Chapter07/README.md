@@ -1,5 +1,5 @@
 # Chapter 07
-Running a Highly Available Cloud – Meeting the SLA
+## Running a Highly Available Cloud – Meeting the SLA
 
 
 ## Description
