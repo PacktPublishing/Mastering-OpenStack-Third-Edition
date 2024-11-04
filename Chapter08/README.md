@@ -411,7 +411,7 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                                        PORTS     NAMES
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                                  PORTS      NAMES
 ...
 652dfe31272a     registry/openstack.kolla/opensearch:master-rocky-9                     "dumb-init--single-.."      45 seconds ago       Up 10 seconds ago (health: starting)               opensearch
 98212de3e310     registry/openstack.kolla/opensearch-dashboards:master-rocky-9          "dumb-init--single-.."      33 seconds ago       Up 2 seconds ago (health: starting)                opensearch_dashboards
