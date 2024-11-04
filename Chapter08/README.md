@@ -334,7 +334,7 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                       PORTS    NAMES
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS             PORTS    NAMES
 ...
 b964d519b385     registry/openstack.kolla/aodh-listener:master-rocky-9                  "dumb-init--single-.."      16 seconds ago       Up 13 seconds ago (health: starting)                aodh_listener
 d3e0017cae12     registry/openstack.kolla/aodh-evaluator:master-rocky-9                 "dumb-init--single-.."      31 seconds ago       Up 28 seconds ago (health: starting)                aodh_evaluator
