@@ -1,5 +1,5 @@
 # Mastering-OpenStack
-Mastering OpenStack Third Edition, Published by Packt
+## Mastering OpenStack Third Edition, Published by Packt
 
 ## About the Book
 
