@@ -70,7 +70,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 | Hostname |Role| Network Interface | Network Attachement | IP Address|  
 |------|----|---------------|-------------|--------|
-| `mon01.os.packtpub` |`Cloud Controller`| `eth0` | `Management` | `10.0.0.120` | 
+| `mon01.os.packtpub` |`Monitoring Host`| `eth0` | `Management` | `10.0.0.120` | 
 |            |             | `eth1` | `Overlay/Tenant` | `10.10.0.120` | 
 |            |             | `eth2` | `External` | `10.20.0.120` | 
 |            |             | `eth3` | `Storage` | `10.30.0.120` | 
@@ -237,10 +237,10 @@ docker ps -a
   ```sh
 CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                            PORTS     NAMES
 ...
-625da12f8ed0     registry/openstack.kolla/prometheus-v2-server:master-rocky-9           "dumb-init--single-.."      32 minutes ago       Up 20 minutes ago (healthy)                prometheus_v2_server
-fef32adf1728     registry/openstack.kolla/prometheus-alertmanager:master-rocky-9        "dumb-init--single-.."      31 minutes ago       Up 21 minutes ago (healthy)                promtheus_alertmanager
+625da12f8ed0     registry/openstack.kolla/prometheus-v2-server:master-rocky-9           "dumb-init--single-.."      32 minutes ago       Up 20 minutes ago (healthy)                 prometheus_v2_server
+fef32adf1728     registry/openstack.kolla/prometheus-alertmanager:master-rocky-9        "dumb-init--single-.."      31 minutes ago       Up 21 minutes ago (healthy)                 promtheus_alertmanager
 ...
-918c21da12ae     registry/openstack.kolla/grafana:master-rocky-9                        "dumb-init--single-.."      5 minutes ago        Up 45 seconds ago (healthy)                grafana
+918c21da12ae     registry/openstack.kolla/grafana:master-rocky-9                        "dumb-init--single-.."      5 minutes ago        Up 45 seconds ago (healthy)                 grafana
 ...
 
 ```
@@ -334,7 +334,7 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                            PORTS     NAMES
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                                    PORTS    NAMES
 ...
 b964d519b385     registry/openstack.kolla/aodh-listener:master-rocky-9                  "dumb-init--single-.."      16 seconds ago       Up 13 seconds ago (health: starting)                aodh_listener
 d3e0017cae12     registry/openstack.kolla/aodh-evaluator:master-rocky-9                 "dumb-init--single-.."      31 seconds ago       Up 28 seconds ago (health: starting)                aodh_evaluator
@@ -342,7 +342,7 @@ d3e0017cae12     registry/openstack.kolla/aodh-evaluator:master-rocky-9         
 ...
 c9d2e102fcc4     registry/openstack.kolla/ceilometer-central:master-rocky-9             "dumb-init--single-.."      32 seconds ago       Up 27 seconds ago (health: starting)                ceilometer_central
 7b33e36b6ae1     registry/openstack.kolla/ceilometer-compute:master-rocky-9             "dumb-init--single-.."      53 seconds ago       Up 50 seconds ago (health: starting)                ceilometer_compute
-5667e04d50c7     registry/openstack.kolla/ceilometer-notification:master-rocky-9        "dumb-init--single-.."      About a minute ago   Up About a minute (healthy) (health: starting)      ceilometer_notification
+5667e04d50c7     registry/openstack.kolla/ceilometer-notification:master-rocky-9        "dumb-init--single-.."      About a minute ago   Up About a minute (health: starting)      ceilometer_notification
 ...
 
 ```
@@ -411,9 +411,9 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                            PORTS     NAMES
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                                            PORTS     NAMES
 ...
-652dfe31272a     registry/openstack.kolla/opensearch:master-rocky-9                     "dumb-init--single-.."      45 seconds ago       Up 10 seconds ago (health: starting)                opensearch
+652dfe31272a     registry/openstack.kolla/opensearch:master-rocky-9                     "dumb-init--single-.."      45 seconds ago       Up 10 seconds ago (health: starting)               opensearch
 98212de3e310     registry/openstack.kolla/opensearch-dashboards:master-rocky-9          "dumb-init--single-.."      33 seconds ago       Up 2 seconds ago (health: starting)                opensearch_dashboards
 ...
 
