@@ -1,5 +1,5 @@
-# Mastering-OpenStack
-## Mastering OpenStack Third Edition, Published by Packt
+# Mastering OpenStack
+## Implement the latest techniques for designing and deploying operational production-ready private clouds
 
 ## About the Book
 
