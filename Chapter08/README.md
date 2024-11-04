@@ -208,7 +208,7 @@ docker_registry: 10.0.0.15:4000
 docker_registry_insecure: "yes"
 ```
 
-3. Create a Jenkins Pipeline as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline). Follow the same instructions from ***Step 23*** . Use the Pipeline file in ***Step 25*** provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/Jenkinsfile).
+3. Run the Jenkins Pipeline and make sure the new Monitoring node is properly installed:
 
 ```sh
 ..
@@ -254,57 +254,169 @@ fef32adf1728     registry/openstack.kolla/prometheus-alertmanager:master-rocky-9
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
 
-1. Copy/Edit the `/ansible/inventory/multi_packtpub_propd` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter07/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
+1. Copy/Edit the `/ansible/inventory/multi_packtpub_prod` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter08/ansible/inventory/multi_packtpub_prod) that includes the Telemetry services. `Ceilometer`, `Ceilometer Central`, all `Gnocchi` and all `Aodh` services will be running on the `Cloud Controller` nodes. `Ceilometer Compute` service will be running on `Compute` nodes: 
 
 ```sh 
 ...
-## Compute Nodes
-[compute]
-cn01.os.packtpub
-###  Chapter 7 
-## Adding a second Compute Node 
-cn02.os.packtpub
-...
-[neutron-l3-agent:children]
+[ceilometer:children]
+control
+[ceilometer-central:children]
+ceilometer
+[ceilometer-notification:children]
+ceilometer
+[gnocchi:children]
+control
+[gnocchi-api:children]
+gnocchi
+[gnocchi-statsd:children]
+gnocchi
+[gnocchi-metricd:children]
+gnocchi
+[aodh:children]
+control
+[aodh-api:children]
+aodh
+[aodh-evaluator:children]
+aodh
+[aodh-listener:children]
+aodh
+[aodh-notifier:children]
+aodh
+[ceilometer-compute:children]
 compute
 ...
 ```
 
-2. Copy/Edit the `globals.yaml` file that includes additional setting for enabling DVR routing capability:
+2. Copy/Edit the `globals.yaml` file that includes additional setting for enabling `Ceilometer`, `Gnocchi` and `Aodh` services:
 
 ```sh
-enable_neutron_dvr: "yes"
-```
-
-3. Run the Jenkins Pipeline and make sure the new compute node is properly installed:
-
-```sh
-..
-PLAY RECAP ***************************************************************************************************************************************************
-
 ...
-localhost                         : ok=12   changed=0    unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
-...
-cn02.os.packtpub                  : ok=54   changed=0    unreachable=0    failed=0    skipped=65   rescued=0    ignored=0 
+enable_ceilometer: "yes"
+enable_gnocchi: "yes"
+enable_gnocchi_statsd: "yes"
+enable_aodh: "yes"
 ...
 ```
 
-4. Verify the Neutron L3 agent runs in both network nodes:
+3. Run the Jenkins Pipeline:
 
 ```sh
-openstack compute service list --service nova-compute
+TASK [gnocchi : Creating gnocchi database] *************************************
+...
+TASK [gnocchi : Creating gnocchi database user and setting permissions] ********
+....
+TASK [gnocchi : Running gnocchi bootstrap container] ***************************
+...
+...
+TASK [aodh : Creating aodh database] *************************************
+...
+TASK [aodh : Creating aodh database user and setting permissions] ********
+....
+TASK [aodh : Running aodh bootstrap container] ***************************
+...
+...
+TASK [ceilometer : Creating Ceilometer database] *************************************
+...
+TASK [ceilometer : Creating Ceilometer database user and setting permissions] ********
+....
+TASK [ceilometer : Running Ceilometer bootstrap container] ***************************
+...
+
 ```
+
+4. Once the deployment is finished, make sure the Telemetry containers are succefully running:
+
+```sh
+docker ps -a 
+```
+
 <details close>
   <summary>Output</summary>
 
   ```sh
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                            PORTS     NAMES
+...
+b964d519b385     registry/openstack.kolla/aodh-listener:master-rocky-9                  "dumb-init--single-.."      16 seconds ago       Up 13 seconds ago (health: starting)                aodh_listener
+d3e0017cae12     registry/openstack.kolla/aodh-evaluator:master-rocky-9                 "dumb-init--single-.."      31 seconds ago       Up 28 seconds ago (health: starting)                aodh_evaluator
+7244464effd8     registry/openstack.kolla/aodh-api:master-rocky-9                       "dumb-init--single-.."      46 seconds ago       Up 43 seconds ago (health: starting)                aodh_api
+...
+c9d2e102fcc4     registry/openstack.kolla/ceilometer-central:master-rocky-9             "dumb-init--single-.."      32 seconds ago       Up 27 seconds ago (health: starting)                ceilometer_central
+7b33e36b6ae1     registry/openstack.kolla/ceilometer-compute:master-rocky-9             "dumb-init--single-.."      53 seconds ago       Up 50 seconds ago (health: starting)                ceilometer_compute
+5667e04d50c7     registry/openstack.kolla/ceilometer-notification:master-rocky-9        "dumb-init--single-.."      About a minute ago   Up About a minute (healthy) (health: starting)      ceilometer_notification
+...
 
-+--------------------------------------+--------------+-----------+------+----------+-------+----------------------------+
-| ID                                   | Binary       | Host      | Zone | Status   | State | Updated At                 |
-+--------------------------------------+--------------+-----------+------+----------+-------+----------------------------+
-| 65a2da22-991a-72da-bca1-625daba1ef10 | nova-compute | cn01.os   | nova | enabled  | up    | 2024-10-20T18:51:08.000000 |
-| 8db99811-ed1a-65da-9726-625da2310921 | nova-compute | cn02.os   | nova | enabled  | up    | 2024-10-29T21:49:06.000000 |
-+--------------------------------------+--------------+-----------+------+----------+-------+----------------------------+
+```
+</details>
+
+
+5. Once the Telemetry containers are up and running, verify the different endpoints created for Ceilometer, Gnocchi and Aodh:
+
+```sh
+openstack service list
+```
+<details close>
+  <summary>Output</summary>
+
+ ![ServiceList](IMG/telemetry-service-list.png)
+</details>
+
+
+### Configuring and Deployment of the Logging Service
+#### Assumptions:
+-  Jenkins installed and running in the Deployer Node as explored in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline)
+-  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
+
+
+1. Copy/Edit the `/ansible/inventory/multi_packtpub_prod` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter08/ansible/inventory/multi_packtpub_prod) that includes the Logging services. The `OpenSearch` `Core` and `Dashboard` services will be running on the `Cloud Controller` nodes:
+
+```sh 
+...
+...
+[opensearch:children]
+control
+[opensearch-dashboards:children]
+opensearch
+...
+```
+
+2. Copy/Edit the `globals.yaml` file that includes additional setting for enabling `OpenSearch` service:
+
+```sh
+...
+enable_central_logging: "yes"
+...
+```
+
+
+3. Run the Jenkins Pipeline:
+
+```sh
+TASK [opensearch : Creating Opensearch database] *************************************
+...
+TASK [opensearch : Creating opensearch database user and setting permissions] ********
+....
+TASK [opensearch : Running Opensearch bootstrap container] ***************************
+...
+```
+
+
+4. Once the deployment is finished, make sure the Telemetry containers are succefully running:
+
+
+```sh
+docker ps -a 
+```
+
+<details close>
+  <summary>Output</summary>
+
+  ```sh
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                            PORTS     NAMES
+...
+652dfe31272a     registry/openstack.kolla/opensearch:master-rocky-9                     "dumb-init--single-.."      45 seconds ago       Up 10 seconds ago (health: starting)                opensearch
+98212de3e310     registry/openstack.kolla/opensearch-dashboards:master-rocky-9          "dumb-init--single-.."      33 seconds ago       Up 2 seconds ago (health: starting)                opensearch_dashboards
+...
+
 ```
 </details>
 
