@@ -334,7 +334,7 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                                    PORTS    NAMES
+CONTAINER ID     IMAGE                                                                  COMMAND                     CREATED              STATUS                       PORTS    NAMES
 ...
 b964d519b385     registry/openstack.kolla/aodh-listener:master-rocky-9                  "dumb-init--single-.."      16 seconds ago       Up 13 seconds ago (health: starting)                aodh_listener
 d3e0017cae12     registry/openstack.kolla/aodh-evaluator:master-rocky-9                 "dumb-init--single-.."      31 seconds ago       Up 28 seconds ago (health: starting)                aodh_evaluator
@@ -342,7 +342,7 @@ d3e0017cae12     registry/openstack.kolla/aodh-evaluator:master-rocky-9         
 ...
 c9d2e102fcc4     registry/openstack.kolla/ceilometer-central:master-rocky-9             "dumb-init--single-.."      32 seconds ago       Up 27 seconds ago (health: starting)                ceilometer_central
 7b33e36b6ae1     registry/openstack.kolla/ceilometer-compute:master-rocky-9             "dumb-init--single-.."      53 seconds ago       Up 50 seconds ago (health: starting)                ceilometer_compute
-5667e04d50c7     registry/openstack.kolla/ceilometer-notification:master-rocky-9        "dumb-init--single-.."      About a minute ago   Up About a minute (health: starting)      ceilometer_notification
+5667e04d50c7     registry/openstack.kolla/ceilometer-notification:master-rocky-9        "dumb-init--single-.."      About a minute ago   Up About a minute (health: starting)             ceilometer_notification
 ...
 
 ```
