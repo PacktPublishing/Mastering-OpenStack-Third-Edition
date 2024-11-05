@@ -10,68 +10,58 @@ An in-depth paragraph about your project and overview of use.
 
 ### Code Navigation
 
-*Describe how the book code repository is organised*
+The book uses mainly the kolla-ansible community [repostority](https://github.com/openstack/kolla-ansible).
+
+You can check the branch naming standard used by the OpenStack community in the Github page by clicking on the Switch branches/tags button the top right of the page:
+
+![Branch Naming](Chapter02/IMG/Branches-Names-Standards.png)
+
+Branches with **stable/** prefix are still maintained. Non maintained OpenStack releases are named with branches with **unmaintained/** prefix.
+
+Make sure to use the latest `stable` release to avoid compatibilty issues and potential bugs of new services.
+
+
 
 > [!IMPORTANT]
-> OpenStack Kolla-Ansible  code is still maintained project by OpenStack community and actively being developed. Upon a new OpenStack release, features or services can be introduced as well as deprecated and removed. For the best usage of the code in this book, it is highly recommended to have high level understanding of the Kolla-Ansible code structure that is described in the following sections.  
+> OpenStack Kolla-Ansible  code is still maintained project by OpenStack community and actively being developed. Upon a new OpenStack release, features or services can be introduced as well as deprecated and removed. For the best usage of the code in this book, it is highly recommended to have high level understanding of the Kolla-Ansible code structure that is described in different sections of the book.  
 
 
-### Kolla-Ansible Code Structure 
-
-*Describe generic layout of the code community with highlevel code structure - desired with a lucidchart diagram*
 
 ### OpenStack Deployment Approach 
 
-*Describe which files will be used are used across all chapters, modification, a push to CI/CD pipeline for testing and then production*
+The book presents different layouts and configurations for each chapter that takes into account the following approach:
+
+- Each chapter introduces different changes that can be deployed separately
+
+- Starting the OpenStack deployment with test environment that  run all services in one single host and does not require a CI/CD integration*
+
+- Production environment would require multi nodes setup. Code changes must be maintained in central repository. A CI/CD pipeline must be built to faciliate OpenStack deployement, testing and capturing faster changes in separate environment 
+
+- Additional services can be disabled when moving to the next chapter
+
+
+Each Chapter requiring code has its guidelines for a specific OpenStack service deployment that can be found as the following:
+
+- [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter02)
+- [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03)
+- [Chapter04](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter04)
+- [Chapter05](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter05)
+- [Chapter06](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter06)
+- [Chapter07](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter07)
+- [Chapter08](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter08)
+- [Chapter09](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter09)
+
+
+
+
 
 > [!IMPORTANT]
-> The deployment in any environment will depend on existing resources.
+> The deployment in any environment will depend on existing resources. The Deployment in production environment would require more resources to minimum setup of core OpenStack services including compure, storage, network and memory hardware resources.
 
-*Each chapter introduces different changes that can be deployed separately*
-
-*Starting the OpenStack deployment with test environment that  run all services in one single host and does not require a CI/CD integration*
-
-*Production environment would require multi nodes setup. Code changes must be maintained in central repository. A CI/CD pipeline must be built to faciliate OpenStack deployement, testing and capturing faster changes in separate environment *
-
-*A diagram for generic OpenStack code pipeline and deployment in Production (multi node with multi environment)*
-
-> [!IMPORTANT]
-> Deployment in production environment would require more resources to minimum setup of core OpenStack services including compure, storage, network and memory hardware resources.
-
-## Prerequisites
-
-### Running Test/Local Environment:
-
-
-### Running Pre-Production/Production Environment(s):
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-### Command line CheatSheet per Chapter:
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
 
-Contributors names and contact info
+Omar Khedher
 
 
 

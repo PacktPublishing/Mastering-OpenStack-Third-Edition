@@ -53,7 +53,7 @@ The Chapter uses the kolla-ansible community [repostority](https://github.com/op
 
 Make sure you followed instructions to setup Jenkins and CI/CD pipeline for kolla-ansible deployment in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter02#3setting-up-the-cicd-pipeline)
 
-Required files for Chapter03 are:
+Required files are:
 - ```ansible/inventory/multi_packtpub_prod``` : Inventory file for multi-node setup
 - ```/etc/kolla/globals.yaml``` : OpenStack configurations and parameters 
 
