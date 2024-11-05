@@ -207,7 +207,7 @@ keystone endpoints are valid and following services are available:
 | nova       | compute        | Available |
 | neutron    | network        | Available |
 | s3         | s3             | Available |
-+----------+----------------+-----------+
++----------+----------------+-------------+
 
 ```
 </details>
