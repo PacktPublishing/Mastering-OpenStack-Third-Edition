@@ -273,7 +273,7 @@ openstack --os-profile <OSPROFILER_SECRET> image list
 +---------------------------------------+----------------+-----------+
 
 ```
-
+</details>
 
 > [!IMPORTANT]
 > Make sure to change the `OSPROFILER_SECRET` values as defined in your  `/etc/kolla/passwords.yml` file.
@@ -324,6 +324,7 @@ localhost                          : ok=22   changed=0    unreachable=0    faile
 cc01.os.packtpub                   : ok=16   changed=0    unreachable=0    failed=0    skipped=96   rescued=0    ignored=0 
 ...
 ```
+
 
 > [!IMPORTANT]
 > Make sure to commit and push Jenkins pipelines files to your repository with the respective branch.
