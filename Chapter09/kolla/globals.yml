@@ -90,17 +90,6 @@ neutron_external_interface: "eth2"
 neutron_plugin_agent: "openvswitch"
 
 
-############ OVN ############ 
-
-# Using OVN as Neutron plugin agent
-#neutron_plugin_agent: "ovn"
-
-# Enable distributed floating IP
-#neutron_ovn_distributed_fip: "yes"
-
-# Enable QoS OVN agent for Neutron
-#neutron_enable_ovn_agent: "yes"
-
 ###################
 # OpenStack options
 ###################
@@ -108,81 +97,19 @@ neutron_plugin_agent: "openvswitch"
 ## Enable Neutron provider network for external access
 enable_neutron_provider_networks: "yes"
 
-#### Chapter04:  Enable Magnum Service
-enable_magnum: "yes"
 
-### Chapter04: Enable Zun service with Docker for container management and Kuryr for container networking 
-enable_zun: "yes"
-enable_kuryr: "yes"
-enable_etcd: "yes"
-docker_configure_for_zun: "yes"
-containerd_configure_for_zun: "yes"
 
 ### Chapter05: Use LVM as storage backend for Cinder service as created using pvcreate and vgcreate command lines in storage node: cinder-volumes
 enable_cinder_backend_lvm: "yes"
 cinder_volume_group: "cinder-volumes"
 
-### Chapter05: Use NFS as storage backend for Cinder service as created using nfs-common command lines in storage node path: /nfs/share/cinder
-enable_cinder_backend_nfs: "yes"
-
-### Chapter05: Use CEPH as storage backend for Cinder service as created using rbd command lines in storage node pool: cinder-volumes
-cinder_backend_ceph: "yes"
-ceph_cinder_keyring: "ceph.client.cinder.keyring"
-ceph_cinder_user: "cinder"
-ceph_cinder_pool_name: "cinder-volumes"
-
-### Chapter05: Use and integrate Swift for object storage in the running OpenStack environment (3 Nodes)
-enable_swift : "yes"
-
-### Chapter05: Enable Manila file-share service using a generic Cinder storage backend 
-enable_manila : "yes"
-enable_manila_backend_generic: "yes"
-
-### Chapter06: Enable BGP Agent installation 
-#enable_neutron_bgp_dragent: "yes"
-
-### Chapter06: Enable Octavia  installation and assign network interface to communicate with the service through Management network
-enable_octavia: "yes"
-octavia_network_interface: eth0
-# Optionally auto configure Octavia 
-# octavia_auto_configure: "yes"
 
 ### Chapter07: Enable HAProxy as part of dedicatd Load Balancing servers farm
 # Make sure two HAProxy nodes and three Cloud Controller nodes are already in place in the inventory file 
 enable_haproxy: "yes"
 kolla_external_vip_address: "10.0.0.47"
 
-# Enable HA for Neutron L3 agent after adding second Network Node 
-enable_neutron_agent_ha: "yes"
 
-# Enable DVR routing capability in Neutron
-enable_neutron_dvr: "yes"
-
-### Chapter07: Enable Masakari for instance failover
-enable_masakari: "yes"
-# Enable HA for instances evacuation during instance failure events
-enable_hacluster: "yes"
-
-### Chapter08: 
-## Enable Prometheus for Monitoring
-enable_prometheus: "yes"
-## Enable Grafana for metrics visualization 
-enable_grafana: "yes"
-## Optionally extend the Promotheus default commands by setting custom configurations when Prometheus starts.
-## The following example sets limits on maximum number of simultaneous connections, log level, frequency of alerts reporting and retention period of metrics data in storage:
-prometheus_cmdline_extras: " --web.max-connections 30 --log.level error --rules.alert.resend-delay 30s --storage.tsdb.retention.time 30d "  
-
-### Chapter08: 
-## Enable Ceilometer for OpenStack Telemetry
-enable_ceilometer: "yes"
-## Enable Gnocchi with Statsd for OpenStack Telemetry data store
-enable_gnocchi: "yes"
-enable_gnocchi_statsd: "yes"
-## Enable Aodh for OpenStack Telemetry alerting
-enable_aodh: "yes"
-
-## Enable Central logging for OpenSearch 
-enable_central_logging: "yes"
 
 ### Chapter09:
 ## Enable Memcached service and for all nodes running behing the load balancer
@@ -190,31 +117,11 @@ enable_memcached: "yes"
 enable_haproxy_memcached: "yes"
 
 ### Chapter09:
-## Enable OSProfiler for OpenStack service tracing
-enable_memcached: "yes"
 ## Enable ElasticSearch as backend store for OSProfiler data instead of default Redis
 enable_elasticsearch: "yes"
 
 ## Enable Watcher for resources optimization service
 enable_watcher: "yes"
-
-################################
-# Swift - Object Storage Options
-################################
-
-## # This parameter defines matching pattern: if "strict" mode was selected,
-# for swift_devices_match_mode then swift_device_name should specify the name of
-# the special swift partition for example: "KOLLA_SWIFT_DATA", if "prefix" mode was
-# selected then swift_devices_name should specify a pattern which would match to
-# filesystems' labels prepared for swift.
-
-## Default is 'strict' mode. 
-# swift_devices_name: "KOLLA_SWIFT_DATA"
-
-## If you have labeled hard disks with eg objdisk1, objdisk2, objdisk3, use the following settings: 
-## swift_devices_match_mode: "prefix"
-## swift_devices_name: "objdisk" 
-
 
 
 ################

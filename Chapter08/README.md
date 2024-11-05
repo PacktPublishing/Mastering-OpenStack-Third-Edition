@@ -25,7 +25,7 @@ The Chapter extends and uses the deployment of a multi-node OpenStack environmen
 
 ### System and Software Specs:
 
-The chapter uses the same hardware and configuration for multi-node OpenStack setup as deployed in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03) and [Chapter07](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter07). The additional mnonitoring host in this chapter has the following hardware specifications:
+The chapter uses the same hardware and configuration for multi-node OpenStack setup as deployed in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03) and [Chapter07](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter07). The additional monitoring host in this chapter has the following hardware specifications:
 
 
 | Hostname |vCPUs| RAM | Disk Space | Network Interfaces| Role 

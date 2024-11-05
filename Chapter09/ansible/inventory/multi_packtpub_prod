@@ -271,16 +271,6 @@ compute
 [openvswitch:children]
 compute
 
-## Chapter 6
-# Install OVN agents and controller for tenant networking
-#[ovn-controller:children]
-#ovn-controller-compute
-#[ovn-controller-compute:children]
-#compute
-#[neutron-ovn-agent:children]
-#compute
-#[neutron-ovn-metadata-agent:children]
-#compute
 
 ## Chapter 7
 # Enable failure and health monitoring of compute nodes and instances status 
