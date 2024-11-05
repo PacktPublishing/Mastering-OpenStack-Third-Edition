@@ -10,15 +10,6 @@ The Chapter initiates the deployment of an OpenStack environment for multi-node 
 -  1 x Storage Node
 
 
-<details close>
-  <summary>Output</summary>
-
-  ```sh
-
-```
-
-</details>
-
 
 ### System and Software Requirements:
 
@@ -229,17 +220,3 @@ net01.os.packtpub                 : ok=35   changed=0    unreachable=0    failed
 > Make sure to commit and push Jenkins pipelines files to your repository with the respective branch.
 > e.g: `Jenkinsfile` in this chapter is pushed to a branch named `staging` as it targets different environment and not the same as described in `Chapter02`. 
 
-
-
-
-## Troubleshooting:
-
-### Kolla Ansible
-
-### Issue 0
-
-### Issue 1
-
-### Issue 2
-
-### Issue 3: Create Cinder volume for vm disks 

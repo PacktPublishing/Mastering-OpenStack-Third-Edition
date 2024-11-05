@@ -350,6 +350,5 @@ CONTAINER ID     IMAGE                                                          
 </details>
 
 
-## Troubleshooting:
 
 

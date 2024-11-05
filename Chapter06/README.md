@@ -362,9 +362,3 @@ kolla-ansible post-deploy
 ```
 
 
-
-
-## Troubleshooting:
-
-### 
-

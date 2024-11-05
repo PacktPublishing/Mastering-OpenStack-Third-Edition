@@ -13,16 +13,6 @@ The Chapter extends and uses the deployment of a multi-node OpenStack environmen
 
 
 
-<details close>
-  <summary>Output</summary>
-
-  ```sh
-
-```
-
-</details>
-
-
 ### System and Software Specs:
 
 The following hardware specifications are used for the  Storage Node:
@@ -484,13 +474,4 @@ openstack service list
 </details>
 
 
-
-
-
-
-
-
-## Troubleshooting:
-
-### New Storage Node not showing up:
 

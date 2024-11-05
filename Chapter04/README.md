@@ -11,15 +11,6 @@ The Chapter extends and uses the deployment of a multi-node OpenStack environmen
 
 
 
-<details close>
-  <summary>Output</summary>
-
-  ```sh
-
-```
-
-</details>
-
 
 ### System and Software Specs:
 

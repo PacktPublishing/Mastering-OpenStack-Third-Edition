@@ -504,9 +504,5 @@ openstack service list
 
 
 
-## Troubleshooting:
-
-
-
 
 
