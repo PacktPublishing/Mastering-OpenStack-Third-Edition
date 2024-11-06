@@ -133,7 +133,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 
 
-1. Copy the `/ansible/inventory/multi_packtpub` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
+1. Copy the `/ansible/inventory/multi_packtpub` inventory file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/ansible/inventory/multi_packtpub_prod) that includes the additional Compute node:
 
 ```sh
 ...
@@ -293,7 +293,7 @@ mon_host
 cluster_network
 ```
 
-8. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Manila` service in the `/etc/kolla/globals.yaml` file are used:
+8. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Manila` service in the `/etc/kolla/globals.yaml` file are used:
 
 ```sh
 ....
@@ -316,7 +316,7 @@ ceph_cinder_pool_name: "cinder-volumes"
 -  Jenkins installed and running in the Deployer Node as explored in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline)
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
-1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Manila` service in the `/etc/kolla/globals.yaml` file are used:
+1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Manila` service in the `/etc/kolla/globals.yaml` file are used:
 
 ```sh
 ....
@@ -329,7 +329,7 @@ enable_manila_backend_generic: "yes"
 ...
 ```
 
-2. Add the corresponding `manila` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Manila` `API`, `Scheduler` and `Data` services will be running on the `Cloud Controller` node. `Manila` `Share` will be running on the Network node. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/ansible/inventory/multi_packtpub_prod):
+2. Add the corresponding `manila` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Manila` `API`, `Scheduler` and `Data` services will be running on the `Cloud Controller` node. `Manila` `Share` will be running on the Network node. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/ansible/inventory/multi_packtpub_prod):
 
 ```sh
 ...
@@ -406,7 +406,7 @@ openstack service list
 -  Jenkins installed and running in the Deployer Node as explored in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#3setting-up-the-cicd-pipeline)
 -  A local Docker registry is created as described in [Chapter02](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter02/README.md#2-prepare-the-deployment-environment)
 
-1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Swift` service in the `/etc/kolla/globals.yaml` file are used:
+1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Swift` service in the `/etc/kolla/globals.yaml` file are used:
 
 ```sh
 ....
@@ -418,7 +418,7 @@ openstack service list
 ...
 ```
 
-2. Add the corresponding `Swift` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Zun` `API` and `Proxy` services will be running on the `Cloud Controller` node. `Zun` `Compute` and `CNI` services will be running on the `Compute` node(s).  The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/ansible/inventory/multi_packtpub_prod):
+2. Add the corresponding `Swift` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Zun` `API` and `Proxy` services will be running on the `Cloud Controller` node. `Zun` `Compute` and `CNI` services will be running on the `Compute` node(s).  The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/ansible/inventory/multi_packtpub_prod):
 
 ```sh
 ...
