@@ -137,6 +137,6 @@ alt="https://www.packtpub.com/" border="5" /></a>
 ## Other books by the author
 * Extending OpenStack [[Packt]](https://www.packtpub.com/en-us/product/extending-openstack-9781786465535) [[Amazon]](https://www.amazon.com/Extending-OpenStack-containerization-deployment-architecting/dp/1786465531)
 
-* OpenStack Sahara Essentials [[Packt]](https://www.packtpub.com/en-us/product/openstack-sahara-essentials-9781785885969) [[Amazon]](https://www.amazon.com/OpenStack-Sahara-Essentials-Omar-Khedher-ebook/dp/B01CGKAJES)
+* OpenStack Sahara Essentials [[Packt]](https://www.packtpub.com/en-us/product/openstack-sahara-essentials-9781785885969) [[Amazon]](https://www.amazon.com/OpenStack-Sahara-Essentials-Omar-Khedher/dp/1785885960)
 
 
