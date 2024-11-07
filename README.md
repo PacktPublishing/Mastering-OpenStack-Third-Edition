@@ -1,10 +1,57 @@
 # Mastering OpenStack
-## Implement the latest techniques for designing and deploying operational production-ready private clouds
 
-## About the Book
+<a href="https://www.packtpub.com/en-us/product/mastering-openstack-9781835468913"><img src="https://content.packt.com/B21716/cover_image_small.jpg" alt="no-image" height="256px" align="right"></a>
 
-An in-depth paragraph about your project and overview of use.
+This is the code repository for [Mastering OpenStack](https://www.packtpub.com/en-us/product/mastering-openstack-9781835468913), published by Packt.
 
+**Implement the latest techniques for designing and deploying an operational, production-ready private cloud**
+
+## What is this book about?
+This edition guides you through the latest updates in the OpenStack ecosystem, offering insights into cloud design with new services and operational best practices. This book also explores the hybrid cloud era with OpenStack and design patterns.
+
+This book covers the following exciting features:
+* Explore the latest design patterns in the OpenStack ecosystem
+* Implement DevSecOps practices for agile and secure deployment management
+* Ensure resilience, fault tolerance, and performance in your cloud setup
+* Stay up to date with OpenStack networking and storage advancements
+* Master operational best practices for managing a large-scale cloud setup
+* Discover logging and monitoring options for your cloud
+* Get acquainted with new services such as SDN and containers
+* Understand how to extend OpenStack’s capabilities through a hybrid model
+
+If you feel this book is for you, get your [copy](https://www.amazon.com/Mastering-OpenStack-techniques-operational-production-ready/dp/1835468918) today!
+
+<a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
+alt="https://www.packtpub.com/" border="5" /></a>
+
+## Instructions and Navigations
+All of the code is organized into folders. For example, Chapter02.
+
+The code will look like the following:
+```
+…
+[magnum:children]
+control
+[magnum-api:children]
+magnum
+[magnum-conductor:children]
+magnum
+…
+```
+**Following is what you need for this book:**
+This book is for OpenStack administrators, cloud and enterprise architects, and system and DevOps engineers looking to launch a private cloud with OpenStack. If you’re a cloud advisor, consultant, or evangelist, you’ll benefit from the expert insights, and if you’re a software developer or system operator aiming to accelerate your development cycle and agility, this book will help you bridge the gap between these roles. Basic knowledge of OpenStack, along with a prior understanding of systems, virtualization, and networking, is recommended.
+
+With the following software and hardware list you can run all code files present in the book (Chapter 1-11).
+### Software and Hardware List
+| Software required | OS required |
+| ------------------------------------ | ----------------------------------- |
+| OpenStack (Antelope or later releases), AWS account | - |
+| Python, YAML, JSON | - |
+| Ansible, Kolla, Jenkins, Docker, Kubernetes | - |
+| Ceph, Canonical Juju, KubeFed | - |
+
+<a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
+alt="https://www.packtpub.com/" border="5" /></a>
 
 ## How to Use the Code
 
@@ -59,12 +106,6 @@ Each Chapter requiring code has its guidelines for a specific OpenStack service 
 > The deployment in any environment will depend on existing resources. The Deployment in production environment would require more resources to minimum setup of core OpenStack services including compure, storage, network and memory hardware resources.
 
 
-## Authors
-
-Omar Khedher
-
-
-
 ## Resources
 
 * Kolla-Ansbile community project: 
@@ -73,3 +114,29 @@ Omar Khedher
 
 * OpenStack Releases Notes:
     * Services [Projects List and Versions](https://releases.openstack.org/dalmatian/index.html).
+    
+
+
+
+<a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
+alt="https://www.packtpub.com/" border="5" /></a>
+
+
+### Related products
+* The Self-Taught Cloud Computing Engineer [[Packt]](https://www.packtpub.com/en-US/product/the-self-taught-cloud-computing-engineer-9781805123705) [[Amazon]](https://www.amazon.com/dp/180512370X)
+
+* Enterprise-Grade Hybrid and Multi-Cloud Strategies [[Packt]](https://www.packtpub.com/en-us/product/enterprise-grade-hybrid-and-multi-cloud-strategies-9781804615119) [[Amazon]](https://www.amazon.com/dp/1804615110)
+
+<a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
+alt="https://www.packtpub.com/" border="5" /></a>
+
+## Get to Know the Author
+**Omar Khedher**
+ is a cloud architect with more than 12 years of experience in the cloud computing market. He has been involved in several private and public cloud projects, including OpenStack, AWS, and Azure. He has also authored several other books, including the first and second editions of Mastering OpenStack, OpenStack Sahara Essentials, and Extending OpenStack. Omar has a few academic publications about cloud performance. As a part of the Cloudreach team, an international cloud consulting company, he helps customers to design, advises on, and leads projects targeting cloud migration and innovation.
+
+## Other books by the author
+* Extending OpenStack [[Packt]](https://www.packtpub.com/en-us/product/extending-openstack-9781786465535) [[Amazon]](https://www.amazon.com/Extending-OpenStack-containerization-deployment-architecting/dp/1786465531)
+
+* OpenStack Sahara Essentials [[Packt]](https://www.packtpub.com/en-us/product/openstack-sahara-essentials-9781785885969) [[Amazon]](https://www.amazon.com/OpenStack-Sahara-Essentials-Omar-Khedher-ebook/dp/B01CGKAJES)
+
+
