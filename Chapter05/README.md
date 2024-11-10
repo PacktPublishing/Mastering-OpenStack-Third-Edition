@@ -4,11 +4,12 @@
 ## Description
 
 The Chapter extends and uses the deployment of a multi-node OpenStack environment as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03):
-- Add a Storage Node
+- Add a storage Node for Cinder backend
 - Configure Cinder Volume as storage backend
 - Configure NFS as storage backend
 - Configure Ceph as storage backend
 - Enable OpenStack Manila for file sharing service
+- Add a storage cluster for Swift object storage
 - Enable Swift for object storage service
 
 
@@ -26,7 +27,10 @@ Optionally, for multiple storge backends support, it is recommended to use dedic
 The following hardware specifications are used for a second Storage Node:
 | Hostname |vCPUs| RAM | Disk Space | Network Interfaces| Role 
 |------|----|---------------|-------------|--------|--------|
-| `storage02.os` |`4`| `32GB` | `500GB` | `4 x 10GB` | Storage Node|  
+| `storage02.os` |`4`| `32GB` | `500GB` | `4 x 10GB` | Storage Node|
+| `storage03.os` |`4`| `32GB` | `500GB` | `4 x 10GB` | Storage Node|  
+| `storage04.os` |`4`| `32GB` | `500GB` | `4 x 10GB` | Storage Node|  
+| `storage05.os` |`4`| `32GB` | `500GB` | `4 x 10GB` | Storage Node|    
 
 > [!NOTE]
 > The mentioned resources are being used in large production environments. Feel free to adjust the specs based on available resources you have but staying with minimum requirements to avoid performance issues. 
@@ -62,14 +66,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 ## Deployment of Multi-Node OpenStack environment:
 ### Example Production Topology: 
 
-1. The following topology is being deployed in Multi-Node OpenStack setup:
-
-```
- 
-```
-
-
-2. Storage Node IP Allocation:
+1. Storage Node IP Allocation:
 
 | Hostname |Role| Network Interface | Network Attachement | IP Address|  
 |------|----|---------------|-------------|--------|
@@ -80,7 +77,19 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 | `storage02.os.packtpub` |`Storage Node`| `eth0` | `Management` | `10.0.0.36` | 
 |            |             | `eth1` | `Overlay/Tenant` | `10.10.0.36` | 
 |            |             | `eth2` | `External` | `10.20.0.36` | 
-|            |             | `eth3` | `Storage` | `10.30.0.36` |  
+|            |             | `eth3` | `Storage` | `10.30.0.36` |
+| `storage03.os.packtpub` |`Storage Node`| `eth0` | `Management` | `10.0.0.81` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.81` | 
+|            |             | `eth2` | `External` | `10.20.0.81` | 
+|            |             | `eth3` | `Storage` | `10.30.0.81` |  
+| `storage04.os.packtpub` |`Storage Node`| `eth0` | `Management` | `10.0.0.82` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.82` | 
+|            |             | `eth2` | `External` | `10.20.0.82` | 
+|            |             | `eth3` | `Storage` | `10.30.0.82` |  
+| `storage05.os.packtpub` |`Storage Node`| `eth0` | `Management` | `10.0.0.83` | 
+|            |             | `eth1` | `Overlay/Tenant` | `10.10.0.83` | 
+|            |             | `eth2` | `External` | `10.20.0.83` | 
+|            |             | `eth3` | `Storage` | `10.30.0.83` |    
 
 
 
@@ -94,13 +103,22 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 tee -a /etc/hosts<<EOF
 ### SECOND STORAGE NODE
 10.0.0.36 storage02.os
+### SWIFT STORAGE NODES
+10.0.0.81 storage03.os
+10.0.0.82 storage04.os
+10.0.0.83 storage05.os
+
 EOF
 ```
 
 2. Setup SSH keys so that the Deployer node can SSH password-less login to the additional Compute node:
 
 ```sh
-ssh-copy-id -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@storage02.os ; 
+ssh-keygen
+for i in storage02.os storage03.os storage04.os storage05.os; 
+do 
+  ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
+done
 ```
 
 > [!NOTE]
@@ -110,9 +128,16 @@ ssh-copy-id -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@storage02.os ;
 3. Configure the hostnames and timezone for additional Compute node:
 
 ```sh
-  ssh root@storage02.os hostnamectl set-hostname storage02.os
-  ssh root@storage02.os timedatectl set-timezone Europe/Amsterdam
+for node in storage02.os storage03.os storage04.os storage05.os
+do
+  echo "=== Execute on $node ==="
+  ssh root@$node hostnamectl set-hostname $node
+  ssh root@$node timedatectl set-timezone Europe/Amsterdam
+  echo ""
+  sleep 2
+done
 ```
+
 
 4. Run an update and upgarde of the Ubuntu packages index  in the additional Compute node:
 
@@ -139,7 +164,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 ...
 ...
 
-## Compute Node 
+## Storage Nodes
 [storage]
 storage01.os.packtpub
 storage02.os.packtpub
@@ -417,18 +442,28 @@ openstack service list
 # OpenStack options
 ###################
 ...
-
+enable_swift : "yes"
+swift_devices_name: "KOLLA_SWIFT_DATA"
 ...
 ```
 
-2. Add the corresponding `Swift` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Zun` `API` and `Proxy` services will be running on the `Cloud Controller` node. `Zun` `Compute` and `CNI` services will be running on the `Compute` node(s).  The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/ansible/inventory/multi_packtpub_prod):
+2. Add the corresponding `Swift` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Container` `Account` and `Object` services will be running on the storage nodes. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/ansible/inventory/multi_packtpub_prod):
 
 ```sh
 ...
-
+[storage]
+...
+storage03.os.packtpub
+storage04.os.packtpub
+storage05.os.packtpub
+[swift-account-server:children]
+storage
+[swift-container-server:children]
+storage
+[swift-object-server:children]
+storage
 
 ```
-
 
 3.  Run the deployment using the  Jenkins Pipeline as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/README.md#deployment-configuration). The Pipeline uses the stages provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/Jenkinsfile):
 
@@ -453,27 +488,25 @@ docker ps -a
   <summary>Output</summary>
 
   ```sh
-CONTAINER ID     IMAGE                                                     COMMAND                     CREATED            STATUS                            PORTS     NAMES
-f0463f325397     registry/openstack.kolla/zun-cni-daemon:master-rocky-9    "dumb-init--single-.."      43 minutes ago     Up 43 minutes ago (healthy)                 zun_cni_daemon
-124f176ed43f     registry/openstack.kolla/zun-compute:master-rocky-9       "dumb-init--single-.."      43 minutes ago     Up 43 minutes ago (healthy)                 zun_compute
-2d5e5327c47e     registry/openstack.kolla/zun-wsproxy:master-rocky-9       "dumb-init--single-.."      44 minutes ago     Up 44 minutes ago (healthy)                 zun_wsproxy
-eed76d69d426     registry/openstack.kolla/zun-api:master-rocky-9           "dumb-init--single-.."      44 minutes ago     UP 44 minutes ago (healthy)                 zun_api
+CONTAINER ID     IMAGE                                                            COMMAND                     CREATED            STATUS                            PORTS     NAMES
+65dea425d12d     registry/openstack.kolla/swift-object-server:master-rocky-9      "dumb-init--single-.."      12 minutes ago     Up 10 minutes ago (healthy)                 swift_object_server
+fe34a78762d1     registry/openstack.kolla/swift-account-server:master-rocky-9     "dumb-init--single-.."      13 minutes ago     Up 11 minutes ago (healthy)                 swift_account_server
+6dea2de701c2     registry/openstack.kolla/swift-container-server:master-rocky-9   "dumb-init--single-.."      12 minutes ago     Up 10 minutes ago (healthy)                 swift_container_server
 ...
 
 ```
 </details>
 
 
-5. Once Zun containers are up and running, verify the service endpoint is created:
 
-```sh
-openstack service list
-```
+
+5. Once the Swift containers are up and running, verify the service in Horizon by navigating to the `Object Store` section:
+
+
 <details close>
   <summary>Output</summary>
 
- ![ServiceList](IMG/zun-service-list.png)
-
+ ![Swift_UI](IMG/container-swift-ui.png)
 </details>
 
 

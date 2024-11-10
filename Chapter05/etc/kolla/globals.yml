@@ -117,8 +117,9 @@ enable_manila_backend_generic: "yes"
 # selected then swift_devices_name should specify a pattern which would match to
 # filesystems' labels prepared for swift.
 
-## Default is 'strict' mode. 
-# swift_devices_name: "KOLLA_SWIFT_DATA"
+## Default is 'strict' mode.
+## Set storage partition label  
+swift_devices_name: "KOLLA_SWIFT_DATA"
 
 ## If you have labeled hard disks with eg objdisk1, objdisk2, objdisk3, use the following settings: 
 ## swift_devices_match_mode: "prefix"

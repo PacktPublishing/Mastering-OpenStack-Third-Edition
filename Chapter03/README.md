@@ -108,7 +108,7 @@ EOF
 
 ```sh
 ssh-keygen
-for i in 10.0.0.5 10.0.0.35 ; 
+for i in cc01.os cn01.os net01.os storage01.os; 
 do 
   ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
 done
