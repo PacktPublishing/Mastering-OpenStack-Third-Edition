@@ -108,9 +108,9 @@ EOF
 
 ```sh
 ssh-keygen
-for i in cc01.os cn01.os net01.os storage01.os; 
+for i in cc01.os cn01.os net01.os storage01.os 
 do 
-  ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
+  ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i  
 done
 ```
 

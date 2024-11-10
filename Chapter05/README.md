@@ -115,9 +115,9 @@ EOF
 
 ```sh
 ssh-keygen
-for i in storage02.os storage03.os storage04.os storage05.os; 
+for i in storage02.os storage03.os storage04.os storage05.os 
 do 
-  ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i ; 
+  ssh-copy-id  -o StrictHostKeyChecking=no ~/.ssh/id_rsa.pub root@$i  
 done
 ```
 
