@@ -306,6 +306,32 @@ TBD
 
 ## 2. Prepare The Deployment Environment:
 ### 2.1. Create Own Repository:
+The book uses its own repository hosted in Github. It mentioned in `Code - How-To` section, the deployment of the OpenStack environment is based on the official `kolla-ansible` code. Main files under `ansible/inventory` and `etc/kolla` directories are being customized to reflect the target OpenStack design. 
+1. To create a new repository in Github, follow the instructions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)
+2. Locally clone the `kolla-ansible` official OpenStack project files from [Github](https://github.com/openstack/kolla-ansible/tree/master):
+```sh
+git clone https://github.com/openstack/kolla-ansible.git
+cp -r kolla-ansible/* my_own_repostory
+```
+
+3. Set the remote Git URL of the created repository:
+```sh
+git remote set-url origin git@github.com:YOUR_USERNAME/OWN_REPOSITORY_NAME.git
+```
+> [!NOTE]
+> Make sure to change `YOUR_USERNAME` with your Github username and `OWN_REPOSITORY_NAME` with the name of the created private Github repository.
+
+
+4. Add and commit the new copied files in your own local directory:
+```sh
+git add .
+git commit -m'Clone Repository'
+```
+5. Push the files to your own remote repository:
+```sh
+git push
+```
+
 ### 2.2. Optional - Create Own Private Container Registry:
 
 1. Install ```kolla``` command line tool:
