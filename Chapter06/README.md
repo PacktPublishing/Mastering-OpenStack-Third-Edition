@@ -102,7 +102,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 
 #### OVS Deployment:
 
-1. Copy/edit the configuration defined in `globals.yaml` file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/globals.yml).  The additional configuration includes the association of the external network interface `eth2` designated interface as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03):
+1. Copy/edit the configuration defined in `globals.yaml` file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/etc/kolla/globals.yml).  The additional configuration includes the association of the external network interface `eth2` designated interface as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03):
 
 ```sh
 ...
@@ -165,7 +165,7 @@ localhost                         : ok=21   changed=0    unreachable=0    failed
 
 #### OVN Deployment:
 
-1. Copy/edit the configuration defined in `globals.yaml` file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/globals.yml).  The additional configuration includes the association of the external network interface `eth2` designated interface as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03):
+1. Copy/edit the configuration defined in `globals.yaml` file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/etc/kolla/globals.yml).  The additional configuration includes the association of the external network interface `eth2` designated interface as described in [Chapter03](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/tree/main/Chapter03):
 
 ```sh
 ...
@@ -256,7 +256,7 @@ localhost                         : ok=20   changed=0    unreachable=0    failed
 
 #### Neutron Dyanmic Routing:
 
-1. Copy/edit the configuration defined in `globals.yaml` file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter05/etc/kolla/globals.yml).  The additional configuration includes the enablement of BPG agent as follows:
+1. Copy/edit the configuration defined in `globals.yaml` file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/etc/kolla/globals.yml).  The additional configuration includes the enablement of BPG agent as follows:
 
 ```sh
 ...
@@ -307,7 +307,7 @@ openstack network agent --list --agent-type bgp
 
 
 
-1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter03/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Octavia` service in the `/etc/kolla/globals.yaml` file are used:
+1. Create and copy the content of `/etc/kolla/globals.yaml` file provided [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/etc/kolla/globals.yml). In this chapter the additional settings to deploy `Octavia` service in the `/etc/kolla/globals.yaml` file are used:
 
 ```sh
 ....
