@@ -238,8 +238,11 @@ type nfs4 (rw,relatime,vers=4.1,rsize=81921,wsize=81921,namlen=255,hard,proto=tc
 
 ### Ceph Backend Deployment:
 #### Assumptions:
--
--
+- A minimum of Three Ceph OSD storage hosts and storage pools are in place.
+- Credentials in Ceph to connect to OpenStack services exist.
+
+> [!TIP]
+> If you do not have a running Ceph cluster, you can install it easily using `Ceph-Ansible` as described [here](https://docs.ceph.com/projects/ceph-ansible/en/latest/)  
 
 
 
