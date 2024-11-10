@@ -64,14 +64,7 @@ Branches with **stable/** prefix are still maintained. Non maintained OpenStack 
 ## Deployment of the environment:
 ### Example Production Topology: 
 
-1. The following topology is being deployed in Multi-Node OpenStack setup:
-
-```
- 
-```
-
-
-2. Hosts IP Allocation:
+1. Hosts IP Allocation:
 
 | Hostname |Role| Network Interface | Network Attachement | IP Address|  
 |------|----|---------------|-------------|--------|
