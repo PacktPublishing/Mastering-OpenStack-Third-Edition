@@ -196,7 +196,7 @@ neutron_ovn_distributed_fip: "yes"
 ...
 ```
 
-5. Most of the OpenStack roles have been assigned in the `multi_packtpub_prod` inventory file. Make sure to have the following settings in the inventory file if not configured yet in previous chapters for OVN: 
+5. Most of the OpenStack roles have been assigned in the `multi_packtpub_prod` inventory file. Make sure to have the following settings in the inventory file if not configured yet in previous chapters for OVN as updated [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/ansible/inventory/multi_packtpub_prod):
 
 ```sh
 [control]
@@ -265,9 +265,7 @@ enable_neutron_bgp_dragent: "yes"
 ```
 
 
-2. Most of the OpenStack roles have been assigned in the `multi_packtpub_prod` inventory file. Add the BGP agent role to run on the network node:
-
-
+2. Most of the OpenStack roles have been assigned in the `multi_packtpub_prod` inventory file. Add the BGP agent role to run on the network node as defined in the inventory[here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/ansible/inventory/multi_packtpub_prod):
 ```sh
 ...
 [neutron-bgp-dragent:children]
@@ -321,7 +319,7 @@ octavia_auto_configure: "yes
 ...
 ```
 
-2. Add the corresponding `octavia` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Octavia` `API`, `Driver Agents`, `Health Manager`, `Housekeeing` and  `Worker` services will be running on the `Cloud Controller` node. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/ansible/inventory/multi_packtpub_prod):
+2. Add the corresponding `octavia` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Octavia` `API`, `Driver Agents`, `Health Manager`, `Housekeeing` and  `Worker` services will be running on the `Cloud Controller` node. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter06/ansible/inventory/multi_packtpub_prod):
 
 ```sh
 ...
