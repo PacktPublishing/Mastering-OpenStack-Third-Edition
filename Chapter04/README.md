@@ -190,7 +190,7 @@ enable_magnum: "yes"
 ...
 ```
 
-2. Add the corresponding `magnum` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Mugnum` services will be running on the `Cloud Controller` node. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/ansible/inventory/multi_packtpub_prod):
+2. Add the corresponding `magnum` services in `/ansible/inventory/multi_packtpub` inventory file if not assigned yet. `Magnum` services will be running on the `Cloud Controller` node. The updated inventory file can be found [here](https://github.com/PacktPublishing/Mastering-OpenStack-Third-Edition/blob/main/Chapter04/ansible/inventory/multi_packtpub_prod):
 
 ```sh
 ...
